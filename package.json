@@ -1,6 +1,6 @@
 {
   "name": "rsr-calculator-service",
-  "description": "A MVP for the NOMS Key Worker tool",
+  "description": "A prototype service for providing access to the rsr calculators",
   "version": "0.0.1",
   "private": true,
   "author": "Matt Smith <mattonfoot@gmail.com> (http://about.me/mattonfoot)",
