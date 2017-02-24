@@ -1,0 +1,49 @@
+table.case-list {
+  width: 100%;
+  border-bottom: 1px solid #c2c2c2;
+  margin-bottom: 40px;
+  border-collapse: separate; }
+  table.case-list.archived td {
+    color: #6f777b; }
+  table.case-list.incomplete td {
+    background-color: #fff2d3; }
+  table.case-list tr {
+    vertical-align: top; }
+    table.case-list tr td {
+      border-top: 1px solid #c2c2c2;
+      font-size: 19px;
+      padding: 10px 8px 8px; }
+      table.case-list tr td.casenumber {
+        width: 120px; }
+      table.case-list tr td.actions {
+        text-align: right;
+        min-width: 120px; }
+        table.case-list tr td.actions a.button {
+          margin-left: 8px; }
+    table.case-list tr.odd td {
+      background-color: #f8f8f8; }
+
+table.status {
+  width: 100%;
+  font-size: 19px;
+  border-collapse: separate;
+  border-bottom: 1px solid #c2c2c2;
+  margin-bottom: 40px; }
+  table.status th, table.status td {
+    padding: 10px 10px 8px; }
+  table.status th {
+    text-align: left;
+    font-weight: normal;
+    border-top: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2; }
+  table.status td {
+    border-top: 1px dotted #c2c2c2; }
+  table.status tbody tr:first-child td {
+    border-top: none; }
+  table.status tbody tr:nth-child(2n+1) td {
+    background-color: #f8f8f8; }
+  table.status .attachments {
+    text-align: right; }
+    table.status .attachments a {
+      padding-left: 40px;
+      background: url(../attachment.png) 10px 0 no-repeat; }

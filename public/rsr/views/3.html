@@ -1,0 +1,236 @@
+
+      
+      <div class='container'>
+        <nav>
+          <ol class="progress">
+            <li class="progress--completed">
+              <div class="progress__step">
+                <span class="progress__label"><a href="#view1">Offender details</a></span>
+              </div>
+            </li>
+            <li class="progress--completed progress--previous">
+              <div class="progress__step">
+                <span class="progress__label"><a href="#view2">Current offence</a></span>
+              </div>
+            </li>
+            <li class="progress--active">
+              <div class="progress__step">
+                <span class="progress__label">Criminal history</span>
+              </div>
+            </li>
+            <li>
+              <div class="progress__step">
+                <span class="progress__label">OASys/ Interview</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+      </div>
+
+      
+      <div class='content-header'>
+      </div>
+      
+
+      <section class='review'>
+        <h3 class='section-header' id='offender'>Offender Details
+        <a class="right" href="#view1" aria-label="Make changes to offender details">Make changes</a></h3>
+        <div id='offender-details-summary' class='moj-panel done'></div>
+      </section>
+
+      <section class='review'>
+        <h3 class='section-header' id='offence'>Current Offence
+        <a class="right" href="#view2" aria-label="Make changes to current offence details">Make changes</a></h3>
+        <div id="current-offence-summary" class='moj-panel done'>
+        </div>
+      </section>
+
+      <section class='criminal-history'>
+        <h3 class='section-header' id='criminal'>Criminal History</h3>
+        <div class='moj-panel sub-panel'>
+          <form class="step3form" id="step3form" action="#view4" method="post">
+
+             <fieldset class='row date-picker'>
+              <label for="sanction_date"><span class='q-num'>3.1</span> Date of first sanction</label>
+              <div class=''>
+                <select class='date-date' id='sanction_date' data-validate="date" data-required="true" data-description="sanction_date" data-describedby="sanction_date-description">
+                  <option value=''>Day</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                  <option value='19'>19</option>
+                  <option value='20'>20</option>
+                  <option value='21'>21</option>
+                  <option value='22'>22</option>
+                  <option value='23'>23</option>
+                  <option value='24'>24</option>
+                  <option value='25'>25</option>
+                  <option value='26'>26</option>
+                  <option value='27'>27</option>
+                  <option value='28'>28</option>
+                  <option value='29'>29</option>
+                  <option value='30'>30</option>
+                  <option value='31'>31</option>
+                </select>
+                <select class='date-month' id='sanction_month' data-validate="date" data-required="true" data-description="sanction_date" data-describedby="sanction_date-description">
+                  <option value=''>Month</option>
+                  <option value='January'>January</option>
+                  <option value='February'>February</option>
+                  <option value='March'>March</option>
+                  <option value='April'>April</option>
+                  <option value='May'>May</option>
+                  <option value='June'>June</option>
+                  <option value='July'>July</option>
+                  <option value='August'>August</option>
+                  <option value='September'>September</option>
+                  <option value='October'>October</option>
+                  <option value='November'>November</option>
+                  <option value='December'>December</option>
+                </select>
+                <select class='date-year' id='sanction_year' data-validate="date" data-required="true" data-description="sanction_date" data-describedby="sanction_date-description">
+                  <option value=''>Year</option>
+                </select>
+              </div>
+                <span class="form-desc" id="sanction_date-description"></span>
+            </fieldset>
+
+            <div class='row'>
+              <label for='all_sanctions'><span class='q-num'>3.2</span> Number of previous sanctions for all recordable offences</label>
+              <input id='all_sanctions' name='all-sanctions' type='text' data-required="true" data-describedby="all_sanctions-description" data-description="all_sanctions" data-pattern="^(0|[1-9][0-9]*)$" />
+              <span class="form-desc" id="all_sanctions-description"></span>
+            </div>
+
+            <div class='row'>
+              <label for='violent_sanctions'><span class='q-num'>3.3</span> Number of previous/ current sanctions for violent offences</label>
+              <input id='violent_sanctions' name='violent-sanctions' type='text' data-required="true" data-describedby="violent_sanctions-description" data-description="violent_sanctions" data-pattern="^(0|[1-9][0-9]*)$" />
+              <span class="form-desc" id="violent_sanctions-description"></span>
+            </div>
+
+            <div class="row">
+              <label for='sexual_offence_history'><span class='q-num'>3.4</span> Does the offender have any history of statutory sexual offences?</label>
+              <select id='sexual_offence_history' class="sexual-offence-history" data-required="true" data-description="sexual_offence_history" data-describedby="sexual_offence_history-description">
+                <option value="">Please select</option>
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+              </select>
+              <span class="form-desc" id="sexual_offence_history-description"></span>
+            </div>
+
+            
+            <!-- Start sexual offence history details -->
+            <div class="extra-panel" id="sexual-offence-history-details">
+
+              <fieldset class='row date-picker rel' id="most_recent_sexual_offence">
+                <label for="most_recent_sexual_offence_date"><span class='q-num'>3.5</span> Date of most recent sexual offence</label>
+                <div class=''>
+                  <select class='date-date' aria-hidden="true" id='most_recent_sexual_offence_date' data-description="most_recent_sexual_offence" data-describedby="most_recent_sexual_offence-description">
+                    <option value=''>Day</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                    <option value='6'>6</option>
+                    <option value='7'>7</option>
+                    <option value='8'>8</option>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                    <option value='11'>11</option>
+                    <option value='12'>12</option>
+                    <option value='13'>13</option>
+                    <option value='14'>14</option>
+                    <option value='15'>15</option>
+                    <option value='16'>16</option>
+                    <option value='17'>17</option>
+                    <option value='18'>18</option>
+                    <option value='19'>19</option>
+                    <option value='20'>20</option>
+                    <option value='21'>21</option>
+                    <option value='22'>22</option>
+                    <option value='23'>23</option>
+                    <option value='24'>24</option>
+                    <option value='25'>25</option>
+                    <option value='26'>26</option>
+                    <option value='27'>27</option>
+                    <option value='28'>28</option>
+                    <option value='29'>29</option>
+                    <option value='30'>30</option>
+                    <option value='31'>31</option>
+                  </select>
+                  <select class='date-month' aria-hidden="true" id='most_recent_sexual_offence_month' data-description="most_recent_sexual_offence" data-describedby="most_recent_sexual_offence-description">
+                    <option value=''>Month</option>
+                    <option value='January'>January</option>
+                    <option value='February'>February</option>
+                    <option value='March'>March</option>
+                    <option value='April'>April</option>
+                    <option value='May'>May</option>
+                    <option value='June'>June</option>
+                    <option value='July'>July</option>
+                    <option value='August'>August</option>
+                    <option value='September'>September</option>
+                    <option value='October'>October</option>
+                    <option value='November'>November</option>
+                    <option value='December'>December</option>
+                  </select>
+                  <select class='date-year' aria-hidden="true" id='most_recent_sexual_offence_year' data-description="most_recent_sexual_offence" data-describedby="most_recent_sexual_offence-description">
+                    <option value=''>Year</option>
+                  </select>
+                </div>
+                  <span class="form-desc" id="most_recent_sexual_offence-description"></span>
+              </fieldset>
+
+              <div class='row rel'>
+                <label for='contact_adult'><span class='q-num'>3.6</span> Number of previous/ current sanctions involving contact adult sexual offences</label>
+                <input id='contact_adult' name='contact-adult' type='text' aria-hidden="true" data-required="false" data-describedby="contact_adult" data-description="contact_adult-description" value="0" data-pattern="^(0|[1-9][0-9]*)$" />
+                <span class="form-desc" id="contact_adult-description"></span>
+              </div>
+
+              <div class='row rel'>
+                <label for='contact_child'><span class='q-num'>3.7</span> Number of previous/ current sanctions involving contact child sexual offences</label>
+                <input id='contact_child' name='contact-child' type='text' aria-hidden="true" data-required="false" data-describedby="contact_child" data-description="contact_child-description" value="0" data-pattern="^(0|[1-9][0-9]*)$"  />
+                <span class="form-desc" id="contact_child-description"></span>
+              </div>
+
+              <div class='row rel'>
+                <label for='indecent_image'><span class='q-num'>3.8</span> Number of previous/ current sanctions involving indecent image sexual offences</label>
+                <input id='indecent_image' name='indecent-image' type='text' aria-hidden="true" data-required="false" data-describedby="indecent_image" data-description="indecent_image-description" value="0" data-pattern="^(0|[1-9][0-9]*)$" />
+                <span class="form-desc" id="indecent_image-description"></span>
+              </div>
+
+              <div class='row rel'>
+                <label for='paraphilia'><span class='q-num'>3.9</span> Number of previous/ current sanctions involving paraphilia sexual offences</label>
+                <input id='paraphilia' name='paraphilia' type='text' aria-hidden="true" data-required="false" data-describedby="paraphilia" data-description="paraphilia-description" value="0" data-pattern="^(0|[1-9][0-9]*)$" />
+                <span class="form-desc" id="paraphilia-description"></span>
+              </div>
+
+            </div>
+
+           <!-- End sexual offence history details -->
+
+
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <div class="action-buttons cf">
+          <!-- <a id="submit-btn" class="button primary right" href="#view4">Continue to OASys details</a> -->
+          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view4" value="Continue to OASys details" />
+        </div>
+      </section>
+

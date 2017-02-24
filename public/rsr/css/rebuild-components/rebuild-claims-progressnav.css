@@ -1,0 +1,77 @@
+/* CSS 3 Mixins
+
+  Add them as you need them. This should let us manage vendor prefixes in one place.
+ */
+nav.progress {
+  width: 100%;
+  max-width: 960px;
+  margin-bottom: 50px; }
+  nav.progress ol {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: pos;
+    border-top: 1px solid #bfc1c3;
+    border-bottom: 1px solid #bfc1c3;
+    background-color: #f8f8f8;
+    height: 53px;
+    overflow: hidden;
+    display: table;
+    width: 100%; }
+  nav.progress li {
+    display: table-cell;
+    font-size: 19px;
+    margin: 0;
+    height: 53px;
+    overflow: hidden;
+    text-align: center; }
+    nav.progress li a {
+      text-decoration: underline;
+      display: block; }
+      nav.progress li a:hover {
+        text-decoration: none; }
+    nav.progress li:first-child span, nav.progress li:first-child a {
+      padding-left: 20px; }
+    nav.progress li:first-child.active {
+      background: url(../progress-chevrons.png) right top no-repeat, #2b8cc4; }
+      nav.progress li:first-child.active span, nav.progress li:first-child.active a {
+        padding-left: 20px; }
+    nav.progress li:last-child.active {
+      background: url(../progress-chevrons.png) no-repeat left bottom, #2b8cc4; }
+      nav.progress li:last-child.active span, nav.progress li:last-child.active a {
+        padding-right: 0; }
+    nav.progress li span, nav.progress li a {
+      color: #6f777b;
+      display: inline-block;
+      padding: 10px; }
+      nav.progress li span:before, nav.progress li a:before {
+        counter-increment: pos;
+        content: counter(pos);
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        margin-left: 0;
+        margin-right: 7px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+        background-color: #dee0e2;
+        font-size: 24px;
+        font-weight: bold; }
+    nav.progress li.active {
+      background: #2b8cc4 url(../progress-chevrons.png) right top no-repeat;
+      background: url(../progress-chevrons.png) right top no-repeat, url(../progress-chevrons.png) no-repeat left bottom, #2b8cc4;
+      padding-right: 10px; }
+      nav.progress li.active span, nav.progress li.active a {
+        color: white;
+        padding-left: 25px; }
+        nav.progress li.active span:before, nav.progress li.active a:before {
+          background-color: white;
+          color: #2b8cc4; }
+    nav.progress li.completed span, nav.progress li.completed a {
+      color: #28a197; }
+      nav.progress li.completed span:before, nav.progress li.completed a:before {
+        background-color: #28a197;
+        color: white;
+        content: url(../progress-tick.png); }

@@ -1,0 +1,16 @@
+{
+  "name": "rsr-calculator-service",
+  "description": "A MVP for the NOMS Key Worker tool",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Matt Smith <mattonfoot@gmail.com> (http://about.me/mattonfoot)",
+  "license": "GPL-3.0",
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "main": "./bin/www",
+  "dependencies": {
+    "restify": "^4.3.0",
+    "rsr-calculator": "git+https://github.com/NOMS-DIGITAL-STUDIO/rsr-calculator.git"
+  }
+}

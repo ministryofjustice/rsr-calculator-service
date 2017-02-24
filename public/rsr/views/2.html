@@ -1,0 +1,245 @@
+
+
+      <div class='container'>
+        <nav>
+          <ol class="progress">
+            <li class="progress--completed progress--previous">
+              <div class="progress__step">
+                <span class="progress__label"><a href="#view1">Offender details</a></span>
+              </div>
+            </li>
+            <li class="progress--active">
+              <div class="progress__step">
+                <span class="progress__label">Current offence</span>
+              </div>
+            </li>
+            <li>
+              <div class="progress__step">
+                <span class="progress__label">Criminal history</span>
+              </div>
+            </li>
+            <li>
+              <div class="progress__step">
+                <span class="progress__label">OASys/Interview</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class='content-header'>
+      </div>
+      
+      <section class='review'>
+        <h3 class='section-header' id='offender'>Offender Details
+        <a class="right" href="#view1" aria-label="Make changes to offender details">Make changes</a></h3>
+        <div id='offender-details-summary' class='moj-panel done'></div>
+      </section>
+
+      <section class='current-offence'>
+        <h3 class='section-header' id='offence'>Current Offence</h3>
+        <div class='moj-panel sub-panel'>
+          <form class="step2form" id="step2form" action="#view3" method="post">
+
+            <div class="row">
+              <label for='offence_type'><span class='q-num'>2.1</span> Current offence type</label>
+              <select id='offence_type' class="offence-type-dropdown" data-required="true" data-describedby="offence_type-description" data-description="offence_type">>
+                <option value="">Please select</option>
+                <option value="0">Absconding/ bail</option>
+                <option value="1">Acquisitive violence</option>
+                <option value="2">Burglary (domestic)</option>
+                <option value="3">Burglary (other)</option>
+                <option value="4">Criminal damage</option>
+                <option value="5">Drink driving</option>
+                <option value="6">Drug import/ export/ production</option>
+                <option value="7">Drug possession/ supply</option>
+                <option value="8">Drunkenness</option>
+                <option value="9">Fraud, forgery &amp; misrepresentation</option>
+                <option value="10">Handling stolen goods</option>
+                <option value="11">Motoring (not drink driving)</option>
+                <option value="12">Other offence</option>
+                <option value="13">Public order, harassment</option>
+                <option value="14">Sexual (against children)</option>
+                <option value="15">Sexual (not against children)</option>
+                <option value="16">Theft (not vehicle-related)</option>
+                <option value="17">Vehicle-related theft</option>
+                <option value="18">Violence against the person</option>
+                <option value="19">Welfare fraud</option>
+              </select>
+              <span class="form-desc" id="offence_type-description"></span>
+            </div>
+
+            <fieldset class='row date-picker'>
+              <label for="conviction_date"><span class='q-num'>2.2</span> Date of current conviction</label>
+              <div class=''>
+                <select class='date-date' id='conviction_date' data-validate="date" data-required="true" data-description="conviction_date" data-describedby="conviction_date-description">
+                  <option value=''>Day</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                  <option value='19'>19</option>
+                  <option value='20'>20</option>
+                  <option value='21'>21</option>
+                  <option value='22'>22</option>
+                  <option value='23'>23</option>
+                  <option value='24'>24</option>
+                  <option value='25'>25</option>
+                  <option value='26'>26</option>
+                  <option value='27'>27</option>
+                  <option value='28'>28</option>
+                  <option value='29'>29</option>
+                  <option value='30'>30</option>
+                  <option value='31'>31</option>
+                </select>
+                <select class='date-month' id='conviction_month' data-validate="date" data-required="true" data-description="conviction_date" data-describedby="conviction_date-description">
+                  <option value=''>Month</option>
+                  <option value='January'>January</option>
+                  <option value='February'>February</option>
+                  <option value='March'>March</option>
+                  <option value='April'>April</option>
+                  <option value='May'>May</option>
+                  <option value='June'>June</option>
+                  <option value='July'>July</option>
+                  <option value='August'>August</option>
+                  <option value='September'>September</option>
+                  <option value='October'>October</option>
+                  <option value='November'>November</option>
+                  <option value='December'>December</option>
+                </select>
+                <select class='date-year' id='conviction_year' data-validate="date" data-required="true" data-description="conviction_date" data-describedby="conviction_date-description">
+                  <option value=''>Year</option>
+                </select>
+                <span class="form-desc" id="conviction_date-description"></span>
+              </div>
+            </fieldset>
+
+            <fieldset class='row date-picker'>
+              <label for="sentence_date"><span class='q-num'>2.3</span> Date of sentence, or discharge if sentenced to custody</label>
+              <div class=''>
+                <select class='date-date' id='sentence_date' data-validate="date" data-required="true" data-description="sentence_date" data-describedby="sentence_date-description">
+                  <option value=''>Day</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                  <option value='19'>19</option>
+                  <option value='20'>20</option>
+                  <option value='21'>21</option>
+                  <option value='22'>22</option>
+                  <option value='23'>23</option>
+                  <option value='24'>24</option>
+                  <option value='25'>25</option>
+                  <option value='26'>26</option>
+                  <option value='27'>27</option>
+                  <option value='28'>28</option>
+                  <option value='29'>29</option>
+                  <option value='30'>30</option>
+                  <option value='31'>31</option>
+                </select>
+                <select class='date-month' id='sentence_month' data-validate="date" data-required="true" data-description="sentence_date" data-describedby="sentence_date-description">
+                  <option value=''>Month</option>
+                  <option value='January'>January</option>
+                  <option value='February'>February</option>
+                  <option value='March'>March</option>
+                  <option value='April'>April</option>
+                  <option value='May'>May</option>
+                  <option value='June'>June</option>
+                  <option value='July'>July</option>
+                  <option value='August'>August</option>
+                  <option value='September'>September</option>
+                  <option value='October'>October</option>
+                  <option value='November'>November</option>
+                  <option value='December'>December</option>
+                </select>
+                <select class='date-year' id='sentence_year' data-validate="date" data-required="true" data-description="sentence_date" data-describedby="sentence_date-description">
+                  <option value=''>Year</option>
+                </select>
+                <span class="form-desc" id="sentence_date-description"></span>
+              </div>
+            </fieldset>
+
+            <div class="row">
+              <label for='sexual_element'><span class='q-num'>2.4</span> Does the current offence have a sexual element or motivation?</label>
+              <select id='sexual_element' class="sexual-element-dropdown" data-required="true" data-description="sexual_element" data-describedby="sexual_element-description">
+                <option value="">Please select</option>
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+              </select>
+                <span class="form-desc" id="sexual_element-description"></span>
+            </div>
+
+            <!-- Start stranger victim -->
+
+            <div class="extra-panel" id="stranger-victim-details">
+              <div class="row"> 
+                <label for='stranger_victim'><span class='q-num'>2.5</span> Does the current sexual offence have a stranger victim?</label>
+                <select id='stranger_victim' data-required="false" aria-hidden="true" tabindex="-1" data-description="stranger_victim" data-describedby="stranger_victim-description">
+                  <option value="">Please select</option>
+                  <option value="0">Yes</option>
+                  <option value="1">No</option>
+                </select>
+                <span class="form-desc" id="stranger_victim-description"></span>
+              </div>
+            </div>
+
+            <!-- End stranger victim -->
+
+            <!-- Start violent offence details -->
+
+            <div class="extra-panel" id="violent-offence-details">
+              <div class="row"> 
+                <label for='violent_offence_category'><span class='q-num'>2.6</span> What is the category of the violent offence?</label>
+                <select id='violent_offence_category' data-required="false" aria-hidden="true" data-description="violent_offence_category" data-describedby="violent_offence_category-description">
+                  <option value="">Please select</option>
+                  <option value="0">Summary violence</option>
+                  <option value="1">Actual/ threatened use of firearms</option>
+                  <option value="2">Possession/ supply of firearms</option>
+                  <option value="3">Other statutory weapon offences</option>
+                  <option value="4">Other indictable violence</option>
+                </select>
+                <span class="form-desc" id="violent_offence_category-description"></span>
+              </div>
+            </div>
+
+            <!-- End violent offence details -->
+
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <div class="action-buttons cf">
+          <!-- <a id="submit-btn" class="button primary right" href="#view3">Continue to criminal history details</a> -->
+          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view3" value="Continue to criminal history details" />
+        </div>
+      </section>
+

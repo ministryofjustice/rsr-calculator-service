@@ -1,0 +1,221 @@
+@font-face {
+  font-family: GDS-Logo;
+  src: local("HelveticaNeue"), local("Helvetica Neue"), local("Arial"), local("Helvetica"); }
+
+@-ms-viewport {
+  width: device-width; }
+
+@-o-viewport {
+  width: device-width; }
+
+/* Cross-browser shims
+
+  Ways of normalising properties across browsers.
+ */
+@-ms-viewport {
+  width: device-width; }
+
+@-o-viewport {
+  width: device-width; }
+
+/* Usage:
+   @include inline-block
+
+   or
+
+   @include inline-block("250px")
+
+   which gives a min-height to the inline-block elements.
+*/
+/* Contain floats usage:
+
+   .this-has-floated-children {
+     @extend %contain-floats;
+   }
+
+*/
+/* CSS 3 Mixins
+
+  Add them as you need them. This should let us manage vendor prefixes in one place.
+ */
+@-ms-viewport {
+  width: device-width; }
+
+@-o-viewport {
+  width: device-width; }
+
+/*
+
+Mixin and defaults for making buttons on GOV.UK services.
+
+For guidance, see: https://www.gov.uk/service-manual/design-and-content/resources/buttons.html
+
+Example usage:
+
+.button{
+  @include button;
+}
+.button-secondary{
+  @include button($grey-3);
+}
+.button-warning{
+  @include button($red);
+}
+
+*/
+body {
+  background-color: white;
+  color: #0b0c0c; }
+
+p {
+  margin: 0 0 1em 0; }
+  p.lead {
+    font-size: 24px;
+    padding-right: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em; }
+
+h1, h2 {
+  letter-spacing: 0.005em; }
+
+a {
+  color: #2e3191;
+  cursor: pointer;
+  text-decoration: underline; }
+  a:hover {
+    color: #2e8aca; }
+  a:active {
+    color: #2e8aca; }
+  a:focus {
+    outline: none; }
+
+.hide {
+  display: none; }
+
+.hidden {
+  display: none !important; }
+
+.main {
+  padding-top: 12px; }
+
+.todo, a.todo {
+  color: yellow;
+  background-color: red;
+  border: 5px solid lime;
+  text-transform: uppercase;
+  font-style: italic;
+  padding: 5px;
+  font-family: serif; }
+
+button, .button {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
+  button.primary, .button.primary {
+    background-color: #00a75e; }
+  button.warning, .button.warning {
+    background-color: #b30816; }
+
+header h1 {
+  font-size: 48px;
+  margin-right: 200px;
+  margin-bottom: 30px; }
+
+.user-data {
+  border-bottom: 1px solid #cccccc;
+  max-width: 960px;
+  padding: 0 30px;
+  background-color: white;
+  margin: 0 auto; }
+  .user-data > .nav {
+    float: right; }
+    .user-data > .nav > li > a {
+      padding-top: 10px;
+      padding-bottom: 10px; }
+
+.navbar ul {
+  padding: 0;
+  margin: 10px 0; }
+.navbar li {
+  display: inline; }
+  .navbar li a {
+    padding: 0 10px;
+    text-decoration: underline; }
+    .navbar li a:hover {
+      color: #333333;
+      text-decoration: none; }
+  .navbar li.dropdown a .caret {
+    border-bottom-color: #777777;
+    border-top: 4px solid #777777;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    width: 0; }
+  .navbar li ul {
+    display: none; }
+  .navbar li.open a {
+    color: #555555;
+    background-color: #d5d5d5; }
+  .navbar li.open ul {
+    background-clip: padding-box;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+    display: block;
+    list-style: none outside none;
+    margin: 10px 0 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1000; }
+    .navbar li.open ul li {
+      display: block; }
+      .navbar li.open ul li a {
+        background-color: transparent;
+        color: #777777;
+        padding: 3px 10px;
+        display: block;
+        text-decoration: none;
+        color: #0b0c0c; }
+        .navbar li.open ul li a:hover {
+          background-color: #d5d5d5; }
+      .navbar li.open ul li.divider {
+        border-top: 1px solid #eeeeee;
+        margin: 5px 0 10px; }
+.navbar a {
+  color: #777777; }
+
+.nav-tabs {
+  list-style-type: none;
+  margin: 0; }
+  .nav-tabs li {
+    margin-bottom: -1px; }
+    .nav-tabs li a {
+      margin-bottom: 0;
+      text-decoration: none; }
+    .nav-tabs li.active a {
+      border-color: #dddddd #dddddd transparent; }
+
+.template-label {
+  margin: 20px 0;
+  padding: 5px 0;
+  border-top: 1px solid #bfc1c3;
+  border-bottom: 1px solid #bfc1c3;
+  background-color: #f8f8f8; }
+  .template-label.heading {
+    font-weight: bold;
+    background-color: #dee0e2; }
+  .template-label em {
+    font-weight: normal;
+    font-style: italic; }
+  .template-label.closed {
+    margin-bottom: 40px; }
+
+.template-label-sub {
+  margin-top: 40px; }

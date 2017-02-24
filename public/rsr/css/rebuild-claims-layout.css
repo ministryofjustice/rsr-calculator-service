@@ -1,0 +1,48 @@
+.main {
+  max-width: 1020px;
+  margin: auto; }
+
+header.page-header {
+  max-width: 960px;
+  margin: auto; }
+
+.container {
+  max-width: 960px;
+  margin: auto; }
+
+section, .content-header {
+  max-width: 850px;
+  margin: auto; }
+
+section.confirmation-intro {
+  padding-top: 60px; }
+
+.content-header {
+  margin-bottom: 50px; }
+  .content-header h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px; }
+  .content-header p {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 0.005em;
+    margin-top: 0; }
+
+.case-status {
+  background-color: #f8f8f8;
+  border-top: 1px solid #c2c2c2;
+  border-bottom: 1px solid #c2c2c2;
+  padding: 15px 10px;
+  margin-bottom: 60px; }
+  .case-status.highlight {
+    background-color: #d5e8f3;
+    border-top: 1px solid #96c6e2;
+    border-bottom: 1px solid #96c6e2; }
+    .case-status.highlight span {
+      color: #6f777b; }
+  .case-status p {
+    margin: 0; }
+  .case-status span {
+    width: 130px;
+    display: inline-block; }

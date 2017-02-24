@@ -1,0 +1,368 @@
+#view1, #view2, #view3, #view4, #view5 {
+  display: block;
+  position: relative;
+  left: -100000px;
+}
+
+.moj-panel .row {
+  width: auto;
+}
+
+#oasys-details .oasys-hint:before {
+  content: "Score ";
+  font-weight: normal;
+}
+
+#oasys-details .oasys-hint {
+  font-size: 80%;
+  font-weight: bold;
+  color: #8F9599;
+  margin: auto 5px;
+  clear: both;
+  padding: 2px 6px 1px 6px;
+  vertical-align: baseline;
+}
+
+#oasys-details .oasys-hint-ref:before {
+  content: "OASys ";
+  font-weight: normal;
+}
+
+#oasys-details .oasys-hint-ref {
+  font-size: 80%;
+  font-weight: bold;
+  color: #7E4398;
+  border: 1px solid #7E4398;
+  padding: 2px 6px 1px 6px;
+  vertical-align: baseline;
+  margin: auto 5px;
+  border-radius: 1px;
+}
+
+#oasys-details > .row {
+  width: auto;
+  padding: 10px 10px 10px auto;
+  vertical-align: middle;
+}
+
+#oasys-details > .row label{
+  width: 100%;
+  min-width: 200px;
+  margin-right: 30px;
+  float: none;
+}
+
+#oasys-details .row select{
+  width: auto;
+  max-width: 150px;
+  display: inline-block;
+}
+
+#oasys-details .rel:nth-child(even) {
+  padding: 10px 10px 10px auto;
+  /*background-color: rgba(0,0,0, .03);*/
+  background-color: #f1f1f1;
+}
+
+.moj-panel .extra-panel {
+  margin: 40px 0;
+}
+
+.review > .moj-panel >p {
+  margin: 0;
+}
+.review > .moj-panel {
+  padding: 20px 60px;
+}
+
+
+/* RSR scores */
+.rsr-scores {
+  max-width: 1020px;
+  margin: auto; 
+  display: block;
+  clear: both;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rsr-scores > h1 {
+  text-align: center; 
+}
+
+.score-card {
+  display: inline-block;
+  padding: 40px;
+  width: 15%;
+  min-width: 200px;
+  /*min-width: 130px; */
+  margin: 5px;
+}
+
+p.score-low {
+  color: #26A197;
+  font-weight: normal;
+}
+
+p.score-low-medium {
+  color: #FFC10E;
+  font-weight: normal;
+}
+
+p.score-medium {
+  color: #FF9A0D;
+  font-weight: bold;
+}
+
+p.score-medium-high {
+  color: #FF5D0D;
+  font-weight: bold;
+}
+
+p.score-high {
+  color: #DD322D;
+  font-weight: bold;
+}
+
+p.score-none {
+  color: #8F9599;
+}
+
+.score-xxl {
+  font-size: 500%;
+  letter-spacing: -.07em;
+  margin: 0;
+  display: block;
+}
+
+.score-l {
+  font-size: 130%;
+  letter-spacing: -.025em;
+  margin: 0;
+  display: block;
+}
+
+.score-xxl > sup {
+  font-size: 40%;
+  vertical-align: super;
+}
+
+.score-description-header {
+  font-size: 160%;
+  font-weight: bold;
+  margin-top: -10px;
+  letter-spacing: -.03em;
+  display: block;
+}
+
+.score-description-text {
+  margin-top: 7px;
+  font-size: 100%;
+  display: block;
+}
+
+.button.primary {
+  pointer-events: auto;
+  opacity: 1;
+  font-size: 120%;
+  -webkit-transition: opacity 0.2s;
+     -moz-transition: opacity 0.2s;
+      -ms-transition: opacity 0.2s;
+          transition: opacity 0.2s;
+}
+
+.button.large {
+  font-size: 150%;
+}
+
+/*.submit-btn-disabled {
+  pointer-events: none;
+  opacity: .5;
+  -webkit-transition: opacity 0.2s;
+     -moz-transition: opacity 0.2s;
+      -ms-transition: opacity 0.2s;
+          transition: opacity 0.2s;
+}
+
+.submit-btn-enabled {
+  pointer-events: auto;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s;
+     -moz-transition: opacity 0.2s;
+      -ms-transition: opacity 0.2s;
+          transition: opacity 0.2s;
+}*/
+
+header > h1 {
+  line-height: 5.2rem;
+}
+
+header > h1 > span {
+  margin: 0 0 10px 3px;
+  
+}
+
+.done {
+  background: #D5ECEA;
+  border-top: solid 1px #b6d6d2;
+  border-bottom: solid 1px #b6d6d2;
+  overflow: hidden;
+}
+.done p > strong {
+  color: #315843;
+}
+
+.collapsed-extra-panel {
+  overflow: hidden;
+  opacity: .5;
+  
+  -webkit-transition: all 0.5s ease-in-out;
+     -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+}
+
+.expanded-extra-panel {
+  overflow: hidden;
+  opacity: 1;
+  /*height: auto;*/
+  -webkit-transition: all 0.5s ease-in-out;
+     -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+}
+
+.field-ok {
+  text-indent: -9999px;
+  background: #28a197 url('../img/progress-tick.png') center 3px no-repeat; 
+  width: 32px; 
+  height: 32px;
+  display: inline-block;
+  margin-left: -39px;
+  margin-top: 2px;
+  border-radius: 16px;
+  -webkit-transform: scale(.75,.75);
+  -moz-transform: scale(.75,.75);
+  -ms-transform: scale(.75,.75);
+  -o-transform: scale(.75,.75);
+  transform: scale(.75,.75);
+  vertical-align: top;
+
+}
+
+.form-desc {
+  -webkit-transition: all 0.5s ease-in-out;
+     -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+}
+
+.has-success {
+  background: transparent !important;
+}
+
+.has-success input, .has-success select {
+    border-color: #468847;
+}
+
+.has-error input , .has-error select {
+    border-color: #df3034;
+}
+
+.has-error {
+  background-color: #fef7f7;
+  border-left: solid 3px #df3034;
+  -webkit-transition: all 0.5s ease-in-out;
+     -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+}
+
+.error-box {
+  border: 3px solid #df3034;
+  box-sizing: border-box;
+  padding: 0px 15px 10px 12px;
+  margin: 10px -15px 30px -15px;
+  background-color: #fef7f7;
+}
+
+.validation-summary, .validation-error {
+  padding: 1em;
+  border: 3px solid #df3034;
+  background: #fef7f7;
+  margin: 20px 0;
+}
+
+.error-box span.required {
+    margin-top: -20px;
+}
+
+.error-box h2 {
+
+}
+
+.msg ol {
+    color: #df3034;
+    margin: -10px 0 0 50px;
+    padding: 0;
+}
+
+.msg ol li a {
+    color: #df3034;
+}
+
+span.required,
+span.pattern,
+span.conditional {
+    clear:both;
+    color: #df3034;
+    font-size: 16px;
+    font-size: 1.9rem;
+    display: block;
+    margin-top: 10px;
+}
+
+select {
+  font-family: nta, arial, sans-serif !important;
+  font-size: 16px;
+  font-weight: lighter;
+  border: 1px solid #bbb;
+}
+
+.centered {
+  text-align: center;
+}
+
+#download-btn, #email-btn {
+      width: 400px;
+}
+
+#exit-btn {
+      width: 374px;
+}
+.note {
+  color: #6F777B;
+}
+#classification {
+ /* float:right;*/
+}
+.acc-option {
+    margin-right: 20px;
+}
+#accessible_errors {
+    margin-right: 10px;
+}
+.q-num {
+  font-size: 14px;
+  background: #333;
+  padding: 2px 5px 0px 5px;
+  color: white;
+  vertical-align: top;
+  margin-right: .2em;
+  border-radius: 1px;
+}
+.q-inactive {
+  opacity: .65;
+  font-weight: normal;
+}
+

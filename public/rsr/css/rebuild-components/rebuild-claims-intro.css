@@ -1,0 +1,43 @@
+.start {
+  font-size: 19px; }
+  .start .action-buttons {
+    margin-top: 60px; }
+  .start h2 {
+    font-size: 32px;
+    font-weight: bold; }
+  .start ol.steps {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0; }
+    .start ol.steps li {
+      height: 90px;
+      padding-left: 85px;
+      background: url(../rebuild-claimsteps.png) 0 0 no-repeat; }
+      .start ol.steps li:nth-child(2) {
+        background-position: 0 -90px; }
+      .start ol.steps li:nth-child(3) {
+        background-position: 0 -180px; }
+      .start ol.steps li:nth-child(4) {
+        background-position: 0 -270px; }
+      .start ol.steps li:nth-child(5) {
+        background-position: 0 -360px; }
+      .start ol.steps li strong {
+        padding-top: 20px;
+        display: block; }
+    .start ol.steps.defence li {
+      background-position: 0 -90px; }
+      .start ol.steps.defence li:nth-child(2) {
+        background-position: 0 0; }
+      .start ol.steps.defence li:nth-child(3) {
+        background-position: 0 -450px; }
+      .start ol.steps.defence li:nth-child(4) {
+        background-position: 0 -180px; }
+      .start ol.steps.defence li:nth-child(5) {
+        background-position: 0 -360px; }
+
+main > .divider {
+  width: 100%;
+  height: 1px;
+  overflow: hidden;
+  margin-bottom: 60px;
+  border-bottom: 1px solid #c2c2c2; }

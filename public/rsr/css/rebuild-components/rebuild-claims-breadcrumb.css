@@ -1,0 +1,14 @@
+ul.breadcrumb {
+  max-width: 980px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0; }
+  ul.breadcrumb li {
+    background: url(../breadcrumb-separator.gif) 2px center no-repeat;
+    padding-left: 15px;
+    margin-left: 5px;
+    float: left; }
+    ul.breadcrumb li:first-child {
+      padding-left: 0;
+      margin-left: 0;
+      background: none; }

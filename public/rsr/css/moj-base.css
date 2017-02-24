@@ -1,0 +1,262 @@
+/* CSS 3 Mixins
+
+  Add them as you need them. This should let us manage vendor prefixes in one place.
+ */
+/* clearfix */
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after,
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+.cf:after,
+.clearfix:after {
+  clear: both; }
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf,
+.clearfix {
+  zoom: 1; }
+
+/* end clearfix */
+button, .button {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+input[type="text"] {
+  margin: 0; }
+
+#wrapper {
+  padding: 0 0 30px 0;
+  border-bottom: 10px solid #231f20; }
+  body.alpha #wrapper {
+    border-bottom: 10px solid #d53880; }
+  body.beta #wrapper {
+    border-bottom: 10px solid #f47738; }
+
+section#content {
+  margin: auto;
+  max-width: 960px;
+  width: auto;
+  _width: 960px;
+  /* IE6 only */
+  min-height: 400px; }
+
+@font-face {
+  font-family: GDS-Logo;
+  src: local("HelveticaNeue"), local("Helvetica Neue"), local("Arial"), local("Helvetica"); }
+
+@-ms-viewport {
+  width: device-width; }
+
+@-o-viewport {
+  width: device-width; }
+
+header h1 {
+  font-family: "nta", Arial, sans-serif;
+  font-size: 48px;
+  line-height: 1.04167;
+  font-weight: 400;
+  text-transform: none;
+  margin: 48px 360px 16px 0;
+  font-size: 4.2rem;
+  font-weight: bold;
+  line-height: 4.8rem; }
+  @media (max-width: 640px) {
+    header h1 {
+      font-size: 32px;
+      line-height: 1.09375; } }
+  header h1 span {
+    font-family: "nta", Arial, sans-serif;
+    font-size: 27px;
+    line-height: 1.11111;
+    font-weight: 400;
+    text-transform: none;
+    color: #6f777b;
+    display: block; }
+    @media (max-width: 640px) {
+      header h1 span {
+        font-size: 18px;
+        line-height: 1.11111; } }
+
+#global-breadcrumb nav {
+  border: none;
+  margin: 0; }
+
+#global-header.gov small {
+  font-family: "nta", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 300;
+  text-transform: none;
+  padding: 3px 5px;
+  color: white;
+  font-weight: bold;
+  margin-left: 16px;
+  vertical-align: 3px; }
+  @media (max-width: 640px) {
+    #global-header.gov small {
+      font-size: 14px;
+      line-height: 1.14286; } }
+  #global-header.gov small.alpha {
+    background-color: #d53880; }
+  #global-header.gov small.beta {
+    background-color: #f47738; }
+
+.indicator {
+  margin: auto;
+  max-width: 960px;
+  padding: 0 30px; }
+  .alpha .indicator {
+    background-color: #d53880;
+    color: white; }
+    .alpha .indicator a {
+      color: white; }
+      .alpha .indicator a:hover {
+        color: #f8f8f8; }
+  .beta .indicator {
+    background-color: #f47738;
+    color: #0b0c0c; }
+    .beta .indicator a {
+      color: #0b0c0c; }
+      .beta .indicator a:hover {
+        color: #6f777b; }
+  .admin .indicator {
+    background-color: #dc5b5b;
+    color: white; }
+    .admin .indicator a {
+      color: white;
+      text-decoration: none; }
+      .admin .indicator a:hover {
+        text-decoration: underline; }
+  .indicator p {
+    font-family: "nta", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 300;
+    text-transform: none;
+    padding: 8px 0;
+    margin: 0; }
+    @media (max-width: 640px) {
+      .indicator p {
+        font-size: 14px;
+        line-height: 1.14286; } }
+    .indicator p strong {
+      text-transform: uppercase; }
+      .admin .indicator p strong {
+        text-transform: none; }
+
+#global-header.nongov .header-wrapper {
+  padding: 0; }
+  #global-header.nongov .header-wrapper .header-logo {
+    max-width: 990px;
+    margin: auto;
+    padding: 0 15px;
+    color: #fff;
+    height: 53px;
+    vertical-align: middle;
+    display: table-cell;
+    font-family: "nta", Arial, sans-serif;
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 400;
+    text-transform: none; }
+    @media (max-width: 640px) {
+      #global-header.nongov .header-wrapper .header-logo {
+        font-size: 20px;
+        line-height: 1.2; } }
+    #global-header.nongov .header-wrapper .header-logo #proposition-name {
+      color: white;
+      text-decoration: none; }
+    #global-header.nongov .header-wrapper .header-logo small {
+      font-family: "nta", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 300;
+      text-transform: none;
+      padding: 3px 5px;
+      color: #fff;
+      font-weight: bold;
+      margin-left: 16px;
+      vertical-align: 3px; }
+      @media (max-width: 640px) {
+        #global-header.nongov .header-wrapper .header-logo small {
+          font-size: 14px;
+          line-height: 1.14286; } }
+      #global-header.nongov .header-wrapper .header-logo small.alpha {
+        background-color: #d53880; }
+      #global-header.nongov .header-wrapper .header-logo small.beta {
+        background-color: #f47738; }
+
+#global-breadcrumb ol {
+  border: 0; }
+
+footer#footer.nongov .footer-meta {
+  border: 0;
+  margin-top: 0;
+  padding-top: 0; }
+  footer#footer.nongov .footer-meta nav {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 69%; }
+    footer#footer.nongov .footer-meta nav ul {
+      font-family: "nta", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 300;
+      text-transform: none;
+      display: inline-block;
+      list-style-type: none;
+      margin: 0 0 1em;
+      padding: 0; }
+      @media (max-width: 640px) {
+        footer#footer.nongov .footer-meta nav ul {
+          font-size: 14px;
+          line-height: 1.14286; } }
+      footer#footer.nongov .footer-meta nav ul li {
+        display: inline-block;
+        margin: 0 15px 0 0; }
+    footer#footer.nongov .footer-meta nav p {
+      font-family: "nta", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 300;
+      text-transform: none; }
+      @media (max-width: 640px) {
+        footer#footer.nongov .footer-meta nav p {
+          font-size: 14px;
+          line-height: 1.14286; } }
+  footer#footer.nongov .footer-meta .copyright {
+    display: inline-block;
+    float: none;
+    min-height: 150px;
+    text-align: inherit;
+    width: 30%; }
+    footer#footer.nongov .footer-meta .copyright a {
+      background: url("https://assets.digital.cabinet-office.gov.uk/static/govuk-crest-795cd6afb205d81a4267e100e11debe1.png") no-repeat scroll 50% 0 transparent;
+      display: block;
+      padding: 115px 0 0;
+      text-align: center;
+      text-decoration: none; }

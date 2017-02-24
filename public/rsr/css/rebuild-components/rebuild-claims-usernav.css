@@ -1,0 +1,75 @@
+div.user-data {
+  border-bottom: 1px solid #c2c2c2;
+  max-width: 960px;
+  padding: 0 30px;
+  background-color: #f8f8f8;
+  margin: 0 auto; }
+  div.user-data > ul.nav {
+    float: right; }
+    div.user-data > ul.nav > li > a {
+      padding-top: 10px;
+      padding-bottom: 10px; }
+
+.navbar ul {
+  padding: 0;
+  margin: 10px 0;
+  color: #0b0c0c;
+  font-size: 19px; }
+.navbar li {
+  display: inline; }
+  .navbar li a {
+    padding: 0 10px;
+    text-decoration: underline;
+    color: #2e3191; }
+    .navbar li a:hover {
+      color: #2e8aca;
+      text-decoration: underline; }
+  .navbar li.dropdown a .caret {
+    border-bottom-color: #777777;
+    border-top: 4px solid #777777;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    width: 0; }
+  .navbar li ul {
+    display: none; }
+  .navbar li.open a {
+    color: #555555;
+    background-color: #d5d5d5; }
+  .navbar li.open ul {
+    background-clip: padding-box;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+    display: block;
+    list-style: none outside none;
+    margin: 10px 0 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1000; }
+    .navbar li.open ul li {
+      display: block; }
+      .navbar li.open ul li.indent {
+        padding: 3px 10px; }
+      .navbar li.open ul li a {
+        background-color: transparent;
+        color: #777777;
+        padding: 3px 10px;
+        display: block;
+        text-decoration: none;
+        color: #0b0c0c; }
+        .navbar li.open ul li a:hover {
+          background-color: #d5d5d5; }
+        .navbar li.open ul li a.current_role {
+          font-weight: bold; }
+      .navbar li.open ul li.divider {
+        border-top: 1px solid #eeeeee;
+        margin: 5px 0 10px; }
+.navbar a {
+  color: #777777; }

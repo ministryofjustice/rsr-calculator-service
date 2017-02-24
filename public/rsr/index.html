@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <script>
+      document.documentElement.className += " js-enabled";
+    </script>
+    <title>Risk of Recidivism Calculator</title>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <link href="img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <link href='img/apple-touch-icon-144x144.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
+    <!-- For iPhone with high-resolution Retina display: -->
+    <link href='img/apple-touch-icon-114x114.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
+    <!-- For first- and second-generation iPad: -->
+    <link href='img/apple-touch-icon-72x72.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link href='img/apple-touch-icon-57x57.png' rel='apple-touch-icon-precomposed'>
+    <script>
+      (function(){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var d=document,c="appendChild",a=d.createElement("style");a[c](d.createTextNode("@-ms-viewport{width:auto!important}"));d.getElementsByTagName("head")[0][c](a);}})();
+    </script>
+    <!-- ERB block to avoid mangling the conditional comments -->
+    <!--[if gt IE 8]><!-->
+      <link href="css/gov-static/gov-application.css" media="screen" rel="stylesheet" />
+    <link href="css/gov-static/gov-goodbrowsers.css" media="screen" rel="stylesheet" />
+    <!--<![endif]-->
+    <!--[if IE 6]>
+      <link href="/css/gov-static/gov-application-ie6.css" media="screen" rel="stylesheet" />
+    <link href="/css/gov-static/gov-ie6.css" media="screen" rel="stylesheet" />
+    <![endif]-->
+    <!--[if IE 7]>
+      <link href="/css/gov-static/gov-application-ie7.css" media="screen" rel="stylesheet" />
+    <link href="/css/gov-static/gov-ie7.css" media="screen" rel="stylesheet" />
+    <![endif]-->
+    <!--[if IE 8]>
+      <link href="/css/gov-static/gov-application-ie8.css" media="screen" rel="stylesheet" />
+    <link href="/css/gov-static/gov-ie8.css" media="screen" rel="stylesheet" />
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="/js/gov-static/gov-ie.js"></script>
+    <![endif]-->
+    <!--[if IE 8]>
+      <script type="text/javascript">
+        (function(){if(window.opera){return;}
+        setTimeout(function(){var a=document,g,b={families:(g=
+        ["nta"]),urls:["https://assets.digital.cabinet-office.gov.uk/static/fonts-ie8-beb10cbc00c9b7dcdbdee824962bc5f6.css"]},
+        c="https://assets.digital.cabinet-office.gov.uk/static/libs/goog/webfont-debug-96870cf9f159ed811fd43c39bdf4656b.js",d="script",
+        e=a.createElement(d),f=a.getElementsByTagName(d)[0],h=g.length;WebFontConfig
+        ={custom:b},e.src=c,f.parentNode.insertBefore(e,f);for(;h=h-1;a.documentElement
+        .className+=' wf-'+g[h].replace(/\s/g,'').toLowerCase()+'-n4-loading');},0)
+        })()
+      </script>
+    <![endif]-->
+
+    <!--[if gte IE 9]><!-->
+      <link href="css/gov-static/gov-fonts.css" media="screen" rel="stylesheet" />
+    <!--<![endif]-->
+
+    <link href="css/gov-static/gov-print.css" media="print" rel="stylesheet" />
+    <link href="css/validator.css" media="all" rel="stylesheet" />
+    <link href="css/moj-base.css" media="all" rel="stylesheet" />
+    <link href="css/rebuild-claims-global.css" media="all" rel="stylesheet" />
+    <link href="css/rebuild-claims-layout.css" media="all" rel="stylesheet" />
+    <link href="css/rebuild-claims-components.css" media="all" rel="stylesheet" />
+    <link href="css/moj-progressnav.css" media="all" rel="stylesheet" />
+    <link href="css/rsr-styles.css" media="all" rel="stylesheet" />
+
+
+  </head>
+  <!--[if gt IE 8]>
+    <body class="ie alpha">
+  <!--<![endif]-->
+  <!--[if IE 6]>
+    <body class="ie ie6 alpha">
+  <![endif]-->
+  <!--[if IE 7]>
+    <body class="ie ie7 alpha">
+  <![endif]-->
+  <!--[if IE 8]>
+    <body class="ie ie8 alpha">
+  <![endif]-->
+  <!--[if !IE]> -->
+    <body>
+  <!-- <![endif]-->
+  <header class='with-proposition gov' id='global-header' role='banner'>
+    <div class='header-wrapper'>
+      <div class='header-global'>
+        <div class='header-logo'>
+          <a class='content' href='https://www.gov.uk/' id='logo' title='Go to the GOV.UK homepage'>
+            <img alt='GOV.UK' src='img/gov.uk_logotype-2x-24145374d271079f08d96c618cc8d4a5.png'>
+          </a>
+        </div>
+      </div>
+      <div class='header-proposition'>
+        <div class='content'>
+          <nav id='proposition-menu'>
+            <a href='#/' id='proposition-name'>
+              Risk of Serious Recidivism Calculator
+              <small id="app-version"></small>
+              <small id="classification">OFFICIAL</small>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class='indicator cf'>
+  </div>
+
+  <div class='user-data clearfix navbar collapsed-extra-panel' id='user-nav'>
+    <ul class='nav navbar-nav'>
+      <li class='acc-option'><input type="checkbox" id="accessible_errors" name="accessible-errors" value="false"><label for='accessible_errors'>Show accessible error messages</label></li>
+      <li><a id="quitclear" href="index.html">Quit and clear all data</a></li>
+    </ul>
+  </div>
+
+  <div id='wrapper'>
+    <div class='main' role='main'>
+
+      <header class='page-header group'>
+        <h1><span>Service</span>Risk of Serious Recidivism Calculator
+        </h1>
+      </header>
+
+
+      <!-- view0 is the first visible by default — usually the intro -->
+
+      <!-- <div id="view0">
+        <div class='container'>
+          <p class='lead'>Find out if an Offender is managed by the NPS or CRC provider.</p>
+
+          <div class='action-buttons cf'>
+            <a id="launchapp"  class='button primary large chevron left' href='#'>Start the RSR Calculator</a>
+          </div>
+        </div>
+      </div>
+ -->
+
+      <!-- empty divs with the respective ids to load the views into
+
+      <div id="view1"></div>
+      <div id="view2"></div>
+      <div id="view3"></div>
+      <div id="view4"></div>
+      <div id="view5"></div>-->
+
+    </div>
+  </div>
+  <footer class='group gov' id='footer' role='contentinfo'>
+    <div class='footer-wrapper'>
+      <div class='footer-categories'>
+        <div class='footer-explore'>
+          <h2>Services and information</h2>
+          <ul>
+            <li>
+              <a href='https://www.gov.uk/browse/driving'>Driving and transport</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/benefits'>Benefits</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/business'>Businesses and self-employed</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/employing-people'>Employing people</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/abroad'>Passports, travel and living abroad</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/education'>Education and learning</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/working'>Working, jobs and pensions</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/housing'>Housing and local services</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/justice'>Crime, justice and the law</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/tax'>Money and tax</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/births-deaths-marriages'>Births, deaths, marriages and care</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/disabilities'>Disabled people</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/browse/citizenship'>Citizenship and life in the UK</a>
+            </li>
+          </ul>
+        </div>
+        <div class='footer-inside-government'>
+          <h2>Departments and policy</h2>
+          <ul>
+            <li>
+              <a href='https://www.gov.uk/government/how-government-works'>How government works</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/government/organisations'>Departments</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/government/world'>Worldwide</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/government/topics'>Topics</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/government/policies'>Policies</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/government/publications'>Publications</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/government/announcements'>Announcements</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='footer-meta'>
+        <div class='footer-meta-inner'>
+          <h2 class='visuallyhidden'>Support links</h2>
+          <ul>
+            <li>
+              <a href='https://www.gov.uk/support'>Support</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/support/cookies'>Cookies</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/feedback'>Feedback</a>
+            </li>
+            <li>
+              <a href='https://www.gov.uk/cymraeg'>Cymraeg</a>
+            </li>
+            <li>
+              Built by the
+              <a href='http://digital.cabinetoffice.gov.uk/'>Government Digital Service</a>
+            </li>
+          </ul>
+          <div class='open-government-licence'>
+            <h2>
+              <a href='http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2'>
+                <img alt='OGL' src='img/open-government-licence_2x-d273d7eca3045d3b710a863d9bfc0b33.png'>
+              </a>
+            </h2>
+            <p>
+              All content is available under the
+              <a href='http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2'>Open Government Licence v2.0</a>,
+              except where otherwise stated
+            </p>
+          </div>
+        </div>
+        <div class='copyright'>
+          <a href='http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm'>© Crown Copyright</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end footer -->
+
+
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery_ujs.js"></script>
+    <script src="js/jquery.ui.effect.js"></script>
+    <script src="js/jquery.ui.effect-highlight.js"></script>
+    <script src="js/jquery.details.min.js"></script>
+    <script src="js/jquery.tablescroll.js"></script>
+    <script src="js/moj.js"></script>
+    <script src="js/modules/moj.tabs.js"></script>
+    <script src="js/rebuild/usernav.js"></script>
+    <script src="js/rebuild/forms.js"></script>
+    <script src="js/rebuild/effects.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/sammy-0.7.4.min.js"></script>
+    <script src="js/jquery-validate.min.js"></script>
+    <script src="js/jquery.bez.min.js"></script>
+    <script src="js/jquery.base64.min.js"></script>
+    
+    <script src="js/rsr-app.js"></script>
+
+  </body>
+
+</html>

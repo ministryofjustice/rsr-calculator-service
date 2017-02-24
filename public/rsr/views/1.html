@@ -1,0 +1,222 @@
+
+
+      
+      <div class='container'>
+        <nav>
+          <ol class="progress">
+            <li class="progress--active">
+              <div class="progress__step">
+                <span class="progress__label">Offender details</span>
+              </div>
+            </li>
+            <li>
+              <div class="progress__step">
+                <span class="progress__label">Current offence</span>
+              </div>
+            </li>
+            <li>
+              <div class="progress__step">
+                <span class="progress__label">Criminal history</span>
+              </div>
+            </li>
+            <li>
+              <div class="progress__step">
+                <span class="progress__label">OASys/Interview</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      
+      <div class='content-header'>
+      </div>
+      
+
+      <section class='offender_details'>
+        <h3 class='section-header' id='property'>Offender details</h3>
+        <p class="note"><strong>Please note</strong>: All fields are mandatory, unless indicated otherwise.</p>
+        <div class='moj-panel sub-panel'>
+          <form class="step1form" id="step1form" action="#view2" method="post">
+
+            <div class="row form-group">
+              <label for='offender_title'><span class='q-num'>1.1</span> Title</label>
+              <select id="offender_title" data-required="true" data-describedby="offender_title-description" data-description="offender_title">
+                  <option value="">Please select</option>
+                   <option value="Mr">Mr</option>
+                   <option value="Mrs">Mrs</option>
+                   <option value="Miss">Miss</option>
+                   <option value="Ms">Ms</option>
+                   <option value="Dr">Dr</option>
+                   <option value="Other">Other</option>
+                   <option value=" - ">None</option>
+                </select>
+              <span class="form-desc" id="offender_title-description"></span>
+            </div>
+
+            <div class="row form-group">
+              <label for='offender_first_name'>First name (or names)</label>
+              <input id='offender_first_name' name='offender_first_name' type='text' size="60" data-required="true" data-describedby="offender_first_name-description" data-description="offender_first_name" data-pattern="^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$" />
+              <span class="form-desc" id="offender_first_name-description"></span>
+            </div>
+
+            <div class="row form-group">
+              <label for='offender_family_name'>Family name (or names)</label>
+              <input id='offender_family_name' name='offender_family_name' type='text' size="60" data-required="true" data-describedby="offender_family_name-description" data-description="offender_family_name" data-pattern="^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$" />
+              <span class="form-desc" id="offender_family_name-description"></span>
+            </div>
+
+            <div class="row form-group">
+              <label for='offender_sex'><span class='q-num'>1.2</span> Sex</label>
+              <select id='offender_sex' class="offender_sex_dropdown" data-required="true" data-describedby="offender_sex-description" data-description="offender_sex">
+                <option value="">Please select</option>
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+              </select>
+              <span class="form-desc" id="offender_sex-description"></span>
+            </div>
+
+            <fieldset class='row date-picker'>
+              <label for="birth_date"><span class='q-num'>1.3</span> Date of birth</label>
+              <div class='form-group'>
+                <select class='date-date' id='birth_date' data-validate="date" data-required="true" data-description="birth_date" data-describedby="birth_date-description">
+                  <option value=''>Day</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                  <option value='19'>19</option>
+                  <option value='20'>20</option>
+                  <option value='21'>21</option>
+                  <option value='22'>22</option>
+                  <option value='23'>23</option>
+                  <option value='24'>24</option>
+                  <option value='25'>25</option>
+                  <option value='26'>26</option>
+                  <option value='27'>27</option>
+                  <option value='28'>28</option>
+                  <option value='29'>29</option>
+                  <option value='30'>30</option>
+                  <option value='31'>31</option>
+                </select>
+                <select class='date-month' id='birth_month' data-validate="date" data-required="true" data-description="birth_date" data-describedby="birth_date-description">
+                  <option value=''>Month</option>
+                  <option value='January'>January</option>
+                  <option value='February'>February</option>
+                  <option value='March'>March</option>
+                  <option value='April'>April</option>
+                  <option value='May'>May</option>
+                  <option value='June'>June</option>
+                  <option value='July'>July</option>
+                  <option value='August'>August</option>
+                  <option value='September'>September</option>
+                  <option value='October'>October</option>
+                  <option value='November'>November</option>
+                  <option value='December'>December</option>
+                </select>
+                <select class='date-year' id='birth_year' data-validate="date" data-required="true" data-description="birth_date" data-describedby="birth_date-description">
+                  <option value=''>Year</option>
+                </select>
+              </div>
+              <span class="form-desc" id="birth_date-description"></span>
+            </fieldset>
+
+            <div class='row form-group'>
+              <label for='offender_pnc'><span class='q-num'>1.4</span> PNC ID <p class="note">(optional)</p></label>
+              <!-- <input id='offender_pnc' name='offender_pnc' type='text' placeholder='YYYY/NNNNNNND' data-required="true" data-description="offender_pnc" data-describedby="offender_pnc-description" data-pattern='^\d{4}\/\d{5,7}[^ios]' maxlength='13' /> -->
+              <input id='offender_pnc' name='offender_pnc' type='text' placeholder='YYYY/NNNNNNND' />
+              <!-- <span class="form-desc" id="offender_pnc-description"></span> -->
+            </div>
+
+            <div class='row form-group'>
+              <label for='offender_delius'> <span class='q-num'>1.5</span>CRN Number <p class="note">(optional)</p></label>
+              <!-- <input id='offender_delius' name='offender_delius' type='text' placeholder='ANNNNNN' data-required="false" data-description="offender_delius" data-describedby="offender_delius-description" data-pattern="^[a-zA-Z]{0,2}\d{4,7}( \d{1,2})?" maxlength='10' /> -->
+              <input id='offender_delius' name='offender_delius' type='text' placeholder='ANNNNNN' />
+              <!-- <span class="form-desc" id="offender_delius-description"></span> -->
+            </div>
+
+            <fieldset class='row date-picker'>
+              <label for="assessment_date"><span class='q-num'>1.6</span> Date of assessment</label>
+              <div class='form-group'>
+                <select class='date-date' id='assessment_date' data-validate="date" data-required="true" data-description="assessment_date" data-describedby="assessment_date-description">
+                  <option value=''>Day</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                  <option value='19'>19</option>
+                  <option value='20'>20</option>
+                  <option value='21'>21</option>
+                  <option value='22'>22</option>
+                  <option value='23'>23</option>
+                  <option value='24'>24</option>
+                  <option value='25'>25</option>
+                  <option value='26'>26</option>
+                  <option value='27'>27</option>
+                  <option value='28'>28</option>
+                  <option value='29'>29</option>
+                  <option value='30'>30</option>
+                  <option value='31'>31</option>
+                </select>
+                <select class='date-month' id='assessment_month' data-validate="date" data-required="true" data-description="assessment_date" data-describedby="assessment_date-description">
+                  <option value=''>Month</option>
+                  <option value='January'>January</option>
+                  <option value='February'>February</option>
+                  <option value='March'>March</option>
+                  <option value='April'>April</option>
+                  <option value='May'>May</option>
+                  <option value='June'>June</option>
+                  <option value='July'>July</option>
+                  <option value='August'>August</option>
+                  <option value='September'>September</option>
+                  <option value='October'>October</option>
+                  <option value='November'>November</option>
+                  <option value='December'>December</option>
+                </select>
+                <select class='date-year' id='assessment_year' data-validate="date" data-required="true" data-description="assessment_date" data-describedby="assessment_date-description">
+                  <option value=''>Year</option>
+                </select>
+              </div>
+              <span class="form-desc" id="assessment_date-description"></span>
+            </fieldset>
+
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <div class="action-buttons cf">
+          <input type="submit" id="submit-btn" class="button primary right" data-href="#view2" name="Continue" value="Continue to current offence details" />
+        </div>
+      </section>
+
+
+
+
