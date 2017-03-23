@@ -1,6 +1,6 @@
 const RSRCalc = require('rsr-calculator');
 
-const validateRequest = (x) => {
+const withValidRequest = (x) => {
   // fix dates
   x.assessmentDate = new Date(x.assessmentDate);
   x.firstSanctionDate = new Date(x.firstSanctionDate);
@@ -9,11 +9,10 @@ const validateRequest = (x) => {
   x.birthDate = new Date(x.birthDate);
 
   return x;
-}
-
-module.exports = (req, res, next) => {
-
-  var result = RSRCalc.calculateRisk(validateRequest(req.body));
-  res.send(201, result);
-  return next();
 };
+
+const calculateRisk = (x) =>
+  RSRCalc.calculateRisk(withValidRequest(x));
+
+module.exports = (req, res, next) =>
+  (res.send(201, calculateRisk(req.body))) && next();

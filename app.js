@@ -3,6 +3,9 @@ const pkg = require('./package.json');
 const debug = require('debug')(pkg.name);
 //var fs = require('fs');
 
+const redirectIfHtmlRequest = (url) => (req, res, next) =>
+  res.redirect(url, next);
+
 const normalizePort = (val) => {
   var port = parseInt(val, 10);
 
@@ -13,7 +16,7 @@ const normalizePort = (val) => {
   return port >= 0 ? port : false;
 };
 
-const onError = (port) => (req, res, error, callback) => {
+const onError = (port) => (req, res, error) => {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -78,22 +81,20 @@ server.use(restify.conditionalRequest());
 // fix for known curl issue
 server.pre(restify.pre.userAgentConnection());
 
+server.get('/', redirectIfHtmlRequest('/rsr/'));
 server.post('/calculate', require('./routes/calculate'));
+server.get('/result/:id', require('./routes/result'));
+server.get('/drug', require('./routes/drug'));
+server.get('/offenceType', require('./routes/offenceType'));
+server.get('/violentOffenceCategory', require('./routes/violentOffenceCategory'));
+
+server.post('/ping', require('./routes/ping'));
+server.post('/healthcheck', require('./routes/healthcheck'));
 
 server.get(/^\/rsr\/?.*/, restify.serveStatic({
   directory: './public',
   default: 'index.html',
 }));
-
-server.get('/ping', (req, res, next) => {
-  res.send({ message: 'pong' });
-  return next();
-});
-
-server.get('/healthcheck', (req, res, next) => {
-  res.send({ message: 'I feel good!' });
-  return next();
-});
 
 // environment variables
 var port = normalizePort(process.env.PORT || '3030');

@@ -1274,25 +1274,28 @@ moj.Modules.RSRApp = (function() {
 			data: JSON.stringify(offenderData),
 			dataType:'json',
 		})
-	  .done(function( score ) {
-			offenderData.totalRSR = score * 100;
-			offenderData.totalRSR = parseFloat(Math.round(offenderData.totalRSR * 100) / 100).toFixed(2);
+		.done(function( result ) {
+			console.log(result);
 
-			var band = 'Low';
-			if (offenderData.totalRSR < 3) {
-				band = 'Low';
-			} else if (offenderData.totalRSR >= 3 && offenderData.totalRSR < 6.9) {
-				band = 'Medium';
-			} else if (offenderData.totalRSR >= 6.9) {
-				band = 'High';
-			}
+			var n = offenderData.rsrType === "static" ? 0 : 1;
 
-			scoreCard(offenderData.totalRSR, band.toLowerCase(), band, 'Likelihood of <strong>serious</strong> reoffending over the next two years.');
+			scoreCard(
+				result.RSRPercentileRisk[n],
+				result.RSRRiskBand[n].toLowerCase(),
+				result.RSRRiskBand[n],
+				'Likelihood of <strong>serious</strong> reoffending over the next two years.');
 
-			$('#view5 #results_header').text('RSR score (' + offenderData.rsrType + ') for ' + offenderData.offenderTitle + ' ' + offenderData.firstName + ' ' + offenderData.familyName);
+			$('#view5 #results_header').text(
+				['RSR score',
+					'(' + offenderData.rsrType + ')',
+					'for',
+					offenderData.offenderTitle,
+					offenderData.firstName,
+					offenderData.familyName
+				].join(' '));
 
 			composeEmail();
-	  });
+		});
 	};
 
 	setupView2Panels = function() {
