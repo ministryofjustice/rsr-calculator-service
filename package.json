@@ -10,6 +10,8 @@
   },
   "main": "./bin/www",
   "dependencies": {
+    "node-restify-swagger": "^0.1.8",
+    "node-restify-validation": "^1.1.1",
     "restify": "^4.3.0",
     "rsr-calculator": "git+https://github.com/NOMS-DIGITAL-STUDIO/rsr-calculator.git"
   }

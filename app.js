@@ -1,4 +1,6 @@
 const restify = require('restify');
+const restifySwagger = require('node-restify-swagger');
+const restifyValidation = require('node-restify-validation');
 const pkg = require('./package.json');
 const debug = require('debug')(pkg.name);
 //var fs = require('fs');
@@ -46,6 +48,7 @@ const onListening = (server) => () => {
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
 
   debug('Server listening on ' + bind);
+  console.log('Server listening on ' + bind);
 };
 
 const server = restify.createServer({
@@ -81,8 +84,16 @@ server.use(restify.conditionalRequest());
 // fix for known curl issue
 server.pre(restify.pre.userAgentConnection());
 
+server.use(restifyValidation.validationPlugin({
+  errorsAsArray: false,
+}));
+
+restifySwagger.configure(server, {
+  allowMethodInModelNames: true,
+});
+
 server.get('/', redirectIfHtmlRequest('/rsr/'));
-server.post('/calculate', require('./routes/calculate'));
+require('./routes/calculate')(server);
 server.get('/result/:id', require('./routes/result'));
 server.get('/drug', require('./routes/drug'));
 server.get('/offenceType', require('./routes/offenceType'));
@@ -100,4 +111,6 @@ server.get(/^\/rsr\/?.*/, restify.serveStatic({
 var port = normalizePort(process.env.PORT || '3030');
 server.on('InternalServer',    onError(port));
 server.on('listening',   onListening(server));
+
+restifySwagger.loadRestifyRoutes();
 server.listen(port);

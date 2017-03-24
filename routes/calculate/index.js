@@ -14,5 +14,22 @@ const withValidRequest = (x) => {
 const calculateRisk = (x) =>
   RSRCalc.calculateRisk(withValidRequest(x));
 
-module.exports = (req, res, next) =>
-  (res.send(201, calculateRisk(req.body))) && next();
+module.exports = (server) =>
+  server.post({
+    url: '/calculate',
+
+    swagger: {
+      summary: 'Calculate Risk of Serious Recidivism',
+      docpath: 'calculate',
+    },
+
+    validation: {
+      assessmentDate: { isRequired: true, scope: 'body' }
+    },
+
+    models: {
+      assessmentDate: { type: 'date'},
+    }
+  },
+  (req, res) => res.send(calculateRisk(req.body))
+);
