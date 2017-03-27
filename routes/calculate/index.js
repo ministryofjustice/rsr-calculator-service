@@ -26,6 +26,7 @@ const withValidResponse = (x) => ({
   OGRS4sRiskBand: x.OGRS4sRiskBand,
   RSRPercentileRisk: x.RSRPercentileRisk,
   RSRRiskBand: x.RSRRiskBand,
+  calculatorVersion: x.calculatorVersion,
 });
 
 const calculateRisk = (x) =>
