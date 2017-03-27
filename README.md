@@ -17,3 +17,6 @@ If you have all the Pre-requisites then you are ready to run the service. Call t
 ```bash
 $ npm start
 ```
+
+##Swagger documentation
+The swagger documentation can be found on the path ```/dist/?url=/swagger/resources.json``` 

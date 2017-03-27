@@ -8,11 +8,28 @@ const withValidRequest = (x) => {
   x.convictionDate = new Date(x.convictionDate);
   x.birthDate = new Date(x.birthDate);
 
+  // translate booleans
+  x.oasysInterview = (x.oasysInterview ? 0 : 1);
+  x.sexualElement = (x.sexualElement ? 0 : 1);
+
   return x;
 };
 
+const withValidResponse = (x) => ({
+  OGRS3: x.OGRS3,
+  OGRS4s: x.OGRS4s,
+  OGRS4v: x.OGRS4v,
+  probabilityOfNonSexualViolence: x.probabilityOfNonSexualViolence,
+  indecentImageProbability: x.indecentImageProbability,
+  contactSexualProbability: x.contactSexualProbability,
+  riskOfSeriousRecidivism: x.riskOfSeriousRecidivism,
+  OGRS4sRiskBand: x.OGRS4sRiskBand,
+  RSRPercentileRisk: x.RSRPercentileRisk,
+  RSRRiskBand: x.RSRRiskBand,
+});
+
 const calculateRisk = (x) =>
-  RSRCalc.calculateRisk(withValidRequest(x));
+  withValidResponse(RSRCalc.calculateRisk(withValidRequest(x)));
 
 module.exports = (server) =>
   server.post({
@@ -22,14 +39,6 @@ module.exports = (server) =>
       summary: 'Calculate Risk of Serious Recidivism',
       docpath: 'calculate',
     },
-
-    validation: {
-      assessmentDate: { isRequired: true, scope: 'body' }
-    },
-
-    models: {
-      assessmentDate: { type: 'date'},
-    }
   },
   (req, res) => res.send(calculateRisk(req.body))
 );

@@ -85,9 +85,14 @@ server.use(restify.conditionalRequest());
 server.pre(restify.pre.userAgentConnection());
 
 server.use(restifyValidation.validationPlugin({
+  // Shows errors as an array
   errorsAsArray: false,
+  // Not exclude incoming variables not specified in validator rules
+  forbidUndefinedVariables: false,
+  errorHandler: restify.errors.InvalidArgumentError
 }));
 
+restifySwagger.swaggerPathPrefix = '/api-docs/';
 restifySwagger.configure(server, {
   allowMethodInModelNames: true,
 });
@@ -104,6 +109,11 @@ server.post('/healthcheck', require('./routes/healthcheck'));
 
 server.get(/^\/rsr\/?.*/, restify.serveStatic({
   directory: './public',
+  default: 'index.html',
+}));
+
+server.get(/^\/dist\/?.*/, restify.serveStatic({
+  directory: './node_modules/swagger-ui',
   default: 'index.html',
 }));
 

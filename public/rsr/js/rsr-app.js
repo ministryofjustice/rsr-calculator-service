@@ -124,6 +124,52 @@ moj.Modules.RSRApp = (function() {
 
 	//moj.Modules.RSRCalc.printSortedOffenderData(offenderData);
 
+	function cleanRequest(x) {
+		return {
+			sex: x.sex,
+			birthDate:x.birthDate,
+			age: x.age,
+			pncId: x.pncId,
+			deliusId: x.deliusId,
+			assessmentDate: x.assessmentDate,
+			currentOffenceType: x.currentOffenceType,
+			convictionDate: x.convictionDate,
+			sentenceDate: x.sentenceDate,
+			sexualElement: x.sexualElement,
+			violentOffenceCategory: x.violentOffenceCategory,
+			strangerVictim: x.strangerVictim,
+			firstSanctionDate: x.firstSanctionDate,
+			allSanctions: x.allSanctions,
+			violentSanctions: x.violentSanctions,
+			sexualOffenceHistory: x.sexualOffenceHistory,
+			mostRecentSexualOffence: x.mostRecentSexualOffence,
+			contactAdult: x.contactAdult,
+			contactChild: x.contactChild,
+			indecentImage: x.indecentImage,
+			paraphilia: x.paraphilia,
+			oasysInterview: x.oasysInterview,
+			useWeapon: x.useWeapon,
+			accommodation: x.accommodation,
+			employment: x.employment,
+			relationship: x.relationship,
+			currentUseOfAlcohol: x.currentUseOfAlcohol,
+			bingeDrinking: x.bingeDrinking,
+			impulsivity: x.impulsivity,
+			temper: x.temper,
+			proCriminal: x.proCriminal,
+			domesticViolence: x.domesticViolence,
+			murder: x.murder,
+			wounding: x.wounding,
+			kidnapping:x.kidnapping,
+			firearmPossession: x.firearmPossession,
+			robbery: x.robbery,
+			burglary: x.burglary,
+			anyOtherOffence:x.anyOtherOffence,
+			endagerLife: x.endagerLife,
+			arson: x.arson,
+		};
+	}
+
 	init = function() {
 		$.support.cors = true;
 		$(document).ready(function() {
@@ -1271,7 +1317,7 @@ moj.Modules.RSRApp = (function() {
 			url: '/calculate',
 			type: 'POST',
 			contentType:'application/json',
-			data: JSON.stringify(offenderData),
+			data: JSON.stringify(cleanRequest(offenderData)),
 			dataType:'json',
 		})
 		.done(function( result ) {
