@@ -72,11 +72,11 @@ module.exports = (env, logger) => {
   }));
 
   require('./routes/heartbeat')(server);
-  //require('./routes/calculate')(server);
-  //require('./routes/drug')(server);
+  require('./routes/calculate')(server);
+  require('./routes/drug')(server);
   require('./routes/offenceType')(server);
   require('./routes/violentOffenceCategory')(server);
-  //require('./routes/result')(server);
+  require('./routes/result')(server);
 
   server.get(/^\/rsr\/?.*/, restify.serveStatic({
     directory: './public',
