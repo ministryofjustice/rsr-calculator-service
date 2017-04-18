@@ -7,30 +7,30 @@ const displayResult = (x) => {
 	oData += '' + '\r\n';
 
 	for (var key in x) {
-		if (x[key] == undefined || x[key] == 'undefined' || x[key] == '' || x[key] == null || x[key] == NaN || x[key] == 'NaN') {
-			x[key] = "N/A";
+		if (x[key] === undefined || x[key] === 'undefined' || x[key] === '' || x[key] === null || isNaN(x[key]) || isNaN(x[key])) {
+			x[key] = 'N/A';
 		}
 
-		if (key.indexOf('options') == -1 ) {
-			if (x[key + '_options'] != null) {
-				if (key == 'anyOtherOffence') {
+		if (key.indexOf('options') === -1 ) {
+			if (x[key + '_options'] !== null) {
+				if (key === 'anyOtherOffence') {
 					oData += 'anyOtherWeaponOffence: ' + x[key + '_options'][parseInt(x[key])] + '\r\n';
 				} else {
 					oData += key + ': ' + x[key + '_options'][parseInt(x[key])] + '\r\n';
 				}
 			}
 
-			else if (key == 'sex') {
+			else if (key === 'sex') {
 				oData += key + ': ';
-				oData += (parseInt(x[key]) == 0)? 'Male' : 'Female';
+				oData += (parseInt(x[key]) === 0)? 'Male' : 'Female';
 				oData += '\n';
 			}
 
-			else if (key == 'currentOffenceType') {
+			else if (key === 'currentOffenceType') {
 				oData += key + ': ' + x['offenceType_options'][parseInt(x[key])] + '\r\n';
 			}
 
-			else if (key == 'violentOffenceCategory') {
+			else if (key === 'violentOffenceCategory') {
 				oData += key + ': ' + x['violentOffenceCategory_options'][parseInt(x[key])] + '\r\n';
 			}
 
@@ -40,8 +40,15 @@ const displayResult = (x) => {
 		}
 	}
 
-	return oData.replace("undefined", "N/A").replace("NaN", "N/A");
-}
+	return oData.replace('undefined', 'N/A').replace('NaN', 'N/A');
+};
 
-module.exports = (req, res, next) =>
-  (res.send(displayResult(req.param.id))) && next();
+const config = {
+  url: '/result/:id',
+};
+
+module.exports = (server) =>
+  server.get(config, (req, res, next) => {
+		res.send(displayResult(req.param.id));
+		return next();
+	});

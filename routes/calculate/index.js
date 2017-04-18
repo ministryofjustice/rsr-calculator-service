@@ -32,14 +32,20 @@ const withValidResponse = (x) => ({
 const calculateRisk = (x) =>
   RSRCalc.calculateRisk(withValidRequest(x));
 
-module.exports = (server) =>
-  server.post({
-    url: '/calculate',
+const config = {
+  url: '/calculate',
 
-    swagger: {
-      summary: 'Calculate Risk of Serious Recidivism',
-      docpath: 'calculate',
-    },
+  swagger: {
+    summary: 'Calculate Risk of Serious Recidivism',
+    docpath: 'calculate',
   },
-  (req, res) => res.send(withValidResponse(calculateRisk(req.body)))
-);
+
+  validation: {
+	},
+};
+
+module.exports = (server) =>
+  server.post(config, (req, res, next) => {
+    res.send(withValidResponse(calculateRisk(req.body)));
+    return next();
+});

@@ -1,126 +1,100 @@
 const restify = require('restify');
 const restifySwagger = require('node-restify-swagger');
 const restifyValidation = require('node-restify-validation');
+const MongoClient = require('mongodb').MongoClient;
+
 const pkg = require('./package.json');
-const debug = require('debug')(pkg.name);
-//var fs = require('fs');
 
-const redirectIfHtmlRequest = (url) => (req, res, next) =>
-  res.redirect(url, next);
+module.exports = (env, logger) => {
+  var config = {
+    pkg: pkg,
+    env: env,
+  };
 
-const normalizePort = (val) => {
-  var port = parseInt(val, 10);
+  var options = {
+    //certificate: fs.readFileSync('path/to/server/certificate'),
+    //key: fs.readFileSync('path/to/server/key'),
+    name: config.pkg.name,
+    //spdy: {},
+    version: config.pkg.version,
+  };
 
-  if (isNaN(port)) {
-    return val;
+  if (logger) {
+    options.log = logger;
   }
 
-  return port >= 0 ? port : false;
-};
+  var server = restify.createServer(options);
 
-const onError = (port) => (req, res, error) => {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+  server.config = config;
 
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  server.use((req, res, next) =>
+    server.db || !config.env.VIPER_API_DATABASE ? next() : MongoClient.connect(config.env.VIPER_API_DATABASE, (err, db) => {
+      if (err) {
+        return next(err);
+      }
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-    break;
+      server.db = db;
 
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-    break;
+      next();
+    }));
 
-    default:
-      throw error;
-  }
-};
-
-const onListening = (server) => () => {
-  var addr = server.address();
-
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-
-  debug('Server listening on ' + bind);
-  console.log('Server listening on ' + bind);
-};
-
-const server = restify.createServer({
-  //certificate: fs.readFileSync('path/to/server/certificate'),
-  //key: fs.readFileSync('path/to/server/key'),
-  name: pkg.name,
-  //spdy: {},
-  version: pkg.version,
-});
-
-server.use(restify.acceptParser(server.acceptable));
-//server.use(restify.authorizationParser());
-server.use(restify.dateParser());
-server.use(restify.queryParser());
-server.use(restify.gzipResponse());
-server.use(restify.bodyParser());
-//server.use(restify.requestExpiry());
-/*
-server.use(restify.throttle({
-  burst: 100,
-  rate: 50,
-  ip: true,
-  overrides: {
-    '192.168.1.1': {
-      rate: 0,        // unlimited
-      burst: 0
+  server.use(restify.acceptParser(server.acceptable));
+  //server.use(restify.authorizationParser());
+  server.use(restify.dateParser());
+  server.use(restify.queryParser());
+  server.use(restify.gzipResponse());
+  server.use(restify.bodyParser());
+  //server.use(restify.requestExpiry());
+  /*
+  server.use(restify.throttle({
+    burst: 100,
+    rate: 50,
+    ip: true,
+    overrides: {
+      '192.168.1.1': {
+        rate: 0,        // unlimited
+        burst: 0
+      }
     }
-  }
-}));
-*/
-server.use(restify.conditionalRequest());
+  }));
+  */
+  server.use(restify.conditionalRequest());
 
-// fix for known curl issue
-server.pre(restify.pre.userAgentConnection());
+  // fix for known curl issue
+  server.pre(restify.pre.userAgentConnection());
 
-server.use(restifyValidation.validationPlugin({
-  // Shows errors as an array
-  errorsAsArray: false,
-  // Not exclude incoming variables not specified in validator rules
-  forbidUndefinedVariables: false,
-  errorHandler: restify.errors.InvalidArgumentError
-}));
+  server.use(restifyValidation.validationPlugin({
+    // Shows errors as an array
+    errorsAsArray: false,
+    // Not exclude incoming variables not specified in validator rules
+    forbidUndefinedVariables: false,
+    errorHandler: restify.errors.InvalidArgumentError,
+  }));
 
-restifySwagger.swaggerPathPrefix = '/api-docs/';
-restifySwagger.configure(server, {
-  allowMethodInModelNames: true,
-});
+  require('./routes/heartbeat')(server);
+  //require('./routes/calculate')(server);
+  //require('./routes/drug')(server);
+  require('./routes/offenceType')(server);
+  require('./routes/violentOffenceCategory')(server);
+  //require('./routes/result')(server);
 
-server.get('/', redirectIfHtmlRequest('/rsr/'));
-require('./routes/calculate')(server);
-server.get('/result/:id', require('./routes/result'));
-server.get('/drug', require('./routes/drug'));
-server.get('/offenceType', require('./routes/offenceType'));
-server.get('/violentOffenceCategory', require('./routes/violentOffenceCategory'));
+  server.get(/^\/rsr\/?.*/, restify.serveStatic({
+    directory: './public',
+    default: 'index.html',
+  }));
 
-server.post('/ping', require('./routes/ping'));
-server.post('/healthcheck', require('./routes/healthcheck'));
+  server.get(/^\/dist\/?.*/, restify.serveStatic({
+    directory: './node_modules/swagger-ui',
+    default: 'index.html',
+  }));
 
-server.get(/^\/rsr\/?.*/, restify.serveStatic({
-  directory: './public',
-  default: 'index.html',
-}));
+  restifySwagger.swaggerPathPrefix = '/swagger/';
+  restifySwagger.configure(server, {
+    allowMethodInModelNames: true,
+    basePath: '/',
+  });
 
-server.get(/^\/dist\/?.*/, restify.serveStatic({
-  directory: './node_modules/swagger-ui',
-  default: 'index.html',
-}));
+  restifySwagger.loadRestifyRoutes();
 
-// environment variables
-var port = normalizePort(process.env.PORT || '3030');
-server.on('InternalServer',    onError(port));
-server.on('listening',   onListening(server));
-
-restifySwagger.loadRestifyRoutes();
-server.listen(port);
+  return server;
+};
