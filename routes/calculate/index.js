@@ -16,21 +16,21 @@ const withValidRequest = (x) => {
 };
 
 const withValidResponse = (x) => ({
+  calculatorVersion: x.calculatorVersion,
   OGRS3: x.OGRS3,
   OGRS4s: x.OGRS4s,
   OGRS4v: x.OGRS4v,
+  OGRS4sRiskBand: x.OGRS4sRiskBand,
   probabilityOfNonSexualViolence: x.probabilityOfNonSexualViolence,
   indecentImageProbability: x.indecentImageProbability,
   contactSexualProbability: x.contactSexualProbability,
   riskOfSeriousRecidivism: x.riskOfSeriousRecidivism,
-  OGRS4sRiskBand: x.OGRS4sRiskBand,
   RSRPercentileRisk: x.RSRPercentileRisk,
   RSRRiskBand: x.RSRRiskBand,
-  calculatorVersion: x.calculatorVersion,
 });
 
 const calculateRisk = (x) =>
-  withValidResponse(RSRCalc.calculateRisk(withValidRequest(x)));
+  RSRCalc.calculateRisk(withValidRequest(x));
 
 module.exports = (server) =>
   server.post({
@@ -41,5 +41,5 @@ module.exports = (server) =>
       docpath: 'calculate',
     },
   },
-  (req, res) => res.send(calculateRisk(req.body))
+  (req, res) => res.send(withValidResponse(calculateRisk(req.body)))
 );

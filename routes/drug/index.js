@@ -1,11 +1,11 @@
 const drugRegister = {
-	"Drugs bever misused": 0,
+	"Drugs never misused": 0,
 	"Heroin": 1,
 	"Methadone (not prescribed)": 2,
 	"Other opiates": 3,
 	"Crack/ Cocaine": 4,
 	"Cocaine Hydrochloride": 5,
-	"Misuse perscribed drugs": 6,
+	"Misuse prescribed drugs": 6,
 	"Benzodiazepines": 7,
 	"Amphetamines": 8,
 	"Hallucinogens": 9,
