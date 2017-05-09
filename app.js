@@ -73,6 +73,7 @@ module.exports = (env, logger) => {
 
   require('./routes/heartbeat')(server);
   require('./routes/calculate')(server);
+  require('./routes/calculate/ogrs3')(server);
   require('./routes/drug')(server);
   require('./routes/offenceType')(server);
   require('./routes/violentOffenceCategory')(server);

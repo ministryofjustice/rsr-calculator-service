@@ -21,9 +21,9 @@ const withValidResponse = (x) => ({
   OGRS4s: x.OGRS4s,
   OGRS4v: x.OGRS4v,
   OGRS4sRiskBand: x.OGRS4sRiskBand,
-  probabilityOfNonSexualViolence: x.probabilityOfNonSexualViolence,
-  indecentImageProbability: x.indecentImageProbability,
-  contactSexualProbability: x.contactSexualProbability,
+  probabilityOfNonSexualViolence: x.probabilityOfNonSexualViolence, //osp
+  indecentImageProbability: x.indecentImageProbability, //
+  contactSexualProbability: x.contactSexualProbability, //
   riskOfSeriousRecidivism: x.riskOfSeriousRecidivism,
   RSRPercentileRisk: x.RSRPercentileRisk,
   RSRRiskBand: x.RSRRiskBand,
