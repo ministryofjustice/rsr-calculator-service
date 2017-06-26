@@ -4,10 +4,10 @@ const asJson = (res, x) =>
   res.json(x);
 
 const withParam = (req, key) =>
-  (req.swagger.params[key] && req.swagger.params[key].value);
+  (req.swagger.params.body && req.swagger.params.body.value && req.swagger.params.body.value[key]);
 
 const withValidRequest = (x) => {
-  x.gender = parseInt(x.gender || 0, 10);
+  x.gender = x.gender || 'M';
   x.previousSanctions = parseInt(x.previousSanctions || 0, 10);
   x.currentOffenceType = parseInt(x.currentOffenceType || 0, 10);
 

@@ -4,7 +4,6 @@
     title: "Risk Calculators API"
     version: "0.0.1"
     description: "A Restful service to calculate risk on a known set of parameters."
-  host: "rsr-dev.hmpps.dsd.io"
   basePath: "/"
   schemes:
     - "http"
