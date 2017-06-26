@@ -2,85 +2,259 @@
   swagger: "2.0"
   info:
     title: "Risk Calculators API"
-    version: ""
-    description: "Provides the ability to calculate risk on a known set of parameters\n\nFORMAT: 1A\nHOST: /"
-  host: "aap-dev.hmpps.dsd.io"
-  basePath: "/calculate"
+    version: "0.0.1"
+    description: "A Restful service to calculate risk on a known set of parameters."
+  host: "rsr-dev.hmpps.dsd.io"
+  basePath: "/"
   schemes:
     - "http"
+    - "https"
   paths:
-    /ogrs3:
-      post:
-        x-swagger-router-controller: ogrs3
-        operationId: calculate
+    /api-docs:
+      x-swagger-pipe: swagger_raw
+    /health:
+      get:
+        x-swagger-router-controller: health
+        operationId: health
+        summary: "Health Check"
+        description: "Performs a basic application health check"
         responses:
           200:
             description: "Success"
-            headers: {}
             examples:
               application/json:
-                OGRS3:
-                  - "0.8117432421743183"
-                  - "0.8984865665141756"
-                OGRS3PercentileRisk:
-                  - "81.17"
-                  - "89.84"
+                healthy: true
+                checks:
+                  calcultorVersion: "3.2.1"
+                uptime: 3688.422,
+                build.buildNumber: "901"
+                build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
+                version: "1.2.3"
             schema:
-              type: "object"
-              properties:
-                calculatorVersion:
-                  type: "string"
-                OGRS3:
-                  type: "array"
-                  items: {
-                    type: "number"
-                  }
-                OGRS3PercentileRisk:
-                  type: "array"
-                  items: {
-                    type: "number"
-                  }
-        summary: "Calculate OGRS3"
-        description: "Calculates the OGRS3 Score"
+              "$ref": "#/definitions/healthCheckResult"
+        tags:
+          - "Health check"
+        produces:
+          - "application/json"
+    /calculate/ogrs3:
+      post:
+        x-swagger-router-controller: ogrs3
+        operationId: calculate
+        summary: "Calculate Offender Group Reconviction Scale v3"
+        description: "calculate OGRS3 Rating on a known set of parameters"
+        responses:
+          200:
+            description: "Success"
+            schema:
+              "$ref": "#/definitions/OGRS3RatingResult"
+          500:
+            description: "Invalid NOMS Id"
+            schema:
+              "$ref": "#/definitions/invalidArgumentError"
         tags:
           - "OGRS3"
         parameters:
-          -
-            name: "body"
+          - name: "body"
             in: "body"
+            required: false
+            description: Details of a subject to calculate OGRS3 Rating on
             schema:
-              type: "object"
-              properties:
-                gender:
-                  type: "string"
-                  description: "Subjects gender"
-                birthDate:
-                  type: "string"
-                  description: "Subjects data of birth"
-                convictionDate:
-                  type: "string"
-                  description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
-                firstSanctionDate:
-                  type: "string"
-                  description: "date the subject was first sanctioned"
-                previousSanctions:
-                  type: "number"
-                  description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
-                assessmentDate:
-                  type: "string"
-                  description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
-                currentOffenceType:
-                  type: "number"
-                  description: "the identifier of the current offense type taken from the OGRS3 current offense categories"
-              required:
-                - "gender"
-                - "birthDate"
-                - "convictionDate"
-                - "firstSanctionDate"
-                - "previousSanctions"
-                - "assessmentDate"
-                - "currentOffenceType"
+              "$ref": "#/definitions/OGRS3CalculatorRequest"
+        produces:
+          - "application/json"
+    /calculate/ogrs3/customised:
+      post:
+        x-swagger-router-controller: ogrs3
+        operationId: calculate
+        summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
+        description: "calculate OGRS3 Rating on a known set of parameters"
+        responses:
+          200:
+            description: "Success"
+            schema:
+              "$ref": "#/definitions/OGRS3RatingResult"
+          500:
+            description: "Invalid NOMS Id"
+            schema:
+              "$ref": "#/definitions/invalidArgumentError"
+        tags:
+          - "OGRS3"
+        parameters:
+          - name: "body"
+            in: "body"
+            required: false
+            description: Details of a subject to calculate OGRS3 Rating on
+            schema:
+              "$ref": "#/definitions/CustomisedOGRS3CalculatorRequest"
         produces:
           - "application/json"
   definitions:
-    Calculate OGRS3: {}
+    OGRS3CalculatorRequest:
+      type: "object"
+      properties:
+        gender:
+          type: "string"
+          enum: [ "M", "F" ]
+          description: "Subjects gender"
+          example: "M"
+        birthDate:
+          type: "string"
+          description: "Subjects data of birth"
+          format: "DateTime"
+          example: "1989-04-22T00:00:00.000Z"
+        convictionDate:
+          type: "string"
+          description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
+          format: "DateTime"
+          example: "2013-02-20T00:00:00.000Z"
+        firstSanctionDate:
+          type: "string"
+          description: "date the subject was first sanctioned"
+          format: "DateTime"
+          example: "2001-09-10T00:00:00.000Z"
+        previousSanctions:
+          type: "number"
+          description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
+          example: 25
+        assessmentDate:
+          type: "string"
+          description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
+          format: "DateTime"
+          example: "2013-03-31T00:00:00.000Z"
+        currentOffenceType:
+          type: "number"
+          description: "the identifier of the current offense type taken from the OGRS3 current offense categories"
+          example: 12
+      required:
+        - "gender"
+        - "birthDate"
+        - "convictionDate"
+        - "firstSanctionDate"
+        - "previousSanctions"
+        - "assessmentDate"
+        - "currentOffenceType"
+    CustomisedOGRS3CalculatorRequest:
+      type: "object"
+      properties:
+        gender:
+          type: "string"
+          enum: [ "M", "F" ]
+          description: "Subjects gender"
+          example: "M"
+        birthDate:
+          type: "string"
+          description: "Subjects data of birth"
+          format: "DateTime"
+          example: "1989-04-22T00:00:00.000Z"
+        convictionDate:
+          type: "string"
+          description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
+          format: "DateTime"
+          example: "2013-02-20T00:00:00.000Z"
+        firstSanctionDate:
+          type: "string"
+          description: "date the subject was first sanctioned"
+          format: "DateTime"
+          example: "2001-09-10T00:00:00.000Z"
+        previousSanctions:
+          type: "number"
+          description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
+          example: 25
+        assessmentDate:
+          type: "string"
+          description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
+          format: "DateTime"
+          example: "2013-03-31T00:00:00.000Z"
+        currentOffenceFactor:
+          type: "number"
+          description: "the factor of the offense type to be used as the OGRS3 current offense categories"
+          example: 0.6574
+      required:
+        - "gender"
+        - "birthDate"
+        - "convictionDate"
+        - "firstSanctionDate"
+        - "previousSanctions"
+        - "assessmentDate"
+        - "currentOffenceFactor"
+    OGRS3RatingResult:
+      type: "object"
+      properties:
+        calculatorVersion:
+          type: "string"
+          description: "The version of the calculator algorithm used to calculate the rating"
+          example: "1.2.3"
+        OGRS3:
+          type: "array"
+          description: "the calculated first and second year OGRS3 risk"
+          items:
+            "$ref": "#/definitions/OGRS3Rating"
+        OGRS3PercentileRisk:
+          type: "array"
+          description: "the calculated first and second year OGRS3 percentile risk"
+          items:
+            "$ref": "#/definitions/OGRS3PercentileRisk"
+      required:
+        - "calculatorVersion"
+        - "OGRS3"
+        - "OGRS3PercentileRisk"
+    OGRS3Rating:
+      type: "number"
+      description: "An Offender Group Reconviction Scale Rating"
+      example: 0.0056783258
+      maximum: 0.001
+      minimum: 0
+      format: "double"
+    OGRS3PercentileRisk:
+      type: "number"
+      description: "A percentile Offender Group Reconviction Scale Rating"
+      example: 0.56
+      maximum: 1
+      minimum: 0
+      format: "double"
+    healthCheckResult:
+      type: "object"
+      properties:
+        healthy:
+          type: "boolean"
+          description: "Are we healthy?"
+          example: true
+        checks:
+          type: "object"
+          properties:
+            calculatorVersion:
+              type: "string"
+              description: "Artifact version of the calculator algorithm"
+              example: "1.2.3"
+        uptime:
+          type: "number"
+          description: "Server uptime in seconds"
+          example: 3688.422
+        build:
+          type: "object"
+          properties:
+            buildNumber:
+              type: "string"
+              description: "CI build number"
+              example: "901"
+            gitRef:
+              type: "string"
+              description: "Git reference"
+              example: "83e46a38509309220da19afa630b5354c56da39b"
+            version:
+              type: "string"
+              description: "Artifact version"
+              example: "0.8.0"
+    invalidArgumentError:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          description: "A status code description"
+          example: "Invalid Argument"
+        message:
+          type: "string"
+          description: "A message detailing the error"
+          example: "Request validation failed: Parameter (birthDate) must be a valid timestamp"
+      required:
+        - "message"

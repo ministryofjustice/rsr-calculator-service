@@ -38,15 +38,10 @@ const setupMiddleware = (server) => {
   return server;
 };
 
-module.exports = (config, log, db, callback) => {
+module.exports = (config, log, callback) => {
   var server = createServer(config, log);
   server = setupMiddleware(server);
   server = setupAuth(server, config.auth, log);
-
-  server.use((req, resp, next) => {
-    req.db = db;
-    next();
-  });
 
   server.on('after', restify.auditLogger({log}));
   server.on('uncaughtException', function (req, res, route, err) {

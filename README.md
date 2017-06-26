@@ -1,5 +1,5 @@
 #Risk Calculator Service
-A Restful service to provide access to Risk Calculators.
+A Restful service to calculate risk on a known set of parameters.
 
 ## Swagger documentation
 The details of the API  can found in [the online documentation](https://noms-digital-studio.github.io/rsr-calculator-service/).

@@ -1,33 +1,27 @@
+const restify = require('restify');
+
 const unauthorized = (res) => {
   res.set('WWW-Authenticate', 'Basic realm=Password Required');
-  return new restify.UnauthorizedError('Password Required');
+  res.send(new restify.UnauthorizedError('Password Required'));
 };
 
 const getAuthDetails = (req) => {
-  var basic = (req.authorization && req.authorization.basic);
-
-  if (!basic) {
-    return;
-  }
-
-  return {
-    username: basic.username,
-    password: basic.password,
-  };
+  return (req.authorization && req.authorization.basic);
 };
 
 const isAuthorised = (config, auth) =>
-  (!auth || auth.username !== config.authUser || auth.password !== config.authPass);
+  (auth && auth.username === config.user && auth.password === config.pass);
 
-module.exports = (server) => {
-  var config = server.config;
-
-  if (config.authUser && config.authPass) {
-    config.log.info({user: config.authUser}, 'Enabling basic auth');
+module.exports = (server, config, log) => {
+  if (config.user && config.pass) {
+    log.info({user: config.user}, 'Enabling basic auth');
 
     server.use((req, res, next) => {
-      return next(isAuthorised(config, getAuthDetails(req)) ? undefined : unauthorized(res));
-    });
+      if (!isAuthorised(config, getAuthDetails(req))) {
+        return unauthorized(res);
+      }
+      return next();
+  });
   }
 
   return server;

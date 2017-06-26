@@ -1,6 +1,6 @@
 {
   "name": "rsr-calculator-service",
-  "description": "A Restful service to provide access to  Risk Calculators.",
+  "description": "A Restful service to calculate risk on a known set of parameters.",
   "version": "0.0.1",
   "private": true,
   "author": "Matt Smith <mattonfoot@gmail.com> (http://about.me/mattonfoot)",
@@ -27,6 +27,7 @@
   "dependencies": {
     "bunyan": "1.8.10",
     "restify": "4.3.0",
+    "rsr-calculator": "git+https://github.com/NOMS-DIGITAL-STUDIO/rsr-calculator.git",
     "swagger-restify-mw": "0.1.0"
   },
   "devDependencies": {
