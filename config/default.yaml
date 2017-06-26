@@ -19,12 +19,12 @@ swagger:
 
     _swagger_validate:
       name: swagger_validator
-      validateRequest: false
+      validateRequest: true
       validateResponse: false
 
     # pipe for all swagger-node controllers
     swagger_controllers:
-      # - onError: json_error_handler
+      - onError: json_error_handler
       - cors
       - swagger_security
       - _swagger_validate

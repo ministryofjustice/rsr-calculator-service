@@ -21,8 +21,8 @@ const withValidRequest = (x) => {
 
 const withValidResponse = (x) => ({
   calculatorVersion: x.calculatorVersion,
-  OGRS3: [ x.OGRS3 || 0 ],
-  OGRS3PercentileRisk: [ x.OGRS3PercentileRisk || 0 ],
+  OGRS3: x.OGRS3 || [ 0, 0 ],
+  OGRS3PercentileRisk: x.OGRS3PercentileRisk || [ 0, 0 ],
 });
 
 const calculateOGRS3 = (x) =>
