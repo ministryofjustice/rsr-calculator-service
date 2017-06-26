@@ -9,6 +9,7 @@ general:
 
 test:
   override:
+    - npm update
     - npm run test-report:
         environment:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
