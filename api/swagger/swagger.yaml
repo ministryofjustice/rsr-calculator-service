@@ -1,0 +1,86 @@
+---
+  swagger: "2.0"
+  info:
+    title: "Risk Calculators API"
+    version: ""
+    description: "Provides the ability to calculate risk on a known set of parameters\n\nFORMAT: 1A\nHOST: /"
+  host: "aap-dev.hmpps.dsd.io"
+  basePath: "/calculate"
+  schemes:
+    - "http"
+  paths:
+    /ogrs3:
+      post:
+        x-swagger-router-controller: ogrs3
+        operationId: calculate
+        responses:
+          200:
+            description: "Success"
+            headers: {}
+            examples:
+              application/json:
+                OGRS3:
+                  - "0.8117432421743183"
+                  - "0.8984865665141756"
+                OGRS3PercentileRisk:
+                  - "81.17"
+                  - "89.84"
+            schema:
+              type: "object"
+              properties:
+                calculatorVersion:
+                  type: "string"
+                OGRS3:
+                  type: "array"
+                  items: {
+                    type: "number"
+                  }
+                OGRS3PercentileRisk:
+                  type: "array"
+                  items: {
+                    type: "number"
+                  }
+        summary: "Calculate OGRS3"
+        description: "Calculates the OGRS3 Score"
+        tags:
+          - "OGRS3"
+        parameters:
+          -
+            name: "body"
+            in: "body"
+            schema:
+              type: "object"
+              properties:
+                gender:
+                  type: "string"
+                  description: "Subjects gender"
+                birthDate:
+                  type: "string"
+                  description: "Subjects data of birth"
+                convictionDate:
+                  type: "string"
+                  description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
+                firstSanctionDate:
+                  type: "string"
+                  description: "date the subject was first sanctioned"
+                previousSanctions:
+                  type: "number"
+                  description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
+                assessmentDate:
+                  type: "string"
+                  description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
+                currentOffenceType:
+                  type: "number"
+                  description: "the identifier of the current offense type taken from the OGRS3 current offense categories"
+              required:
+                - "gender"
+                - "birthDate"
+                - "convictionDate"
+                - "firstSanctionDate"
+                - "previousSanctions"
+                - "assessmentDate"
+                - "currentOffenceType"
+        produces:
+          - "application/json"
+  definitions:
+    Calculate OGRS3: {}

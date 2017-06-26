@@ -1,5 +1,39 @@
+machine:
+  node:
+    version: 6.10.0
+
+general:
+  branches:
+    ignore:
+        - deploy-to-dev
+
 test:
   override:
-    - npm run-script ci-test:
+    - npm run test-report:
         environment:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
+    - npm run-script docs-test
+
+deployment:
+  mock:
+    branch: master
+    commands:
+      # Create version info
+      - npm run record-build-info:
+          environment:
+              BUILD_NUMBER: $CIRCLE_BUILD_NUM
+              GIT_REF: $CIRCLE_SHA1
+      - git add --force --verbose build-info.json
+      - git config user.name "Circle CI"
+      - git config user.email "circle@circleci.com"
+      - |
+          CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+          git commit -m "Deployment of build $CIRCLE_BUILD_NUM" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+      # Push the Dev Branch to deploy-to-dev
+      - git push --force origin HEAD:deploy-to-dev
+# TODO:
+#            - npm run wait-for-deploy:
+#                environment:
+#                    GIT_REF: $CIRCLE_SHA1
+#                    APP_BASE_URL: https://hpa-stage.noms.dsd.io/health
+#                    WAIT_DURATION: 45000

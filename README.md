@@ -1,5 +1,10 @@
-#Risk os Serious Recidivism Service
-A Restful service to provide access to the Risk of Serious Recidivism calculator
+#Risk Calculator Service
+A Restful service to provide access to Risk Calculators.
+
+## Swagger documentation
+The details of the API  can found in [the online documentation](https://noms-digital-studio.github.io/rsr-calculator-service/).
+
+The swagger specification can be found on the path ```/api-docs```.
 
 ## Running with NodeJS
 Start by ensuring you have the most recent version of NodeJS and NPM installed.
@@ -37,6 +42,3 @@ If you wish to have the output in raw JSON, then you can run the server without 
 ```bash
 $ node server.js
 ```
-
-## Swagger documentation
-The swagger documentation can be found on the path ```/dist/?url=/swagger/resources.json```
