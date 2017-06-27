@@ -1,7 +1,7 @@
 {
   "name": "rsr-calculator-service",
   "description": "A Restful service to calculate risk on a known set of parameters.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "author": "Matt Smith <mattonfoot@gmail.com> (http://about.me/mattonfoot)",
   "license": "MIT",

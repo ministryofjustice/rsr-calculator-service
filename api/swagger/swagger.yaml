@@ -41,17 +41,8 @@
         operationId: calculate
         summary: "Calculate Offender Group Reconviction Scale v3"
         description: "calculate OGRS3 Rating on a known set of parameters"
-        responses:
-          200:
-            description: "Success"
-            schema:
-              "$ref": "#/definitions/OGRS3RatingResult"
-          500:
-            description: "Invalid NOMS Id"
-            schema:
-              "$ref": "#/definitions/invalidArgumentError"
-        tags:
-          - "OGRS3"
+        consumes:
+          - "application/json"
         parameters:
           - name: "body"
             in: "body"
@@ -59,25 +50,43 @@
             description: Details of a subject to calculate OGRS3 Rating on
             schema:
               "$ref": "#/definitions/OGRS3CalculatorRequest"
+              example:
+                gender: "M"
+                birthDate: "1989-04-22T00:00:00.000Z"
+                convictionDate: "2013-02-20T00:00:00.000Z"
+                firstSanctionDate: "2001-09-10T00:00:00.000Z"
+                previousSanctions: 25
+                assessmentDate: "2013-03-31T00:00:00.000Z"
+                currentOffenceType: 12
         produces:
           - "application/json"
+        responses:
+          200:
+            description: "Success"
+            schema:
+              "$ref": "#/definitions/OGRS3RatingResult"
+              example:
+                calculatorVersion: 1.0.4
+                OGRS3:
+                  - 0.04965020281387635
+                  - 0.09685357825807767
+                OGRS3PercentileRisk:
+                  - 4.97
+                  - 9.69
+          500:
+            description: "Invalid request body"
+            schema:
+              "$ref": "#/definitions/invalidArgumentError"
+        tags:
+          - "OGRS3"
     /calculate/ogrs3/customised:
       post:
         x-swagger-router-controller: ogrs3
         operationId: calculate
         summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
         description: "calculate OGRS3 Rating on a known set of parameters"
-        responses:
-          200:
-            description: "Success"
-            schema:
-              "$ref": "#/definitions/OGRS3RatingResult"
-          500:
-            description: "Invalid NOMS Id"
-            schema:
-              "$ref": "#/definitions/invalidArgumentError"
-        tags:
-          - "OGRS3"
+        consumes:
+          - "application/json"
         parameters:
           - name: "body"
             in: "body"
@@ -85,8 +94,35 @@
             description: Details of a subject to calculate OGRS3 Rating on
             schema:
               "$ref": "#/definitions/CustomisedOGRS3CalculatorRequest"
+              example:
+                gender: "M"
+                birthDate: "1989-04-22T00:00:00.000Z"
+                convictionDate: "2013-02-20T00:00:00.000Z"
+                firstSanctionDate: "2001-09-10T00:00:00.000Z"
+                previousSanctions: 25
+                assessmentDate: "2013-03-31T00:00:00.000Z"
+                currentOffenceFactor: 0.6574
         produces:
           - "application/json"
+        responses:
+          200:
+            description: "Success"
+            schema:
+              "$ref": "#/definitions/OGRS3RatingResult"
+              example:
+                calculatorVersion: 1.0.4
+                OGRS3:
+                  - 0.034493328605813334
+                  - 0.06832274172283728
+                OGRS3PercentileRisk:
+                  - 3.45
+                  - 6.83
+          500:
+            description: "Invalid NOMS Id"
+            schema:
+              "$ref": "#/definitions/invalidArgumentError"
+        tags:
+          - "OGRS3"
   definitions:
     OGRS3CalculatorRequest:
       type: "object"
@@ -201,14 +237,14 @@
       type: "number"
       description: "An Offender Group Reconviction Scale Rating"
       example: 0.0056783258
-      maximum: 0.001
+      maximum: 0.1
       minimum: 0
       format: "double"
     OGRS3PercentileRisk:
       type: "number"
       description: "A percentile Offender Group Reconviction Scale Rating"
       example: 0.56
-      maximum: 1
+      maximum: 100
       minimum: 0
       format: "double"
     healthCheckResult:
