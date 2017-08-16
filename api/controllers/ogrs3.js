@@ -10,6 +10,7 @@ const withValidRequest = (x) => {
   x.gender = x.gender || 'M';
   x.previousSanctions = parseInt(x.previousSanctions || 0, 10);
   x.currentOffenceType = parseInt(x.currentOffenceType || 0, 10);
+  x.currentOffenceFactor = x.currentOffenceFactor && parseInt(x.currentOffenceFactor, 10);
 
   x.assessmentDate = new Date(x.assessmentDate);
   x.firstSanctionDate = new Date(x.firstSanctionDate);
@@ -36,7 +37,8 @@ module.exports.calculate = (req, res, next) => {
     firstSanctionDate: withParam(req, 'firstSanctionDate'),
     previousSanctions: withParam(req, 'previousSanctions'),
     assessmentDate: withParam(req, 'assessmentDate'),
-    currentOffenceType: withParam(req, 'currentOffenceType')
+    currentOffenceType: withParam(req, 'currentOffenceType'),
+    currentOffenceFactor: withParam(req, 'currentOffenceFactor'),
   };
 
   asJson(res, withValidResponse(calculateOGRS3(x)));
