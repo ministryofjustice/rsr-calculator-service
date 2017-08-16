@@ -27,7 +27,7 @@
   "dependencies": {
     "bunyan": "1.8.10",
     "restify": "4.3.0",
-    "rsr-calculator": "noms-digital-studio/rsr-calculator#semver:^1.0.1",
+    "rsr-calculator": "git+ssh://git@github.com:noms-digital-studio/rsr-calculator#semver:^1.0.1",
     "swagger-restify-mw": "0.1.0"
   },
   "devDependencies": {
