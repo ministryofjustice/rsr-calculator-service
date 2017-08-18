@@ -183,7 +183,7 @@
           example: "1989-04-22T00:00:00.000Z"
         convictionDate:
           type: "string"
-          description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
+          description: "for sentenced offenders, this is the date of sentencing.  For PSRs, it is the current date"
           format: "DateTime"
           example: "2013-02-20T00:00:00.000Z"
         firstSanctionDate:
