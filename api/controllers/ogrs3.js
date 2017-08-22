@@ -9,6 +9,7 @@ const withParam = (req, key) =>
 const withValidRequest = (x) => {
   x.gender = x.gender || 'M';
   x.previousSanctions = parseInt(x.previousSanctions || 0, 10);
+  x.allSanctions = x.previousSanctions + 1;
   x.currentOffenceType = parseInt(x.currentOffenceType || 0, 10);
   x.currentOffenceFactor = x.currentOffenceFactor && parseInt(x.currentOffenceFactor, 10);
 
