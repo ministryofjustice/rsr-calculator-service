@@ -9,9 +9,11 @@ const withParam = (req, key) =>
 const withValidRequest = (x) => {
   x.gender = x.gender || 'M';
   x.previousSanctions = parseInt(x.previousSanctions || 0, 10);
-  x.allSanctions = x.previousSanctions + 1;
-  x.currentOffenceType = parseInt(x.currentOffenceType || 0, 10);
-  x.currentOffenceFactor = x.currentOffenceFactor && parseInt(x.currentOffenceFactor, 10);
+  x.allSanctions = 1 + x.previousSanctions;
+  if (!isNaN(x.currentOffenceType)) {
+    x.currentOffenceType = parseInt(x.currentOffenceType, 10);
+  }
+  x.currentOffenceFactor = 1 * x.currentOffenceFactor;
 
   x.assessmentDate = new Date(x.assessmentDate);
   x.firstSanctionDate = new Date(x.firstSanctionDate);
@@ -23,8 +25,9 @@ const withValidRequest = (x) => {
 
 const withValidResponse = (x) => ({
   calculatorVersion: x.calculatorVersion,
-  OGRS3: x.OGRS3 || [ 0, 0 ],
+  OGRS3: x.OGRS3.result || [ 0, 0 ],
   OGRS3PercentileRisk: x.OGRS3PercentileRisk || [ 0, 0 ],
+  explain: x.OGRS3.explain,
 });
 
 const calculateOGRS3 = (x) =>
