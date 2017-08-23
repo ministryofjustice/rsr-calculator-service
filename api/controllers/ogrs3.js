@@ -27,7 +27,7 @@ const withValidResponse = (x) => ({
   calculatorVersion: x.calculatorVersion,
   OGRS3: x.OGRS3.result || [ 0, 0 ],
   OGRS3PercentileRisk: x.OGRS3PercentileRisk || [ 0, 0 ],
-  explain: x.OGRS3.explain,
+  //explain: x.OGRS3.explain,
 });
 
 const calculateOGRS3 = (x) =>

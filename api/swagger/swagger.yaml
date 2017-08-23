@@ -66,13 +66,13 @@
             schema:
               "$ref": "#/definitions/OGRS3RatingResult"
               example:
-                calculatorVersion: 1.0.4
+                calculatorVersion: 1.0.6
                 OGRS3:
-                  - 0.04965020281387635
-                  - 0.09685357825807767
+                  - 0.8505241405394922
+                  - 0.9211344267816202
                 OGRS3PercentileRisk:
-                  - 4.97
-                  - 9.69
+                  - 85.05
+                  - 92.11
           500:
             description: "Invalid request body"
             schema:
@@ -110,13 +110,13 @@
             schema:
               "$ref": "#/definitions/OGRS3RatingResult"
               example:
-                calculatorVersion: 1.0.4
+                calculatorVersion: 1.0.6
                 OGRS3:
-                  - 0.034493328605813334
-                  - 0.06832274172283728
+                  - 0.8505241405394922
+                  - 0.9211344267816202
                 OGRS3PercentileRisk:
-                  - 3.45
-                  - 6.83
+                  - 85.05
+                  - 92.11
           500:
             description: "Invalid NOMS Id"
             schema:
@@ -237,7 +237,7 @@
       type: "number"
       description: "An Offender Group Reconviction Scale Rating"
       example: 0.0056783258
-      maximum: 0.1
+      maximum: 1
       minimum: 0
       format: "double"
     OGRS3PercentileRisk:
