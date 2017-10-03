@@ -3,8 +3,8 @@ const RSRCalc = require('rsr-calculator');
 const asJson = (res, x) =>
   res.json(x);
 
-const withParam = (req, key) =>
-  (req.swagger.params.body && req.swagger.params.body.value && req.swagger.params.body.value[key]);
+const withBodyParam = (req, key) =>
+  (req.body && req.body && req.body[key]);
 
 const withValidRequest = (x) => {
   x.gender = x.gender || 'M';
@@ -33,19 +33,17 @@ const withValidResponse = (x) => ({
 const calculateOGRS3 = (x) =>
   RSRCalc.calculateOGRS3(withValidRequest(x));
 
-module.exports.calculate = (req, res, next) => {
+module.exports.calculate = (req, res) => {
   var x = {
-    gender: withParam(req, 'gender'),
-    birthDate: withParam(req, 'birthDate'),
-    convictionDate: withParam(req, 'convictionDate'),
-    firstSanctionDate: withParam(req, 'firstSanctionDate'),
-    previousSanctions: withParam(req, 'previousSanctions'),
-    assessmentDate: withParam(req, 'assessmentDate'),
-    currentOffenceType: withParam(req, 'currentOffenceType'),
-    currentOffenceFactor: withParam(req, 'currentOffenceFactor'),
+    gender: withBodyParam(req, 'gender'),
+    birthDate: withBodyParam(req, 'birthDate'),
+    convictionDate: withBodyParam(req, 'convictionDate'),
+    firstSanctionDate: withBodyParam(req, 'firstSanctionDate'),
+    previousSanctions: withBodyParam(req, 'previousSanctions'),
+    assessmentDate: withBodyParam(req, 'assessmentDate'),
+    currentOffenceType: withBodyParam(req, 'currentOffenceType'),
+    currentOffenceFactor: withBodyParam(req, 'currentOffenceFactor'),
   };
 
-  asJson(res, withValidResponse(calculateOGRS3(x)));
-
-  next();
+  return asJson(res, withValidResponse(calculateOGRS3(x)));
 };

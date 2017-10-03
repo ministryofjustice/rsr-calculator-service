@@ -1,21 +1,12 @@
-const RSRCalc = require('rsr-calculator');
+const healthcheck = require('../health/healthcheck');
 
 module.exports.health = (req, res, next) => {
-  res.send({
-    healthy: true,
-    checks: {
-      calculatorVersion: RSRCalc.calculatorVersion,
-    },
-    uptime: process.uptime(),
-    build: safely(() => require('../../build-info.json')),
-    version: safely(() => require('../../package.json').version),
-  });
-};
-
-function safely(fn) {
-  try {
-    return fn();
-  } catch (ex) {
-    // ignore failures
-  }
+  healthcheck()
+    .then((result) => {
+      if (!result.healthy) {
+        res.status(500);
+      }
+      return res.json(result);
+    })
+    .catch(next);
 };

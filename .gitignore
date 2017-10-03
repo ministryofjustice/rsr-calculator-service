@@ -7,19 +7,14 @@ lib-cov
 *.pid
 *.gz
 
-pids
-logs
-results
-coverage
-reports
-browser
-containers/express/dist
-
 node_modules
-bower_components
 npm-debug.log
 
 .DS_Store
-*-temp
+.temp
 
-lib/public
+/.idea
+
+*.iml
+.env
+build/

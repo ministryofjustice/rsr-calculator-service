@@ -1,0 +1,66 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6
+    working_directory: /home/circleci/app
+    branches:
+      ignore:
+        - /deploy-to.*/
+    steps:
+      - run:
+          name: Generate Build version
+          command: |
+            echo "export BUILD_VERSION=$(date +%Y%m%d%H%M)-$CIRCLE_BUILD_NUM" >> $BASH_ENV
+      - checkout
+      - restore_cache:
+          key: node_modules-{{ checksum "package.json" }}
+          key: node_modules
+      - run:
+          name: Install Dependencies
+          command: |
+            npm prune
+            npm install
+      - save_cache:
+          key: node_modules-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Check for security advisories
+          command: npm run snyk
+      - run:
+          name: Run Unit Tests
+          command: npm run test-report
+          environment:
+            MOCHA_FILE: build/junit/test-results.xml
+      - store_test_results:
+          path: build
+      - run:
+          name: Dredd Tests
+          command:
+            npm run docs-test
+      - deploy:
+          name: Build Derived Git Commit
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              GIT_REF=$CIRCLE_SHA1 BUILD_NUMBER=$CIRCLE_BUILD_NUM \
+                npm run record-build-info
+              git add --force --verbose build-info.json
+              git config user.name "Circle CI"
+              git config user.email "circle@circleci.com"
+              git commit \
+                -m "Deployment of build $CIRCLE_BUILD_NUM" \
+                -m "$(git log --format=%B -n 1 $CIRCLE_SHA1)" \
+                -m "From gitref $CIRCLE_SHA1"
+            fi
+      - deploy:
+          name: Deploy to Dev environment
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              # export DB_URI=$DEV_DB_URI
+              # npm run knex -- migrate:currentVersion
+              # npm run migrate
+              # npm run seed
+              git push --force origin HEAD:deploy-to-dev
+            fi

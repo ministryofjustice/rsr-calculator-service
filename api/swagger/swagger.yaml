@@ -5,16 +5,9 @@
     version: "0.0.1"
     description: "A Restful service to calculate risk on a known set of parameters."
   basePath: "/"
-  schemes:
-    - "http"
-    - "https"
   paths:
-    /api-docs:
-      x-swagger-pipe: swagger_raw
     /health:
       get:
-        x-swagger-router-controller: health
-        operationId: health
         summary: "Health Check"
         description: "Performs a basic application health check"
         responses:
@@ -23,12 +16,23 @@
             examples:
               application/json:
                 healthy: true
-                checks:
-                  calcultorVersion: "3.2.1"
+                checks.db: "ok"
                 uptime: 3688.422,
                 build.buildNumber: "901"
                 build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
-                version: "1.2.3"
+                version: "0.8.0"
+            schema:
+              "$ref": "#/definitions/healthCheckResult"
+          500:
+            description: "Unhealthy"
+            examples:
+              application/json:
+                healthy: false
+                checks.db: "Error: its broken"
+                uptime: 3688.422,
+                build.buildNumber: "901"
+                build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
+                version: "0.8.0"
             schema:
               "$ref": "#/definitions/healthCheckResult"
         tags:
@@ -37,12 +41,8 @@
           - "application/json"
     /calculate/ogrs3:
       post:
-        x-swagger-router-controller: ogrs3
-        operationId: calculate
         summary: "Calculate Offender Group Reconviction Scale v3"
         description: "calculate OGRS3 Rating on a known set of parameters"
-        consumes:
-          - "application/json"
         parameters:
           - name: "body"
             in: "body"
@@ -58,8 +58,6 @@
                 previousSanctions: 25
                 assessmentDate: "2013-03-31T00:00:00.000Z"
                 currentOffenceType: 12
-        produces:
-          - "application/json"
         responses:
           200:
             description: "Success"
@@ -79,14 +77,14 @@
               "$ref": "#/definitions/invalidArgumentError"
         tags:
           - "OGRS3"
-    /calculate/ogrs3/customised:
-      post:
-        x-swagger-router-controller: ogrs3
-        operationId: calculate
-        summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
-        description: "calculate OGRS3 Rating on a known set of parameters"
         consumes:
           - "application/json"
+        produces:
+          - "application/json"
+    /calculate/ogrs3/customised:
+      post:
+        summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
+        description: "calculate OGRS3 Rating on a known set of parameters"
         parameters:
           - name: "body"
             in: "body"
@@ -102,8 +100,6 @@
                 previousSanctions: 25
                 assessmentDate: "2013-03-31T00:00:00.000Z"
                 currentOffenceFactor: 0.6574
-        produces:
-          - "application/json"
         responses:
           200:
             description: "Success"
@@ -123,6 +119,10 @@
               "$ref": "#/definitions/invalidArgumentError"
         tags:
           - "OGRS3"
+        consumes:
+          - "application/json"
+        produces:
+          - "application/json"
   definitions:
     OGRS3CalculatorRequest:
       type: "object"
