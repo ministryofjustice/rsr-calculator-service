@@ -1,7 +1,7 @@
 {
   "name": "rsr-calculator-service",
   "description": "A Restful service to calculate risk on a known set of parameters.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "author": "Ministry of Justice",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "lodash": "^4.17.4",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "rsr-calculator": "github:noms-digital-studio/rsr-calculator#1.0.6",
+    "rsr-calculator": "github:noms-digital-studio/rsr-calculator#1.0.8",
     "sleep-promise": "^2.0.0",
     "swagger-ui-express": "^2.0.1"
   },

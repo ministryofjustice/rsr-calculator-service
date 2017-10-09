@@ -1,4 +1,3 @@
-const should = require('chai').should();
 const request = require('supertest');
 
 const app = require('../../server/app');
@@ -31,16 +30,16 @@ describe('api /calculate/ogrs3', () => {
       })
       .expect('Content-Type', /json/)
       .expect(200)
-      .end((res) => {
+      .then((res) => {
         res.body.should.have.property('calculatorVersion');
         res.body.should.have.property('OGRS3');
         res.body.OGRS3.should.eql([ 0.10966125120067906, 0.20180313320047943 ]);
         res.body.should.have.property('OGRS3PercentileRisk');
-        res.body.OGRS3PercentileRisk.should.eql([ 10.97, 20.18 ]);
+        res.body.OGRS3PercentileRisk.should.eql([ 11, 20 ]);
       });
   });
 
-  it('should return a 500 response when gender is not known', () => {
+  it('should return a 400 response when gender is not recognised', () => {
     return request(server)
       .post('/calculate/ogrs3')
       .set('Accept', 'application/json')
@@ -54,15 +53,9 @@ describe('api /calculate/ogrs3', () => {
         currentOffenceType: 12,
       })
       .expect('Content-Type', /json/)
-      .expect(500)
-      .end((err, res) => {
-        should.not.exist(err);
-
-        res.body.should.have.property('code', 'SCHEMA_VALIDATION_FAILED');
-        res.body.should.have.property('message',
-          'Request validation failed: Parameter (body) failed schema validation');
-        res.body.should.have.property('results');
-        res.body.results.should.have.property('errors');
+      .expect(400)
+      .then((res) => {
+        res.body.should.have.property('error', 'validation');
       });
   });
 });

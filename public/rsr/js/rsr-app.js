@@ -122,7 +122,9 @@ moj.Modules.RSRApp = (function() {
 			rsrType: "static"
 	    };
 
-	//moj.Modules.RSRCalc.printSortedOffenderData(offenderData);
+	function cleanRequestParam(x) {
+		return (x === 'N/A' || x === '') ? undefined : x;
+	}
 
 	function cleanRequest(x) {
 		return {
@@ -931,7 +933,7 @@ moj.Modules.RSRApp = (function() {
 				}
 			},
 			valid : function() {
-				if (datesOK) {
+				if (datesOK || ignoreInvalid) {
 					view3Complete();
 				}
 			},

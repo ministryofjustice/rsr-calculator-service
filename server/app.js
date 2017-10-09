@@ -8,7 +8,10 @@ const serveDocs = require('./docs');
 
 const errors = require('./errors');
 
+const registerController = require('../api/controllers/registers');
+const resultController = require('../api/controllers/result');
 const ogrs3Controller = require('../api/controllers/ogrs3');
+const rsrController = require('../api/controllers/rsr');
 const healthController = require('../api/controllers/health');
 
 module.exports = (config, log, callback) => {
@@ -51,8 +54,16 @@ function setupAppRoutes(app, config, log) {
 
   app.use(express.static('public'));
 
+  app.get('/register/drug', registerController.drug);
+  app.get('/register/offenceType', registerController.offenceType);
+  app.get('/register/violentOffenceCategory', registerController.violentOffenceCategory);
+
   app.post('/calculate/ogrs3', ogrs3Controller.calculate);
   app.post('/calculate/ogrs3/customised', ogrs3Controller.calculate);
+
+  app.post('/calculate', rsrController.calculate);
+
+  app.post('/render', resultController.render);
 
   app.use(function notFoundHandler(req, res) {
     errors.notFound(res, 'No handler exists for this url');

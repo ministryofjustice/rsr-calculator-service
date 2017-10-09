@@ -2,7 +2,7 @@
   swagger: "2.0"
   info:
     title: "Risk Calculators API"
-    version: "0.0.1"
+    version: "0.0.3"
     description: "A Restful service to calculate risk on a known set of parameters."
   basePath: "/"
   paths:
@@ -22,7 +22,7 @@
                 build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
                 version: "0.8.0"
             schema:
-              "$ref": "#/definitions/healthCheckResult"
+              "$ref": "#/definitions/HealthCheckResult"
           500:
             description: "Unhealthy"
             examples:
@@ -34,9 +34,72 @@
                 build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
                 version: "0.8.0"
             schema:
-              "$ref": "#/definitions/healthCheckResult"
+              "$ref": "#/definitions/HealthCheckResult"
         tags:
           - "Health check"
+        produces:
+          - "application/json"
+    /register/drug:
+      get:
+        summary: "Drugs"
+        description: "A register of Drugs"
+        responses:
+          200:
+            description: "Success"
+            examples:
+              application/json:
+                -
+                  id: 0
+                  label: "A Bad Drug"
+                -
+                  id: 1
+                  label: "A very Bad Drug"
+            schema:
+              "$ref": "#/definitions/DrugRegister"
+        tags:
+          - "Registers"
+        produces:
+          - "application/json"
+    /register/offenceType:
+      get:
+        summary: "Offence Type"
+        description: "A register of Offence Type"
+        responses:
+          200:
+            description: "Success"
+            examples:
+              application/json:
+                -
+                  id: 0
+                  label: "One offence"
+                -
+                  id: 1
+                  label: "Another Offence"
+            schema:
+              "$ref": "#/definitions/OffenceTypeRegister"
+        tags:
+          - "Registers"
+        produces:
+          - "application/json"
+    /register/violentOffenceCategory:
+      get:
+        summary: "Violent Offence Categories"
+        description: "A register of Violence Offence Categories"
+        responses:
+          200:
+            description: "Success"
+            examples:
+              application/json:
+                -
+                  id: 0
+                  label: "Category One"
+                -
+                  id: 1
+                  label: "Category Two"
+            schema:
+              "$ref": "#/definitions/ViolentOffenceCategoryRegister"
+        tags:
+          - "Registers"
         produces:
           - "application/json"
     /calculate/ogrs3:
@@ -74,13 +137,55 @@
           500:
             description: "Invalid request body"
             schema:
-              "$ref": "#/definitions/invalidArgumentError"
+              "$ref": "#/definitions/InvalidArgumentError"
         tags:
           - "OGRS3"
         consumes:
           - "application/json"
         produces:
           - "application/json"
+    /render:
+      post:
+        summary: "Violent Offence Categories"
+        description: "A register of Violence Offence Categories"
+        parameters:
+          - name: "body"
+            in: "body"
+            required: false
+            description: Details of an rsr calulator result to be rendered into a readable text format
+            schema:
+              "$ref": "#/definitions/RSRCalculatorResult"
+              example:
+                A: "A"
+                B: "B"
+                C: null
+                D: ""
+                E: "undefined"
+                F: 0.23741837
+                G: "null"
+        responses:
+          200:
+            description: "Success"
+            schema:
+              "$ref": "#/definitions/RSRCalculatorResult"
+              example:
+                "******************************
+RSR v0.0.3 OFFICIAL
+******************************
+
+A: A
+B: B
+C: N/A
+D: N/A
+E: N/A
+F: 0.23741837
+G: N/A"
+        tags:
+          - "Text renderer"
+        consumes:
+          - "application/json"
+        produces:
+          - "text/plain"
     /calculate/ogrs3/customised:
       post:
         summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
@@ -116,7 +221,7 @@
           500:
             description: "Invalid NOMS Id"
             schema:
-              "$ref": "#/definitions/invalidArgumentError"
+              "$ref": "#/definitions/InvalidArgumentError"
         tags:
           - "OGRS3"
         consumes:
@@ -124,6 +229,29 @@
         produces:
           - "application/json"
   definitions:
+    DrugRegister:
+      type: "array"
+      items:
+        "$ref": "#/definitions/RegisterEntry"
+    OffenceTypeRegister:
+      type: "array"
+      items:
+        "$ref": "#/definitions/RegisterEntry"
+    ViolentOffenceCategoryRegister:
+      type: "array"
+      items:
+        "$ref": "#/definitions/RegisterEntry"
+    RegisterEntry:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          description: "numerical index of the register entry"
+          example: 4
+        label:
+          type: "string"
+          description: "textual label associated with the register entry"
+          example: "Other indictable violence"
     OGRS3CalculatorRequest:
       type: "object"
       properties:
@@ -233,6 +361,59 @@
         - "calculatorVersion"
         - "OGRS3"
         - "OGRS3PercentileRisk"
+    RSRCalculatorResult:
+      type: "object"
+      properties:
+        calculatorVersion:
+          type: "string"
+          description: "The version of the calculator algorithm used to calculate the rating"
+          example: "1.2.3"
+        OGRS3:
+          type: "array"
+          description: "the calculated first year OGRS3 risk"
+          items:
+            "$ref": "#/definitions/OGRS3Rating"
+        OGRS4s:
+          type: "array"
+          description: "the calculated first year OGRS4s risk"
+          items:
+            "$ref": "#/definitions/OGRS4sRating"
+        OGRS4v:
+          type: "array"
+          description: "the calculated first year OGRS4v risk"
+          items:
+            "$ref": "#/definitions/OGRS4vRating"
+        OGRS4sRiskBand:
+          type: "array"
+          description: "the calculated first year OGRS4s risk band"
+          items:
+            "$ref": "#/definitions/OGRS4sRiskBand"
+        probabilityOfNonSexualViolence:
+          type: "array"
+          items:
+            "$ref": "#/definitions/NonSexualViolenceProbability"
+        indecentImageProbability:
+          type: "array"
+          items:
+            "$ref": "#/definitions/IndecentImageProbability"
+        contactSexualProbability:
+          type: "array"
+          items:
+            "$ref": "#/definitions/ContactSexualProbability"
+        riskOfSeriousRecidivism:
+          type: "array"
+          items:
+            "$ref": "#/definitions/RiskOfSeriousRecidivism"
+        RSRPercentileRisk:
+          type: "array"
+          description: "the calculated first and second year OGRS3 percentile risk"
+          items:
+            "$ref": "#/definitions/RSRPercentileRisk"
+        RSRRiskBand:
+          type: "array"
+          description: "the calculated first year RSR risk band"
+          items:
+            "$ref": "#/definitions/RSRRiskBand"
     OGRS3Rating:
       type: "number"
       description: "An Offender Group Reconviction Scale Rating"
@@ -247,7 +428,66 @@
       maximum: 100
       minimum: 0
       format: "double"
-    healthCheckResult:
+    OGRS4sRating:
+      type: "number"
+      description: "An Offender Group Reconviction Scale Rating"
+      example: 0.0023653258
+      maximum: 1
+      minimum: 0
+      format: "double"
+    OGRS4vRating:
+      type: "number"
+      description: "An Offender Group Reconviction Scale Rating"
+      example: 0.0001238643
+      maximum: 1
+      minimum: 0
+      format: "double"
+    OGRS4sRiskBand:
+      type: "string"
+      description: "An Offender Group Reconviction Scale Risk Band"
+      enum: [ "low", "medium", "high" ]
+      example: "medium"
+    RiskOfSeriousRecidivism:
+      type: "number"
+      description: "A Risk of Serious Recidivism"
+      example: 0.0056783258
+      maximum: 1
+      minimum: 0
+      format: "double"
+    NonSexualViolenceProbability:
+      type: "number"
+      description: "The probability of a Non Sexually Violent Offence"
+      example: 0.0056783258
+      maximum: 1
+      minimum: 0
+      format: "double"
+    IndecentImageProbability:
+      type: "number"
+      description: "The probability of an Indecent Image Offence"
+      example: 0.0056783258
+      maximum: 1
+      minimum: 0
+      format: "double"
+    ContactSexualProbability:
+      type: "number"
+      description: "The probability of a Sexual Contact Offence"
+      example: 0.0056783258
+      maximum: 1
+      minimum: 0
+      format: "double"
+    RSRPercentileRisk:
+      type: "number"
+      description: "A percentile Risk of Serious Recidivism"
+      example: 0.56
+      maximum: 100
+      minimum: 0
+      format: "double"
+    RSRRiskBand:
+      type: "string"
+      description: "A Risk of Serious Recidivism Risk Band"
+      enum: [ "low", "medium", "high" ]
+      example: "low"
+    HealthCheckResult:
       type: "object"
       properties:
         healthy:
@@ -280,7 +520,7 @@
               type: "string"
               description: "Artifact version"
               example: "0.8.0"
-    invalidArgumentError:
+    InvalidArgumentError:
       type: "object"
       properties:
         code:
