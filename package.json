@@ -14,7 +14,6 @@
     "start": "node server.js | bunyan -o short",
     "test": "mocha",
     "test-report": "mocha --reporter mocha-junit-reporter",
-    "verify": "swagger project verify",
     "docs-test": "dredd ./api/swagger/swagger.yaml http://127.0.0.1:3000",
     "docs-render": "spectacle -t ./docs ./api/swagger/swagger.yaml",
     "record-build-info": "node ./bin/record-build-info",

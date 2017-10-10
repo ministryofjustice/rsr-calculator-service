@@ -146,53 +146,6 @@
           - "application/json"
         produces:
           - "application/json; charset=utf-8"
-    /render:
-      post:
-        summary: "Render dataset to Text file"
-        description: "Renders a set of data to a human readable text file that can be saved"
-        parameters:
-          - name: "body"
-            in: "body"
-            required: false
-            description: Details of an dataset to be rendered into a readable text format
-            schema:
-              "$ref": "#/definitions/RSRCalculatorResult"
-              example:
-                firstname: "John"
-                surname: "Doe"
-                A: "A"
-                B: "B"
-                C: null
-                D: ""
-                E: "undefined"
-                F: 0.23741837
-                G: "null"
-        responses:
-          200:
-            description: "Success"
-            schema:
-              type: string
-              example: "
-                ******************************
-                RSR v0.0.4 OFFICIAL
-                ******************************
-
-                A: \"A\"
-                B: \"B\"
-                C: \"N/A\"
-                D: \"N/A\"
-                E: \"N/A\"
-                F: 0.23741837
-                G: \"null\"
-                firstname: \"John\"
-                surname: \"Doe\"
-                "
-        tags:
-          - "Text renderer"
-        consumes:
-          - "application/json"
-        produces:
-          - "application/octet-stream"
     /calculate/ogrs3/customised:
       post:
         summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
@@ -540,3 +493,20 @@
           example: "Request validation failed: Parameter (birthDate) must be a valid timestamp"
       required:
         - "message"
+    FormatedTextOutput:
+      type: string
+      example: "
+        ******************************
+        RSR v0.0.4 OFFICIAL
+        ******************************
+
+        A: \"A\"
+        B: \"B\"
+        C: \"N/A\"
+        D: \"N/A\"
+        E: \"N/A\"
+        F: 0.23741837
+        G: \"null\"
+        firstname: \"John\"
+        surname: \"Doe\"
+        "
