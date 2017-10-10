@@ -17,7 +17,6 @@
     "verify": "swagger project verify",
     "docs-test": "dredd ./api/swagger/swagger.yaml http://127.0.0.1:3000",
     "docs-render": "spectacle -t ./docs ./api/swagger/swagger.yaml",
-    "setup-mssql": "node ./bin/setup-mssql",
     "record-build-info": "node ./bin/record-build-info",
     "wait-for-deploy": "node ./bin/wait-for-deploy",
     "snyk": "snyk test"

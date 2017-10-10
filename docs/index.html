@@ -29,6 +29,20 @@
             </ul>
           </section>
           <section>
+            <a href="#tag-Registers">Registers</a>
+            <ul>
+              <li>
+                <a href="#operation--register-drug-get"> Drugs </a>
+              </li>
+              <li>
+                <a href="#operation--register-offenceType-get"> Offence Type </a>
+              </li>
+              <li>
+                <a href="#operation--register-violentOffenceCategory-get"> Violent Offence Categories </a>
+              </li>
+            </ul>
+          </section>
+          <section>
             <a href="#tag-OGRS3">OGRS3</a>
             <ul>
               <li>
@@ -39,14 +53,36 @@
               </li>
             </ul>
           </section>
+          <section>
+            <a href="#tag-Text-renderer">Text renderer</a>
+            <ul>
+              <li>
+                <a href="#operation--render-post"> Render dataset to Text file </a>
+              </li>
+            </ul>
+          </section>
           <h5>Schema Definitions</h5>
+          <a href="#definition-DrugRegister"> DrugRegister </a>
+          <a href="#definition-OffenceTypeRegister"> OffenceTypeRegister </a>
+          <a href="#definition-ViolentOffenceCategoryRegister"> ViolentOffenceCategoryRegister </a>
+          <a href="#definition-RegisterEntry"> RegisterEntry </a>
           <a href="#definition-OGRS3CalculatorRequest"> OGRS3CalculatorRequest </a>
           <a href="#definition-CustomisedOGRS3CalculatorRequest"> CustomisedOGRS3CalculatorRequest </a>
           <a href="#definition-OGRS3RatingResult"> OGRS3RatingResult </a>
+          <a href="#definition-RSRCalculatorResult"> RSRCalculatorResult </a>
           <a href="#definition-OGRS3Rating"> OGRS3Rating </a>
           <a href="#definition-OGRS3PercentileRisk"> OGRS3PercentileRisk </a>
-          <a href="#definition-healthCheckResult"> healthCheckResult </a>
-          <a href="#definition-invalidArgumentError"> invalidArgumentError </a>
+          <a href="#definition-OGRS4sRating"> OGRS4sRating </a>
+          <a href="#definition-OGRS4vRating"> OGRS4vRating </a>
+          <a href="#definition-OGRS4sRiskBand"> OGRS4sRiskBand </a>
+          <a href="#definition-RiskOfSeriousRecidivism"> RiskOfSeriousRecidivism </a>
+          <a href="#definition-NonSexualViolenceProbability"> NonSexualViolenceProbability </a>
+          <a href="#definition-IndecentImageProbability"> IndecentImageProbability </a>
+          <a href="#definition-ContactSexualProbability"> ContactSexualProbability </a>
+          <a href="#definition-RSRPercentileRisk"> RSRPercentileRisk </a>
+          <a href="#definition-RSRRiskBand"> RSRRiskBand </a>
+          <a href="#definition-HealthCheckResult"> HealthCheckResult </a>
+          <a href="#definition-InvalidArgumentError"> InvalidArgumentError </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -68,11 +104,8 @@
                   <!--
           
                   -->
-                  <h5>Schemes:
-                    <span>http, https</span>
-                  </h5>
                   <h5>Version:
-                    <span>0.0.1</span>
+                    <span>0.0.3</span>
                   </h5>
                 </section>
               </div>
@@ -118,13 +151,27 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/healthCheckResult">healthCheckResult</a>
+                          <a class="json-schema-ref" href="#/definitions/HealthCheckResult">HealthCheckResult</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Success</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/HealthCheckResult">HealthCheckResult</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unhealthy</p>
                     </div>
                   </div>
                 </section>
@@ -146,6 +193,223 @@
     <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.8.0&quot;</span>
   }
 }
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="lang-json">{
+  <span class="hljs-attr">&quot;healthy&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;checks&quot;</span>: {
+    <span class="hljs-attr">&quot;calculatorVersion&quot;</span>: <span class="hljs-string">&quot;1.2.3&quot;</span>
+  },
+  <span class="hljs-attr">&quot;uptime&quot;</span>: <span class="hljs-number">3688.422</span>,
+  <span class="hljs-attr">&quot;build&quot;</span>: {
+    <span class="hljs-attr">&quot;buildNumber&quot;</span>: <span class="hljs-string">&quot;901&quot;</span>,
+    <span class="hljs-attr">&quot;gitRef&quot;</span>: <span class="hljs-string">&quot;83e46a38509309220da19afa630b5354c56da39b&quot;</span>,
+    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.8.0&quot;</span>
+  }
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Registers" class="swagger-summary-tag" data-traverse-target="tag-Registers">Registers</h1>
+          <div id="operation--register-drug-get" class="operation panel" data-traverse-target="operation--register-drug-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Registers">Registers</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Drugs</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/register/drug</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>A register of Drugs</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/DrugRegister">DrugRegister</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Success</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+  }
+]
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--register-offenceType-get" class="operation panel" data-traverse-target="operation--register-offenceType-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Registers">Registers</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Offence Type</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/register/offenceType</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>A register of Offence Type</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OffenceTypeRegister">OffenceTypeRegister</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Success</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+  }
+]
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--register-violentOffenceCategory-get" class="operation panel" data-traverse-target="operation--register-violentOffenceCategory-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Registers">Registers</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Violent Offence Categories</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/register/violentOffenceCategory</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>A register of Violence Offence Categories</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ViolentOffenceCategoryRegister">ViolentOffenceCategoryRegister</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Success</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+  }
+]
 </code></pre> </div>
                 </section>
               </div>
@@ -236,7 +500,7 @@
                       <div class="prop-title">500 Internal Server Error</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/invalidArgumentError">invalidArgumentError</a>
+                          <a class="json-schema-ref" href="#/definitions/InvalidArgumentError">InvalidArgumentError</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -362,7 +626,7 @@
                       <div class="prop-title">500 Internal Server Error</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/invalidArgumentError">invalidArgumentError</a>
+                          <a class="json-schema-ref" href="#/definitions/InvalidArgumentError">InvalidArgumentError</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -404,7 +668,245 @@
               </div>
             </div>
           </div>
+          <h1 id="tag-Text-renderer" class="swagger-summary-tag" data-traverse-target="tag-Text-renderer">Text renderer</h1>
+          <div id="operation--render-post" class="operation panel" data-traverse-target="operation--render-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Text-renderer">Text renderer</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Render dataset to Text file</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/render</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Renders a set of data to a human readable text file that can be saved</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/RSRCalculatorResult">RSRCalculatorResult</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Details of an dataset to be rendered into a readable text format</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <div class="hljs"><pre><code class="lang-json">{
+  <span class="hljs-attr">&quot;A&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
+  <span class="hljs-attr">&quot;B&quot;</span>: <span class="hljs-string">&quot;B&quot;</span>,
+  <span class="hljs-attr">&quot;C&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;D&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+  <span class="hljs-attr">&quot;E&quot;</span>: <span class="hljs-string">&quot;undefined&quot;</span>,
+  <span class="hljs-attr">&quot;F&quot;</span>: <span class="hljs-number">0.23741837</span>,
+  <span class="hljs-attr">&quot;G&quot;</span>: <span class="hljs-string">&quot;null&quot;</span>
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/RSRCalculatorResult">RSRCalculatorResult</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Success</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-string">&quot; ****************************** RSR v0.0.3 OFFICIAL ******************************\nA: A B: B C: N/A D: N/A E: N/A F: 0.23741837 G: N/A&quot;</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
           <h1>Schema Definitions</h1>
+          <div id="definition-DrugRegister" class="definition panel" data-traverse-target="definition-DrugRegister">
+            <h2 class="panel-title">
+              <a name="/definitions/DrugRegister"></a>DrugRegister:
+              <span class="json-property-type">
+                <span class="json-property-type">object[]</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">
+                    <span class="">
+                      <a class="json-schema-ref" href="#/definitions/RegisterEntry">RegisterEntry</a>
+                    </span>
+                  </span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema"> </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+  }
+]
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-OffenceTypeRegister" class="definition panel" data-traverse-target="definition-OffenceTypeRegister">
+            <h2 class="panel-title">
+              <a name="/definitions/OffenceTypeRegister"></a>OffenceTypeRegister:
+              <span class="json-property-type">
+                <span class="json-property-type">object[]</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">
+                    <span class="">
+                      <a class="json-schema-ref" href="#/definitions/RegisterEntry">RegisterEntry</a>
+                    </span>
+                  </span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema"> </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+  }
+]
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ViolentOffenceCategoryRegister" class="definition panel" data-traverse-target="definition-ViolentOffenceCategoryRegister">
+            <h2 class="panel-title">
+              <a name="/definitions/ViolentOffenceCategoryRegister"></a>ViolentOffenceCategoryRegister:
+              <span class="json-property-type">
+                <span class="json-property-type">object[]</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">
+                    <span class="">
+                      <a class="json-schema-ref" href="#/definitions/RegisterEntry">RegisterEntry</a>
+                    </span>
+                  </span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema"> </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+  }
+]
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-RegisterEntry" class="definition panel" data-traverse-target="definition-RegisterEntry">
+            <h2 class="panel-title">
+              <a name="/definitions/RegisterEntry"></a>RegisterEntry:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>numerical index of the register entry</p>
+                    </dd>
+                    <dt data-property-name="label">
+                      <span class="json-property-name">label:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>textual label associated with the register entry</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">4</span>,
+  <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Other indictable violence&quot;</span>
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-OGRS3CalculatorRequest" class="definition panel" data-traverse-target="definition-OGRS3CalculatorRequest">
             <h2 class="panel-title">
               <a name="/definitions/OGRS3CalculatorRequest"></a>OGRS3CalculatorRequest:
@@ -668,6 +1170,138 @@
               </div>
             </div>
           </div>
+          <div id="definition-RSRCalculatorResult" class="definition panel" data-traverse-target="definition-RSRCalculatorResult">
+            <h2 class="panel-title">
+              <a name="/definitions/RSRCalculatorResult"></a>RSRCalculatorResult:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="calculatorVersion">
+                      <span class="json-property-name">calculatorVersion:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The version of the calculator algorithm used to calculate the rating</p>
+                    </dd>
+                    <dt data-property-name="OGRS3">
+                      <span class="json-property-name">OGRS3:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the calculated first year OGRS3 risk</p>
+                    </dd>
+                    <dt data-property-name="OGRS4s">
+                      <span class="json-property-name">OGRS4s:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the calculated first year OGRS4s risk</p>
+                    </dd>
+                    <dt data-property-name="OGRS4v">
+                      <span class="json-property-name">OGRS4v:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the calculated first year OGRS4v risk</p>
+                    </dd>
+                    <dt data-property-name="OGRS4sRiskBand">
+                      <span class="json-property-name">OGRS4sRiskBand:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the calculated first year OGRS4s risk band</p>
+                    </dd>
+                    <dt data-property-name="probabilityOfNonSexualViolence">
+                      <span class="json-property-name">probabilityOfNonSexualViolence:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="indecentImageProbability">
+                      <span class="json-property-name">indecentImageProbability:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="contactSexualProbability">
+                      <span class="json-property-name">contactSexualProbability:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="riskOfSeriousRecidivism">
+                      <span class="json-property-name">riskOfSeriousRecidivism:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="RSRPercentileRisk">
+                      <span class="json-property-name">RSRPercentileRisk:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the calculated first and second year OGRS3 percentile risk</p>
+                    </dd>
+                    <dt data-property-name="RSRRiskBand">
+                      <span class="json-property-name">RSRRiskBand:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the calculated first year RSR risk band</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json">{
+  <span class="hljs-attr">&quot;calculatorVersion&quot;</span>: <span class="hljs-string">&quot;1.2.3&quot;</span>,
+  <span class="hljs-attr">&quot;OGRS3&quot;</span>: [
+    <span class="hljs-number">0.0056783258</span>
+  ],
+  <span class="hljs-attr">&quot;OGRS4s&quot;</span>: [
+    <span class="hljs-number">0.0023653258</span>
+  ],
+  <span class="hljs-attr">&quot;OGRS4v&quot;</span>: [
+    <span class="hljs-number">0.0001238643</span>
+  ],
+  <span class="hljs-attr">&quot;OGRS4sRiskBand&quot;</span>: [
+    <span class="hljs-string">&quot;medium&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;probabilityOfNonSexualViolence&quot;</span>: [
+    <span class="hljs-number">0.0056783258</span>
+  ],
+  <span class="hljs-attr">&quot;indecentImageProbability&quot;</span>: [
+    <span class="hljs-number">0.0056783258</span>
+  ],
+  <span class="hljs-attr">&quot;contactSexualProbability&quot;</span>: [
+    <span class="hljs-number">0.0056783258</span>
+  ],
+  <span class="hljs-attr">&quot;riskOfSeriousRecidivism&quot;</span>: [
+    <span class="hljs-number">0.0056783258</span>
+  ],
+  <span class="hljs-attr">&quot;RSRPercentileRisk&quot;</span>: [
+    <span class="hljs-number">0.56</span>
+  ],
+  <span class="hljs-attr">&quot;RSRRiskBand&quot;</span>: [
+    <span class="hljs-string">&quot;low&quot;</span>
+  ]
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-OGRS3Rating" class="definition panel" data-traverse-target="definition-OGRS3Rating">
             <h2 class="panel-title">
               <a name="/definitions/OGRS3Rating"></a>OGRS3Rating:
@@ -716,9 +1350,231 @@
               </div>
             </div>
           </div>
-          <div id="definition-healthCheckResult" class="definition panel" data-traverse-target="definition-healthCheckResult">
+          <div id="definition-OGRS4sRating" class="definition panel" data-traverse-target="definition-OGRS4sRating">
             <h2 class="panel-title">
-              <a name="/definitions/healthCheckResult"></a>healthCheckResult:
+              <a name="/definitions/OGRS4sRating"></a>OGRS4sRating:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 1 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>An Offender Group Reconviction Scale Rating</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.0023653258</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-OGRS4vRating" class="definition panel" data-traverse-target="definition-OGRS4vRating">
+            <h2 class="panel-title">
+              <a name="/definitions/OGRS4vRating"></a>OGRS4vRating:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 1 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>An Offender Group Reconviction Scale Rating</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.0001238643</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-OGRS4sRiskBand" class="definition panel" data-traverse-target="definition-OGRS4sRiskBand">
+            <h2 class="panel-title">
+              <a name="/definitions/OGRS4sRiskBand"></a>OGRS4sRiskBand:
+              <span class="json-property-type">
+                <span class="json-property-type">string</span>
+                <span class="json-property-enum" title="Possible values">, x &isin; {
+                  <span class="json-property-enum-item">low</span> ,
+                  <span class="json-property-enum-item">medium</span> ,
+                  <span class="json-property-enum-item">high</span> } </span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>An Offender Group Reconviction Scale Risk Band</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-string">&quot;medium&quot;</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-RiskOfSeriousRecidivism" class="definition panel" data-traverse-target="definition-RiskOfSeriousRecidivism">
+            <h2 class="panel-title">
+              <a name="/definitions/RiskOfSeriousRecidivism"></a>RiskOfSeriousRecidivism:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 1 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>A Risk of Serious Recidivism</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.0056783258</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-NonSexualViolenceProbability" class="definition panel" data-traverse-target="definition-NonSexualViolenceProbability">
+            <h2 class="panel-title">
+              <a name="/definitions/NonSexualViolenceProbability"></a>NonSexualViolenceProbability:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 1 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>The probability of a Non Sexually Violent Offence</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.0056783258</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-IndecentImageProbability" class="definition panel" data-traverse-target="definition-IndecentImageProbability">
+            <h2 class="panel-title">
+              <a name="/definitions/IndecentImageProbability"></a>IndecentImageProbability:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 1 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>The probability of an Indecent Image Offence</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.0056783258</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ContactSexualProbability" class="definition panel" data-traverse-target="definition-ContactSexualProbability">
+            <h2 class="panel-title">
+              <a name="/definitions/ContactSexualProbability"></a>ContactSexualProbability:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 1 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>The probability of a Sexual Contact Offence</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.0056783258</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-RSRPercentileRisk" class="definition panel" data-traverse-target="definition-RSRPercentileRisk">
+            <h2 class="panel-title">
+              <a name="/definitions/RSRPercentileRisk"></a>RSRPercentileRisk:
+              <span class="json-property-type">
+                <span class="json-property-type">number</span>
+                <span class="json-property-format">(double)</span>
+                <span class="json-property-range" title="Value limits">, { x ∈ ℝ | 0 ≤ x ≤ 100 }</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>A percentile Risk of Serious Recidivism</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-number">0.56</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-RSRRiskBand" class="definition panel" data-traverse-target="definition-RSRRiskBand">
+            <h2 class="panel-title">
+              <a name="/definitions/RSRRiskBand"></a>RSRRiskBand:
+              <span class="json-property-type">
+                <span class="json-property-type">string</span>
+                <span class="json-property-enum" title="Possible values">, x &isin; {
+                  <span class="json-property-enum-item">low</span> ,
+                  <span class="json-property-enum-item">medium</span> ,
+                  <span class="json-property-enum-item">high</span> } </span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>A Risk of Serious Recidivism Risk Band</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-string">&quot;low&quot;</span>
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-HealthCheckResult" class="definition panel" data-traverse-target="definition-HealthCheckResult">
+            <h2 class="panel-title">
+              <a name="/definitions/HealthCheckResult"></a>HealthCheckResult:
               <span class="json-property-type">
                 <span class="json-property-type">object</span>
                 <span class="json-property-range" title="Value limits"></span>
@@ -777,9 +1633,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-invalidArgumentError" class="definition panel" data-traverse-target="definition-invalidArgumentError">
+          <div id="definition-InvalidArgumentError" class="definition panel" data-traverse-target="definition-InvalidArgumentError">
             <h2 class="panel-title">
-              <a name="/definitions/invalidArgumentError"></a>invalidArgumentError:
+              <a name="/definitions/InvalidArgumentError"></a>InvalidArgumentError:
               <span class="json-property-type">
                 <span class="json-property-type">object</span>
                 <span class="json-property-range" title="Value limits"></span>

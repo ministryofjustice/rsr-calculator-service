@@ -41,6 +41,7 @@ function setupBaseMiddleware(app, log) {
   });
 
   app.use(helmet());
+  app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 }
 

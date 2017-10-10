@@ -1,6 +1,17 @@
 const registers = require('./registers');
 
+const log = (l, x) => {
+  console.log(l, x);
+  return x;
+};
+
 // helpers
+const downloadableFile = (res, x) => {
+  res.set('content-type', 'application/octet-stream');
+  res.set('content-disposition', 'attachment;filename="'+ x.filename +'"');
+  res.send(x.body);
+};
+
 const safely = (fn) => {
   try {
     return fn();
@@ -11,7 +22,7 @@ const safely = (fn) => {
 
 const safeParse = (key, val) => {
   try {
-    return JSON.stringify(val);
+    return JSON.stringify(val).replace(/undefined/gmi, '"N/A"').replace(/NaN/gmi, '"N/A"');
   } catch (ex) {
     console.error('Error while parsing value "' + val + '" for <' + key + '>');
   }
@@ -21,7 +32,7 @@ const getSortedOutputKeyList = (x) => {
   var keys = [];
 
   for (var k in x) {
-    if (x.hasOwnProperty(k)) {
+    if (!~k.indexOf('_options')) {
       keys.push(k);
     }
   }
@@ -44,38 +55,42 @@ const displayResult = (x) => {
 		'',
 	];
 
-  return oData.concat(
-    getSortedOutputKeyList(x)
-      .map((key) => {
-        let val = x[key];
-        let options = x[key + '_options'];
+  return {
+    filename: 'RSR_data_for_' + x.firstName + '_' + x.familyName + '.txt',
+    body: oData.concat(
+      log('key List', getSortedOutputKeyList(log('req.body', x)))
+        .map((key) => {
+          let val = x[key];
+          let options = x[key + '_options'];
 
-        if (!val || val === 'undefined' || val === undefined || val === 'null' || val === '') {
-          val = 'N/A';
-        }
+          if (val === undefined || val === 'undefined' || val === '' || val === null || val.toString() === 'NaN') {
+            val = 'N/A';
+          }
 
-        if (options) {
-          return (key === 'anyOtherOffence' ? 'anyOtherWeaponOffence' : key) + ': ' + options[parseInt(val)];
-        }
+          if (val !== 'N/A') {
+            if (options) {
+              return (key === 'anyOtherOffence' ? 'anyOtherWeaponOffence' : key) + ': ' + options[parseInt(val)];
+            }
+            switch (key) {
+              case 'sex':
+                val = parseInt(val, 10) === 0 ? 'Male' : 'Female';
+              break;
 
-        switch (key) {
-          case 'sex':
-            val = parseInt(val) === 0 ? 'Male' : 'Female';
-          break;
+              case 'currentOffenceType':
+                val = registers.offenceTypeRegister[parseInt(val, 10)].label;
+              break;
 
-          case 'currentOffenceType':
-            val = registers.offenceTypeRegister[parseInt(val)].label;
-          break;
+              case 'violentOffenceCategory':
+                val = registers.violentOffenceCategoryRegister[parseInt(val, 10)].label;
+              break;
+            }
+          }
 
-          case 'violentOffenceCategory':
-            val = registers.violentOffenceCategoryRegister[parseInt(val)].label;
-          break;
-        }
-
-        return key + ': ' + safeParse(key, val);
-      })
-  ).join('\r\n');
+          return key + ': ' + safeParse(key, val);
+        })
+    ).join('\r\n'),
+  };
 };
 
 module.exports.render = (req, res) =>
-	res.send(displayResult(req.body));
+	downloadableFile(res, displayResult(req.body));

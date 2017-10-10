@@ -16,11 +16,13 @@
             examples:
               application/json:
                 healthy: true
-                checks.db: "ok"
-                uptime: 3688.422,
-                build.buildNumber: "901"
-                build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
-                version: "0.8.0"
+                checks:
+                  calculatorVersion: "1.0.8"
+                uptime: 4125.978
+                build:
+                  buildNumber: "901"
+                  gitRef: "83e46a38509309220da19afa630b5354c56da39b"
+                version: "0.0.4"
             schema:
               "$ref": "#/definitions/HealthCheckResult"
           500:
@@ -38,7 +40,7 @@
         tags:
           - "Health check"
         produces:
-          - "application/json"
+          - "application/json; charset=utf-8"
     /register/drug:
       get:
         summary: "Drugs"
@@ -59,7 +61,7 @@
         tags:
           - "Registers"
         produces:
-          - "application/json"
+          - "application/json; charset=utf-8"
     /register/offenceType:
       get:
         summary: "Offence Type"
@@ -80,7 +82,7 @@
         tags:
           - "Registers"
         produces:
-          - "application/json"
+          - "application/json; charset=utf-8"
     /register/violentOffenceCategory:
       get:
         summary: "Violent Offence Categories"
@@ -101,7 +103,7 @@
         tags:
           - "Registers"
         produces:
-          - "application/json"
+          - "application/json; charset=utf-8"
     /calculate/ogrs3:
       post:
         summary: "Calculate Offender Group Reconviction Scale v3"
@@ -127,7 +129,7 @@
             schema:
               "$ref": "#/definitions/OGRS3RatingResult"
               example:
-                calculatorVersion: 1.0.6
+                calculatorVersion: 1.0.8
                 OGRS3:
                   - 0.8505241405394922
                   - 0.9211344267816202
@@ -143,19 +145,21 @@
         consumes:
           - "application/json"
         produces:
-          - "application/json"
+          - "application/json; charset=utf-8"
     /render:
       post:
-        summary: "Violent Offence Categories"
-        description: "A register of Violence Offence Categories"
+        summary: "Render dataset to Text file"
+        description: "Renders a set of data to a human readable text file that can be saved"
         parameters:
           - name: "body"
             in: "body"
             required: false
-            description: Details of an rsr calulator result to be rendered into a readable text format
+            description: Details of an dataset to be rendered into a readable text format
             schema:
               "$ref": "#/definitions/RSRCalculatorResult"
               example:
+                firstname: "John"
+                surname: "Doe"
                 A: "A"
                 B: "B"
                 C: null
@@ -167,25 +171,28 @@
           200:
             description: "Success"
             schema:
-              "$ref": "#/definitions/RSRCalculatorResult"
-              example:
-                "******************************
-RSR v0.0.3 OFFICIAL
-******************************
+              type: string
+              example: "
+                ******************************
+                RSR v0.0.4 OFFICIAL
+                ******************************
 
-A: A
-B: B
-C: N/A
-D: N/A
-E: N/A
-F: 0.23741837
-G: N/A"
+                A: \"A\"
+                B: \"B\"
+                C: \"N/A\"
+                D: \"N/A\"
+                E: \"N/A\"
+                F: 0.23741837
+                G: \"null\"
+                firstname: \"John\"
+                surname: \"Doe\"
+                "
         tags:
           - "Text renderer"
         consumes:
           - "application/json"
         produces:
-          - "text/plain"
+          - "application/octet-stream"
     /calculate/ogrs3/customised:
       post:
         summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
@@ -211,7 +218,7 @@ G: N/A"
             schema:
               "$ref": "#/definitions/OGRS3RatingResult"
               example:
-                calculatorVersion: 1.0.6
+                calculatorVersion: 1.0.8
                 OGRS3:
                   - 0.8505241405394922
                   - 0.9211344267816202
@@ -227,7 +234,7 @@ G: N/A"
         consumes:
           - "application/json"
         produces:
-          - "application/json"
+          - "application/json; charset=utf-8"
   definitions:
     DrugRegister:
       type: "array"

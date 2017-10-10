@@ -11,120 +11,77 @@ moj.Modules.RSRApp = (function() {
 			"./views/3.html",
 			"./views/4.html",
 			"./views/5.html",
-			],
+		],
 
 		activeView = 0,
 		clear = false,
 		appRunning = false,
 		firstRun = true,
-	  	monthsArr = ["January","February","March","April","May","June","July","August","September","October","November","December"],
-	  	today = new Date(),
-	  	stepSummaries = [],
-	  	ignoreInvalid = true,
-	  	dtDay = 0,
-	  	dtMonth = 0,
-	  	dtYear = 0,
-	  	currURL = "",
-	  	accessibleErrors = false,
-	  	activeAlert = false,
+  	monthsArr = ["January","February","March","April","May","June","July","August","September","October","November","December"],
+  	today = new Date(),
+  	stepSummaries = [],
+  	ignoreInvalid = true,
+  	dtDay = 0,
+  	dtMonth = 0,
+  	dtYear = 0,
+  	currURL = "",
+  	accessibleErrors = false,
+  	activeAlert = false,
 
-		//Functions
-	  	init,
-	  	bindEvents,
-	  	hashUrl,
-	  	quitClear,
-	  	createViews,
-	  	loadViews,
-	  	switchView,
-	  	clearPreviousView,
-	  	showAccessibleErrors,
-	  	checkURL,
-	  	getURLParameter,
-	  	view1Actions,
-	  	view2Actions,
-	  	view3Actions,
-	  	view4Actions,
-	  	view5Actions,
-	  	composeEmail,
-	  	setupPanel,
-	  	dateErrorMessage,
-	  	dateDiff,
-	  	monthDiff,
-	  	requireFields,
-	  	unRequireFields,
-	  	view2Complete,
-	  	view3Complete,
-	  	view4Complete,
-	  	setupView0Panels,
-	  	setupView1Panels,
-	  	setupView2Panels,
-	  	setupView3Panels,
-	  	setupView4Panels,
-	  	setupView5Panels,
-	  	calculateScore,
-	  	scoreCard,
-	  	isDate,
-	  	prePopulate,
-	  	scrollToElement,
+  	//Elements
+  	progress,
 
-	  	//Elements
-	  	progress,
-
-		//Data object
-	    offenderData = {
-			offenderTitle: 		"",
-			firstName: 			"",
-			familyName: 		"",
-			sex: 				"",
-			birthDate: 			"",
-			age: 				"",
-			pncId: 				"",
-			deliusId: 			"",
-			assessmentDate: 	"",
-			currentOffenceType: "",
-			convictionDate: "",
-			sentenceDate: "",
-			sexualElement: "",
-			violentOffenceCategory: "",
-			strangerVictim: "",
-			firstSanctionDate: "",
-			allSanctions: "",
-			violentSanctions: "",
-			sexualOffenceHistory: "",
-			mostRecentSexualOffence: "",
-			contactAdult: "",
-			contactChild: "",
-			indecentImage: "",
-			paraphilia: "",
-			oasysInterview: "",
-			//OASys
-			useWeapon: "",
-			partner: "",
-			accommodation: "",
-			employment: "",
-			relationship: "",
-			currentUseOfAlcohol: "",
-			bingeDrinking: "",
-			impulsivity: "",
-			temper: "",
-			proCriminal: "",
-			domesticViolence: "",
-			murder: "",
-			wounding: "",
-			kidnapping: "",
-			firearmPossession: "",
-			robbery: "",
-			burglary: "",
-			anyOtherOffence: "",
-			endagerLife: "",
-			arson: "",
-			totalRSR: "",
-			rsrType: "static"
-	    };
-
-	function cleanRequestParam(x) {
-		return (x === 'N/A' || x === '') ? undefined : x;
-	}
+	//Data object
+  offenderData = {
+		offenderTitle: 		"",
+		firstName: 			"",
+		familyName: 		"",
+		sex: 				"",
+		birthDate: 			"",
+		age: 				"",
+		pncId: 				"",
+		deliusId: 			"",
+		assessmentDate: 	"",
+		currentOffenceType: "",
+		convictionDate: "",
+		sentenceDate: "",
+		sexualElement: "",
+		violentOffenceCategory: "",
+		strangerVictim: "",
+		firstSanctionDate: "",
+		allSanctions: "",
+		violentSanctions: "",
+		sexualOffenceHistory: "",
+		mostRecentSexualOffence: "",
+		contactAdult: "",
+		contactChild: "",
+		indecentImage: "",
+		paraphilia: "",
+		oasysInterview: "",
+		//OASys
+		useWeapon: "",
+		partner: "",
+		accommodation: "",
+		employment: "",
+		relationship: "",
+		currentUseOfAlcohol: "",
+		bingeDrinking: "",
+		impulsivity: "",
+		temper: "",
+		proCriminal: "",
+		domesticViolence: "",
+		murder: "",
+		wounding: "",
+		kidnapping: "",
+		firearmPossession: "",
+		robbery: "",
+		burglary: "",
+		anyOtherOffence: "",
+		endangerLife: "",
+		arson: "",
+		totalRSR: "",
+		rsrType: "static"
+  };
 
 	function cleanRequest(x) {
 		return {
@@ -167,76 +124,43 @@ moj.Modules.RSRApp = (function() {
 			robbery: x.robbery,
 			burglary: x.burglary,
 			anyOtherOffence:x.anyOtherOffence,
-			endagerLife: x.endagerLife,
+			endangerLife: x.endangerLife,
 			arson: x.arson,
 		};
 	}
 
-	init = function() {
+	function init() {
+		function loadViews(a) {
+			if (a < viewFilePaths.length) {
+
+				$("#view"+activeView).load(viewFilePaths[activeView], function() {
+					activeView++;
+					loadViews(activeView);
+				});
+			} else {
+				activeView = 0;
+
+				bindEvents();
+			}
+		};
+
+		function createViews() {
+			var $viewDiv;
+			for (var i=0; i < viewFilePaths.length; i++) {
+				$viewDiv = $("<div>", {id: "view"+i, css: {display: "block", position: "absolute", left: "-10000px"}, rel: i });
+				$viewDiv.appendTo(".main");
+			}
+
+			loadViews(activeView);
+		};
+
 		$.support.cors = true;
 		$(document).ready(function() {
 			createViews();
 		});
 	};
 
-	createViews = function() {
-		var $viewDiv;
-		for (var i=0; i < viewFilePaths.length; i++) {
-			$viewDiv = $("<div>", {id: "view"+i, css: {display: "block", position: "absolute", left: "-10000px"}, rel: i });
-			$viewDiv.appendTo(".main");
-		}
-
-		loadViews(activeView);
-	};
-
-	loadViews = function(a) {
-
-		if (a < viewFilePaths.length) {
-
-			$("#view"+activeView).load(viewFilePaths[activeView], function() {
-				activeView++;
-				loadViews(activeView);
-			});
-		} else {
-			activeView = 0;
-
-			// if (today.getFullYear() >= 2014 && today.getMonth() >= 5) {
-			// 	$('.page-header > h1').html('<span>This version has expired</span>Please contact support for guidance on how to access the new RSR app.');
-			// } else {
-				bindEvents();
-			// }
-		}
-
-	};
-
-	/*function checkURL() {
-		currUrl = window.location.href;
-		getURLParameter();
-	}
-
-	function getURLParameter() {
-		var param = currUrl.match(/\#(.*)/g);
-
-		// console.log("View exists: " + param.indexOf("view"));
-		// console.log("View number: " + parseInt(param.substr(4, param.length)));
-
-		if (param == "#") {
-			quitClear();
-		} else if (appRunning && param.indexOf("view") != -1 && parseInt(param.substr(4, param.length)) > 0) {
-			switchView(param.substr(4, param.length));
-    	}
-
-    	// else if (param.indexOf("pre") != -1) {
-    	// 	prePopulate();
-    	// 	console.log("Prepopulating");
-    	// }
-
-    	else {
-    		//quitClear();
-    	}
-	};*/
-
-	bindEvents = function() {
+	function bindEvents() {
 		$(document).ready(function(){
 			// Set up deeplinking
 
@@ -300,16 +224,6 @@ moj.Modules.RSRApp = (function() {
 
 			});
 
-			// $("a[href*='#/view']").each(function(index) {
-			// 	console.log($(this));
-			// 	var l = $(this).prop('href');
-			// 	$(this).prop('href', 'javascript:void(0)');
-			// 	//$(this).prop('data-href', l);
-			// 	$(this).bind("click touch", function(event) {
-			// 		top.location.href = l;
-			// 	});
-			// });
-
 			$(".progress__label > a, .section-header > a").each(function(index) {
 				var l = $(this).prop('href');
 				//$(this).prop('href', 'javascript:void(0)');
@@ -320,17 +234,6 @@ moj.Modules.RSRApp = (function() {
 					//checkURL();
 				});
 			});
-
-			// $("a").each(function(index) {
-			// 	var l = $(this).prop('href');
-			// 	$(this).prop('href', 'javascript:void(0)');
-			// 	//$(this).prop('data-href', l);
-			// 	$(this).bind("click touch", function(event) {
-			// 		top.location.href = l;
-			// 	});
-			// });
-
-
 
 			// Exit button quits the app and composes the data into an email
 
@@ -446,7 +349,7 @@ moj.Modules.RSRApp = (function() {
 
 	};
 
-	prePopulate = function() {
+	function prePopulate() {
 		// View 1
 		$('#offender_title').val('Mr').prop('selected', true);
 		$('#offender_first_name').val('John');
@@ -501,11 +404,11 @@ moj.Modules.RSRApp = (function() {
 
 	}
 
-	scrollToElement = function(elmt) {
+	function scrollToElement(elmt) {
 		$('html, body').animate({ scrollTop: $('#view' + activeView + ' #' + elmt).offset().top-60}, 800, $.bez([.44,1.37,.57,1]));
 	}
 
-	showAccessibleErrors = function() {
+	function showAccessibleErrors() {
 		console.log("Active alert: " + activeAlert);
 		if (!activeAlert) {
 
@@ -547,7 +450,7 @@ moj.Modules.RSRApp = (function() {
 	}
 
 	// View 1 specific events
-	view1Actions = function() {
+	function view1Actions() {
 
 		$("#view1 #assessment_date > option[value=" + today.getDate() + "]").prop('selected', true);
 		$("#view1 #assessment_month > option[value=" + monthsArr[today.getMonth()] + "]").prop('selected', true);
@@ -715,13 +618,13 @@ moj.Modules.RSRApp = (function() {
 
 	};
 
-	dateErrorMessage = function(msg, target)  {
+	function dateErrorMessage (msg, target)  {
 		//
 		return '<span class="required" id="' + target + '_date-description">' + msg + '</span>';
 	}
 
 	// View 2 specific events
-	view2Actions = function() {
+	function view2Actions () {
 
 		setupView2Panels();
 
@@ -830,7 +733,7 @@ moj.Modules.RSRApp = (function() {
 
 	};
 
-	view2Complete = function() {
+	function view2Complete () {
 		//console.log("VALID fields");
 		offenderData.currentOffenceType = $('#offence_type').val();
 		offenderData.convictionDate = new Date($('#conviction_year').val(), $.inArray($('#conviction_month').val(), monthsArr), $('#conviction_date').val());
@@ -859,7 +762,7 @@ moj.Modules.RSRApp = (function() {
 	}
 
 	// View 3 specific events
-	view3Actions = function() {
+	function view3Actions () {
 
 		setupView3Panels();
 		var datesOK = false;
@@ -1023,7 +926,7 @@ moj.Modules.RSRApp = (function() {
 		});
 	};
 
-	view3Complete = function() {
+	function view3Complete () {
 		//console.log("VALID fields");
 		offenderData.firstSanctionDate = new Date($('#sanction_year').val(), $.inArray($('#sanction_month').val(), monthsArr), $('#sanction_date').val());
 		offenderData.allSanctions = parseInt($('#all_sanctions').val());
@@ -1071,7 +974,7 @@ moj.Modules.RSRApp = (function() {
 
 
 	// View 4 specific events
-	view4Actions = function() {
+	function view4Actions () {
 
 		setupView4Panels();
 
@@ -1264,7 +1167,7 @@ moj.Modules.RSRApp = (function() {
 
 	};
 
-	view4Complete = function() {
+	function view4Complete () {
 
 		if ($('#oasys_interview').val() != "0") {
 			stepSummaries[3] = "<p>Offender interview and/or OASys has <strong>not been completed</strong>.</p>";
@@ -1294,7 +1197,7 @@ moj.Modules.RSRApp = (function() {
 		offenderData.robbery = $('#robbery').val();
 		offenderData.burglary = $('#burglary').val();
 		offenderData.anyOtherOffence = $('#any_other_offence').val();
-		offenderData.endagerLife = $('#endager_life').val();
+		offenderData.endangerLife = $('#endager_life').val();
 		offenderData.arson = $('#arson').val();
 
 		$('#view5 #offender-details-summary').html(stepSummaries[0]);
@@ -1306,14 +1209,31 @@ moj.Modules.RSRApp = (function() {
 
 		window.location.href = $("#view4 #submit-btn").attr('data-href');
 		ignoreInvalid = true;
-		//getURLParameter();
-					//checkURL();
 	}
 
 	// View 5 specific events
-	view5Actions = function() {
+	function view5Actions () {
 		$( ".score-card" ).remove();
-		$('#download-btn').text('Download data as a .txt file');
+		$('#download-btn').text('Download data as a .txt file')
+			.bind('click touch', function(e) {
+				var data = [
+					'<form action="/render" method="post" id="renderer">',
+				];
+
+				for (var k in offenderData) {
+					if (!~k.indexOf('_options')) {
+						data.push('<input name="'+ k +'" value="'+ offenderData[k] +'" />');
+					}
+				}
+
+				data.push('<button type="submit">Submit</button></form>');
+
+				var f = $(data.join(''));
+				$(document.body).append(f);
+				f.submit();
+
+				return false;
+			});
 
 		$.ajax({
 			url: '/calculate',
@@ -1323,7 +1243,7 @@ moj.Modules.RSRApp = (function() {
 			dataType:'json',
 		})
 		.done(function( result ) {
-			console.log(result);
+			//console.log(result);
 
 			var n = offenderData.rsrType === "static" ? 0 : 1;
 
@@ -1341,12 +1261,10 @@ moj.Modules.RSRApp = (function() {
 					offenderData.firstName,
 					offenderData.familyName
 				].join(' '));
-
-			composeEmail();
 		});
 	};
 
-	setupView2Panels = function() {
+	function setupView2Panels () {
 		var orHeight = $("#view2 #stranger-victim-details").height() + 30;
 
 		$("#view2 #stranger-victim-details")
@@ -1561,7 +1479,7 @@ moj.Modules.RSRApp = (function() {
 
 	}
 
-	setupView3Panels = function() {
+	function setupView3Panels () {
 		var orHeight = $("#view3 #sexual-offence-history-details").height() + 30;
 
 		$("#view3 #sexual-offence-history-details")
@@ -1598,7 +1516,7 @@ moj.Modules.RSRApp = (function() {
 
 	}
 
-	setupView4Panels = function() {
+	function setupView4Panels () {
 		var orHeight = $("#view4 #oasys-details").height() + 30;
 
 		$("#view4 #oasys-details")
@@ -1632,18 +1550,18 @@ moj.Modules.RSRApp = (function() {
 	}
 
 
-	setupView0Panels = function() {
+	function setupView0Panels () {
 
 	}
-	setupView1Panels = function() {
+	function setupView1Panels () {
 
 	}
-	setupView5Panels = function() {
+	function setupView5Panels () {
 		$('.rsr-scores').attr("tabindex", "0");
 		$('#results_header').attr("tabindex", "0");
 	}
 
-	setupPanel = function(id, triggerId, triggers, targetId, reqFields) {
+	function setupPanel (id, triggerId, triggers, targetId, reqFields) {
 		// Save the original height of the hidden panel
 
 		if ($("#view" + id + " #" + targetId).prop("data-original-height") == undefined) {
@@ -1686,7 +1604,7 @@ moj.Modules.RSRApp = (function() {
 		}
 	};
 
-	requireFields = function(id, fieldsArr) {
+	function requireFields (id, fieldsArr) {
 		if (fieldsArr != null) {
 			for(var i = 0; i < fieldsArr.length; i++){
 	      		$("#view" + id + ' #' + fieldsArr[i])
@@ -1699,7 +1617,7 @@ moj.Modules.RSRApp = (function() {
    		}
 	};
 
-	unRequireFields = function(id, fieldsArr) {
+	function unRequireFields (id, fieldsArr) {
 		if (fieldsArr != null) {
 			for(var i = 0; i < fieldsArr.length; i++){
 	      		$("#view" + id + ' #' + fieldsArr[i])
@@ -1717,7 +1635,7 @@ moj.Modules.RSRApp = (function() {
 	   	}
 	};
 
-	switchView = function(id) {
+	function switchView (id) {
 
 		if (appRunning) {
 			if (id == 0) {
@@ -1746,7 +1664,7 @@ moj.Modules.RSRApp = (function() {
 		}
 	};
 
-	clearPreviousView = function(id) {
+	function clearPreviousView (id) {
 
 		if (activeView != id) {
 			$("#view"+activeView)
@@ -1780,7 +1698,7 @@ moj.Modules.RSRApp = (function() {
 		}
 	};
 
-	quitClear = function() {
+	function quitClear () {
 		offenderData = null;
 		offenderData = {};
 		activeView = 0;
@@ -1807,7 +1725,7 @@ moj.Modules.RSRApp = (function() {
 	// TO DO: Accept object parameters instead of UI components...
 
 
-    dateDiffforage = function(d1, d2) {
+    function dateDiffforage (d1, d2) {
 
       // d1 is usually the most recent, d2 the oldest e.g. d1 = 11 Jan 2013, d2 = 1 Dec 2012
       // 1 Dec 2013 - 11 Dec 2012 should return 0 years
@@ -1828,7 +1746,7 @@ moj.Modules.RSRApp = (function() {
 
       return result1;
     };
-    dateDiffage = function(d1, d2) {
+    function dateDiffage (d1, d2) {
 
       // d1 is usually the most recent, d2 the oldest e.g. d1 = 11 Jan 2013, d2 = 1 Dec 2012
       // 1 Dec 2013 - 11 Dec 2012 should return 0 years
@@ -1844,7 +1762,7 @@ moj.Modules.RSRApp = (function() {
 
       return result1 +' yrs and '+ month +' months';
     };
-	dateDiff = function(d1, d2) {
+	function dateDiff (d1, d2) {
 
       var result;
       // d1 is usually the most recent, d2 the oldest e.g. d1 = 11 Jan 2013, d2 = 1 Dec 2012
@@ -1861,7 +1779,7 @@ moj.Modules.RSRApp = (function() {
       return result;
     };
 
-	monthDiff = function(d1, d2) {
+	 function monthDiff (d1, d2) {
 
 		var result;
 
@@ -1871,7 +1789,7 @@ moj.Modules.RSRApp = (function() {
 		return parseInt(result);
 	}
 
-	isDate = function(id) {
+	function isDate (id) {
 
 		var validDate;
 		var dd = parseInt($('#' + id + '_date').val());
@@ -1897,7 +1815,7 @@ moj.Modules.RSRApp = (function() {
 		}
 	};
 
-	scoreCard = function(sc, band, bandLabel, desc) {
+	function scoreCard (sc, band, bandLabel, desc) {
 		//console.log("the sc is " + sc);
 		var scoreNum = sc;
 
@@ -1914,89 +1832,6 @@ moj.Modules.RSRApp = (function() {
 
 		$('.rsr-scores').attr("tabindex", "0");
 		$('#results_header').attr("tabindex", "0");
-	};
-
-	composeEmail = function() {
-		//console.log("Composing email... ");
-		//console.log(offenderData.toSource());
-		var oData = '******************************' + '\r\n';
-		oData += 'RSR v' + appVersion + ' OFFICIAL' + '\r\n';
-		oData += '******************************' + '\r\n';
-		oData += '' + '\r\n';
-
-		for (var key in offenderData) {
-			if (offenderData[key] == undefined || offenderData[key] == 'undefined' || offenderData[key] == '' || offenderData[key] == null || offenderData[key] == NaN || offenderData[key] == 'NaN') {
-				offenderData[key] = "N/A";
-			}
-
-			if (key.indexOf('options') == -1 ) {
-				if (offenderData[key + '_options'] != null) {
-					if (key == 'anyOtherOffence') {
-						oData += 'anyOtherWeaponOffence: ' + offenderData[key + '_options'][parseInt(offenderData[key])] + '\r\n';
-					} else {
-						oData += key + ': ' + offenderData[key + '_options'][parseInt(offenderData[key])] + '\r\n';
-					}
-				}
-
-				else if (key == 'sex') {
-					oData += key + ': ';
-					oData += (parseInt(offenderData[key]) == 0)? 'Male' : 'Female';
-					oData += '\n';
-				}
-
-				else if (key == 'currentOffenceType') {
-					oData += key + ': ' + offenderData['offenceType_options'][parseInt(offenderData[key])] + '\r\n';
-				}
-
-				else if (key == 'violentOffenceCategory') {
-					oData += key + ': ' + offenderData['violentOffenceCategory_options'][parseInt(offenderData[key])] + '\r\n';
-				}
-
-				else {
-					// oData += key + ': ';
-					// oData += (parseInt(offenderData[key]) == 0)? 'No' : offenderData[key] + '\n'
-					// oData += '\n';
-					oData += key + ': ' + offenderData[key] + '\r\n';
-				}
-			}
-		}
-/*
-		var subject = "";
-		if (offenderData.offenderTitle == ' - ' || offenderData.offenderTitle == 'Other' || offenderData.offenderTitle == 'None' || offenderData.offenderTitle == '') {
-			subject = "Official Sensitive: RSR (" + offenderData.rsrType + ") for " + offenderData.firstName+ " " + offenderData.familyName;
-		} else {
-			subject = "Official Sensitive: RSR (" + offenderData.rsrType + ") for " + offenderData.offenderTitle + " " + offenderData.firstName+ " " + offenderData.familyName;
-		}
-*/
-		oData.replace("undefined", "N/A");
-		oData.replace("NaN", "N/A");
-
-		console.log(oData);
-
-		if (navigator.userAgent.match(/Firefox\/17/i)) {
-			$('#download-btn').attr('href', 'javascript:void(0)');
-		} else {
-			$('#download-btn').attr('download', 'RSR_data_for_' + offenderData.firstName + '_' + offenderData.familyName + '.txt');
-			$('#download-btn').attr('href', 'data:application/octet-stream;charset=utf-8;base64,' + $.base64.encode(oData));
-		}
-
-		$('#download-btn').bind('click touch', function(e){
-			//e.preventDefault();
-			$('#download-btn').text('Creating file...');
-			setTimeout(function(){
-				$('#download-btn').text('Download data as a .txt file');
-			}, 6000);
-
-			if (navigator.userAgent.match(/Firefox\/17/i)) {
-				window.open("data:text/plain;charset=utf-8," + escape(oData), 'RSR_data_for_' + offenderData.firstName + '_' + offenderData.familyName + '.txt', 'left=20,top=20,width=500,height=500,toolbar=1,menubar=1,location=0,resizable=1');
-			}
-		});
-		//$('#email-btn').attr('href', 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent("Please attach the file you just downloaded from the above link."));
-
-		//console.log($('#email-btn').attr('href'));
-
-
-		//quitClear();
 	};
 
   // public
