@@ -2,9 +2,15 @@
   swagger: "2.0"
   info:
     title: "Risk Calculators API"
-    version: "0.0.3"
+    version: "0.0.4"
     description: "A Restful service to calculate risk on a known set of parameters."
   basePath: "/"
+  securityDefinitions:
+    ApiKeyAuth:
+      description: API Key obtained from Support team
+      type: apiKey
+      in: header
+      name: X-API-KEY
   paths:
     /health:
       get:
@@ -30,7 +36,6 @@
             examples:
               application/json:
                 healthy: false
-                checks.db: "Error: its broken"
                 uptime: 3688.422,
                 build.buildNumber: "901"
                 build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
@@ -45,6 +50,8 @@
       get:
         summary: "Drugs"
         description: "A register of Drugs"
+        security:
+          - ApiKeyAuth: []
         responses:
           200:
             description: "Success"
@@ -58,6 +65,8 @@
                   label: "A very Bad Drug"
             schema:
               "$ref": "#/definitions/DrugRegister"
+          401:
+            $ref: "#/definitions/UnauthorizedError"
         tags:
           - "Registers"
         produces:
@@ -66,6 +75,8 @@
       get:
         summary: "Offence Type"
         description: "A register of Offence Type"
+        security:
+          - ApiKeyAuth: []
         responses:
           200:
             description: "Success"
@@ -79,6 +90,8 @@
                   label: "Another Offence"
             schema:
               "$ref": "#/definitions/OffenceTypeRegister"
+          401:
+            $ref: "#/definitions/UnauthorizedError"
         tags:
           - "Registers"
         produces:
@@ -87,6 +100,8 @@
       get:
         summary: "Violent Offence Categories"
         description: "A register of Violence Offence Categories"
+        security:
+          - ApiKeyAuth: []
         responses:
           200:
             description: "Success"
@@ -100,6 +115,8 @@
                   label: "Category Two"
             schema:
               "$ref": "#/definitions/ViolentOffenceCategoryRegister"
+          401:
+            $ref: "#/definitions/UnauthorizedError"
         tags:
           - "Registers"
         produces:
@@ -108,6 +125,8 @@
       post:
         summary: "Calculate Offender Group Reconviction Scale v3"
         description: "calculate OGRS3 Rating on a known set of parameters"
+        security:
+          - ApiKeyAuth: []
         parameters:
           - name: "body"
             in: "body"
@@ -136,6 +155,8 @@
                 OGRS3PercentileRisk:
                   - 85.05
                   - 92.11
+          401:
+            $ref: "#/definitions/UnauthorizedError"
           500:
             description: "Invalid request body"
             schema:
@@ -178,6 +199,8 @@
                 OGRS3PercentileRisk:
                   - 85.05
                   - 92.11
+          401:
+            $ref: "#/definitions/UnauthorizedError"
           500:
             description: "Invalid NOMS Id"
             schema:
@@ -493,3 +516,5 @@
           example: "Request validation failed: Parameter (birthDate) must be a valid timestamp"
       required:
         - "message"
+    UnauthorizedError:
+      description: API key is missing or invalid

@@ -48,12 +48,13 @@ function setupBaseMiddleware(app, log) {
 function setupAppRoutes(app, config, log) {
   app.get('/health', healthController.health);
 
-  const authMiddleware = requireAuth(config.auth, log);
-  if (authMiddleware) app.use(authMiddleware);
-
   app.use(serveDocs());
 
   app.use(express.static('public'));
+
+  const authMiddleware = requireAuth(config.auth, log);
+  if (authMiddleware) app.use(authMiddleware);
+
 
   app.get('/register/drug', registerController.drug);
   app.get('/register/offenceType', registerController.offenceType);

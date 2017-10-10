@@ -19,6 +19,8 @@
         <nav id="nav" role="navigation">
           <h5>API Reference</h5>
           <a href="#introduction">Introduction</a>
+          <!-- <h5>Security</h5> -->
+          <a href="#authentication">Authentication</a>
           <h5>Operations</h5>
           <section>
             <a href="#tag-Health-check">Health check</a>
@@ -75,6 +77,7 @@
           <a href="#definition-RSRRiskBand"> RSRRiskBand </a>
           <a href="#definition-HealthCheckResult"> HealthCheckResult </a>
           <a href="#definition-InvalidArgumentError"> InvalidArgumentError </a>
+          <a href="#definition-UnauthorizedError"> UnauthorizedError </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -97,8 +100,42 @@
           
                   -->
                   <h5>Version:
-                    <span>0.0.3</span>
+                    <span>0.0.4</span>
                   </h5>
+                </section>
+              </div>
+            </div>
+          </div>
+          <!-- <h1 id="security" data-traverse-target="security">Security</h1> -->
+          <h1 id="authentication" data-traverse-target="authentication">Authentication</h1>
+          <div id="security-definition-ApiKeyAuth" class="panel">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <h3 class="security-definition-title">
+                  <span class="security-name">ApiKeyAuth</span>
+                  <span class="swagger-security-definition-apiKey"></span>
+                </h3>
+                <section class="swagger-security-definition-properties">
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">description</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type">
+                      <p>API Key obtained from Support team</p>
+                    </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">in</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> header </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">name</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> X-API-KEY </div>
+                  </div>
                 </section>
               </div>
             </div>
@@ -257,6 +294,12 @@
                       <p>Success</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value"> undefined </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
@@ -271,6 +314,28 @@
   }
 ]
 </code></pre> </div>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-security">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="swagger-request-security-schema"></th>
+                        <th class="swagger-request-security-scopes"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a href="#security-definition-ApiKeyAuth">ApiKeyAuth</a>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </section>
               </div>
             </div>
@@ -323,6 +388,12 @@
                       <p>Success</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value"> undefined </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
@@ -337,6 +408,28 @@
   }
 ]
 </code></pre> </div>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-security">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="swagger-request-security-schema"></th>
+                        <th class="swagger-request-security-scopes"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a href="#security-definition-ApiKeyAuth">ApiKeyAuth</a>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </section>
               </div>
             </div>
@@ -389,6 +482,12 @@
                       <p>Success</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value"> undefined </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
@@ -403,6 +502,28 @@
   }
 ]
 </code></pre> </div>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-security">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="swagger-request-security-schema"></th>
+                        <th class="swagger-request-security-scopes"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a href="#security-definition-ApiKeyAuth">ApiKeyAuth</a>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </section>
               </div>
             </div>
@@ -489,6 +610,12 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value"> undefined </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">500 Internal Server Error</div>
                       <div class="prop-ref">
                         <span class="">
@@ -530,6 +657,28 @@
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Request validation failed: Parameter (birthDate) must be a valid timestamp&quot;</span>
 }
 </code></pre> </div>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-security">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="swagger-request-security-schema"></th>
+                        <th class="swagger-request-security-scopes"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a href="#security-definition-ApiKeyAuth">ApiKeyAuth</a>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </section>
               </div>
             </div>
@@ -612,6 +761,12 @@
                     <div class="prop-value">
                       <p>Success</p>
                     </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value"> undefined </div>
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -1572,6 +1727,28 @@
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Request validation failed: Parameter (birthDate) must be a valid timestamp&quot;</span>
 }
 </code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UnauthorizedError" class="definition panel" data-traverse-target="definition-UnauthorizedError">
+            <h2 class="panel-title">
+              <a name="/definitions/UnauthorizedError"></a>UnauthorizedError:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>API key is missing or invalid</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <div class="hljs"></div>
                 </section>
               </div>
             </div>
