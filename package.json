@@ -13,6 +13,7 @@
   "scripts": {
     "start": "node server.js | bunyan -o short",
     "test": "mocha",
+    "validate": "./node_modules/.bin/swagger-tools validate ./api/swagger/swagger.yaml",
     "test-report": "mocha --reporter mocha-junit-reporter",
     "docs-test": "dredd ./api/swagger/swagger.yaml http://127.0.0.1:3000",
     "docs-render": "spectacle -t ./docs ./api/swagger/swagger.yaml",

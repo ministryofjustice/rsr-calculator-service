@@ -493,20 +493,3 @@
           example: "Request validation failed: Parameter (birthDate) must be a valid timestamp"
       required:
         - "message"
-    FormatedTextOutput:
-      type: string
-      example: "
-        ******************************
-        RSR v0.0.4 OFFICIAL
-        ******************************
-
-        A: \"A\"
-        B: \"B\"
-        C: \"N/A\"
-        D: \"N/A\"
-        E: \"N/A\"
-        F: 0.23741837
-        G: \"null\"
-        firstname: \"John\"
-        surname: \"Doe\"
-        "

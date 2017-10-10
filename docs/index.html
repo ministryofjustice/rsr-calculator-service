@@ -53,14 +53,6 @@
               </li>
             </ul>
           </section>
-          <section>
-            <a href="#tag-Text-renderer">Text renderer</a>
-            <ul>
-              <li>
-                <a href="#operation--render-post"> Render dataset to Text file </a>
-              </li>
-            </ul>
-          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-DrugRegister"> DrugRegister </a>
           <a href="#definition-OffenceTypeRegister"> OffenceTypeRegister </a>
@@ -517,7 +509,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <div class="hljs"><pre><code class="lang-json">{
-  <span class="hljs-attr">&quot;calculatorVersion&quot;</span>: <span class="hljs-string">&quot;1.0.6&quot;</span>,
+  <span class="hljs-attr">&quot;calculatorVersion&quot;</span>: <span class="hljs-string">&quot;1.0.8&quot;</span>,
   <span class="hljs-attr">&quot;OGRS3&quot;</span>: [
     <span class="hljs-number">0.8505241405394922</span>,
     <span class="hljs-number">0.9211344267816202</span>
@@ -643,7 +635,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <div class="hljs"><pre><code class="lang-json">{
-  <span class="hljs-attr">&quot;calculatorVersion&quot;</span>: <span class="hljs-string">&quot;1.0.6&quot;</span>,
+  <span class="hljs-attr">&quot;calculatorVersion&quot;</span>: <span class="hljs-string">&quot;1.0.8&quot;</span>,
   <span class="hljs-attr">&quot;OGRS3&quot;</span>: [
     <span class="hljs-number">0.8505241405394922</span>,
     <span class="hljs-number">0.9211344267816202</span>
@@ -663,99 +655,6 @@
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;Invalid Argument&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Request validation failed: Parameter (birthDate) must be a valid timestamp&quot;</span>
 }
-</code></pre> </div>
-                </section>
-              </div>
-            </div>
-          </div>
-          <h1 id="tag-Text-renderer" class="swagger-summary-tag" data-traverse-target="tag-Text-renderer">Text renderer</h1>
-          <div id="operation--render-post" class="operation panel" data-traverse-target="operation--render-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Text-renderer">Text renderer</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Render dataset to Text file</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/render</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Renders a set of data to a human readable text file that can be saved</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/RSRCalculatorResult">RSRCalculatorResult</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Details of an dataset to be rendered into a readable text format</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <div class="hljs"><pre><code class="lang-json">{
-  <span class="hljs-attr">&quot;A&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
-  <span class="hljs-attr">&quot;B&quot;</span>: <span class="hljs-string">&quot;B&quot;</span>,
-  <span class="hljs-attr">&quot;C&quot;</span>: <span class="hljs-literal">null</span>,
-  <span class="hljs-attr">&quot;D&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
-  <span class="hljs-attr">&quot;E&quot;</span>: <span class="hljs-string">&quot;undefined&quot;</span>,
-  <span class="hljs-attr">&quot;F&quot;</span>: <span class="hljs-number">0.23741837</span>,
-  <span class="hljs-attr">&quot;G&quot;</span>: <span class="hljs-string">&quot;null&quot;</span>
-}
-</code></pre> </div>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/RSRCalculatorResult">RSRCalculatorResult</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Success</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <div class="hljs"><pre><code class="lang-json"><span class="hljs-string">&quot; ****************************** RSR v0.0.3 OFFICIAL ******************************\nA: A B: B C: N/A D: N/A E: N/A F: 0.23741837 G: N/A&quot;</span>
 </code></pre> </div>
                 </section>
               </div>
