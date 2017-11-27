@@ -17,7 +17,7 @@ const safely = (fn) => {
 
 const safeParse = (key, val) => {
   try {
-    return JSON.stringify(val).replace(/undefined/gmi, '"N/A"').replace(/NaN/gmi, '"N/A"');
+    return JSON.stringify(decodeURI(val)).replace(/undefined/gmi, '"N/A"').replace(/NaN/gmi, '"N/A"');
   } catch (ex) {
     console.error('Error while parsing value "' + val + '" for <' + key + '>');
   }
@@ -97,7 +97,7 @@ const asDownloadableFile = (res) => (x) => {
 const validateRequest = (data) =>
   new Promise((res, rej) => {
     for (var p in data) {
-      if (/<.*?>/gm.test(data[p])) {
+      if (/<.*?>/gm.test(decodeURI(data[p]))) {
         return rej(new Error('Data contained illegal characters'));
       }
     }

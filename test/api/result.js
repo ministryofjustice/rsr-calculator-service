@@ -24,8 +24,8 @@ describe('api /render', () => {
         lessThan: '<world',
         greaterThan: 'world>'
       })
-      .expect('Content-Type', /octet-stream/)
-      .expect(200);
+      .expect(200)
+      .expect('Content-Type', /octet-stream/);
   });
 
   it('should return a 400 response when possible non plain text value detected', () => {
@@ -35,8 +35,8 @@ describe('api /render', () => {
       .send({
         emptyTag: '<>',
       })
-      .expect('Content-Type', /json/)
-      .expect(400);
+      .expect(400)
+      .expect('Content-Type', /json/);
   });
 
   it('should return a 400 response when script injection detected', () => {
@@ -44,9 +44,20 @@ describe('api /render', () => {
       .post('/render')
       .set('Accept', 'text/plain')
       .send({
-        hello: '<script>alert("world");</script>',
+        plainInjection: '<script>alert("world");</script>',
       })
-      .expect('Content-Type', /json/)
-      .expect(400);
+      .expect(400)
+      .expect('Content-Type', /json/);
+  });
+
+  it('should return a 400 response when html encoded script injection detected', () => {
+    return request(server)
+      .post('/render')
+      .set('Accept', 'text/plain')
+      .send({
+        encodedInjection: '12ruu57%3cscript%3ealert(1)%3c%2fscript%3epelne',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/);
   });
 });
