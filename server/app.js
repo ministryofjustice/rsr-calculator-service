@@ -2,6 +2,7 @@ const express = require('express');
 const bunyanMiddleware = require('bunyan-middleware');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const xFrameOptions = require('x-frame-options');
 
 const requireAuth = require('./auth');
 const serveDocs = require('./docs');
@@ -43,6 +44,7 @@ function setupBaseMiddleware(app, log) {
   app.use(helmet());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+  app.use(xFrameOptions());
 }
 
 function setupAppRoutes(app, config, log) {
