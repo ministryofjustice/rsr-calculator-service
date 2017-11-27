@@ -33,4 +33,16 @@ describe('api /*', () => {
         .expect('X-Frame-Options', /Deny/)
     ));
   });
+
+  it('should specify private cache control on routes', () => {
+    return Promise.all(paths.map((path) =>
+      request(server)[path.method.toLowerCase()](path.route)
+        .set('Accept', 'application/json')
+        .expect('cache-control', /no-store/)
+        .expect('cache-control', /no-cache/)
+        .expect('cache-control', /must-revalidate/)
+        .expect('pragma', /no-cache/)
+        .expect('expires', /0/)
+    ));
+  });
 });

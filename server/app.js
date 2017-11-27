@@ -42,6 +42,8 @@ function setupBaseMiddleware(app, log) {
   });
 
   app.use(helmet());
+  app.use(helmet.noCache());
+
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(xFrameOptions());
@@ -52,11 +54,10 @@ function setupAppRoutes(app, config, log) {
 
   app.use(serveDocs());
 
-  app.use(express.static('public'));
+  app.use(express.static('public', { maxAge: '1d' }));
 
   const authMiddleware = requireAuth(config.auth, log);
   if (authMiddleware) app.use(authMiddleware);
-
 
   app.get('/register/drug', registerController.drug);
   app.get('/register/offenceType', registerController.offenceType);
