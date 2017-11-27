@@ -1,4 +1,5 @@
 const registers = require('./registers');
+const errors = require('../../server/errors');
 
 const log = (l, x) => {
   console.log(l, x);
@@ -6,12 +7,6 @@ const log = (l, x) => {
 };
 
 // helpers
-const downloadableFile = (res, x) => {
-  res.set('content-type', 'application/octet-stream');
-  res.set('content-disposition', 'attachment;filename="'+ x.filename +'"');
-  res.send(x.body);
-};
-
 const safely = (fn) => {
   try {
     return fn();
@@ -58,7 +53,7 @@ const displayResult = (x) => {
   return {
     filename: 'RSR_data_for_' + x.firstName + '_' + x.familyName + '.txt',
     body: oData.concat(
-      log('key List', getSortedOutputKeyList(log('req.body', x)))
+      getSortedOutputKeyList(x)
         .map((key) => {
           let val = x[key];
           let options = x[key + '_options'];
@@ -92,5 +87,26 @@ const displayResult = (x) => {
   };
 };
 
+const asDownloadableFile = (res) => (x) => {
+  res.attachment(x.filename);
+  res.set('content-type', 'application/octet-stream');
+
+  res.send(x.body);
+};
+
+const validateRequest = (data) =>
+  new Promise((res, rej) => {
+    for (var p in data) {
+      if (/<.*?>/gm.test(data[p])) {
+        return rej(new Error('Data contained illegal characters'));
+      }
+    }
+
+    res(data);
+  });
+
 module.exports.render = (req, res) =>
-	downloadableFile(res, displayResult(req.body));
+  validateRequest(req.body)
+    .then(displayResult)
+    .then(asDownloadableFile(res))
+    .catch((err) => errors.validation(res, err.message));
