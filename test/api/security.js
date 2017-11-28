@@ -42,6 +42,7 @@ describe('api /*', () => {
         .expect('cache-control', /no-cache/)
         .expect('cache-control', /must-revalidate/)
         .expect('pragma', /no-cache/)
+        .expect('Referrer-Policy', /same-origin/)
         .expect('expires', /0/)
     ));
   });

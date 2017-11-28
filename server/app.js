@@ -43,6 +43,7 @@ function setupBaseMiddleware(app, log) {
 
   app.use(helmet());
   app.use(helmet.noCache());
+  app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
