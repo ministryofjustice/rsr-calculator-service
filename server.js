@@ -9,11 +9,11 @@ const log = require('./server/log');
 const makeApp = require('./server/app');
 
 makeApp(config, log, (err, app) => {
-    if (err) throw err;
+  if (err) throw err;
 
-    const server = http.createServer(app);
+  const server = http.createServer(app);
 
-    server.listen(config.port, () => {
-      log.info({ addr: server.address() }, 'Server listening' );
-    });
+  server.listen(config.port, () => {
+    log.info({ addr: server.address() }, 'Server listening' );
   });
+});
