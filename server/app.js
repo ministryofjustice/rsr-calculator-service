@@ -3,27 +3,51 @@ const bunyanMiddleware = require('bunyan-middleware');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const xFrameOptions = require('x-frame-options');
+const requireAll = require('require-all');
 
-const requireAuth = require('./auth');
-const serveDocs = require('./docs');
-
+const auth = require('./apiKeyAuth');
 const errors = require('./errors');
+const healthcheck = require('../api/health/healthcheck');
 
-const registerController = require('../api/controllers/registers');
-const resultController = require('../api/controllers/result');
-const ogrs3Controller = require('../api/controllers/ogrs3');
-const rsrController = require('../api/controllers/rsr');
-const healthController = require('../api/controllers/health');
+const flatten = (data) => {
+  let result = {};
 
-module.exports = (config, log, callback) => {
+  let recurse = (cur, prop) => {
+    let isEmpty = true;
+
+    for (let p in cur) {
+      isEmpty = false;
+      recurse(cur[p], prop + (!~p.indexOf('index') ? '/' + p : ''));
+    }
+
+    if (typeof cur === 'function') {
+      result[prop] = cur;
+    } else if (isEmpty && prop) {
+      result[prop] = {};
+    }
+  };
+
+  recurse(data, '');
+
+  return result;
+};
+
+module.exports = (config, log, callback, includeErrorHandling = true) => {
   const app = express();
+  app.locals.config = config;
 
   app.set('json spaces', 2);
   app.set('trust proxy', true);
 
   setupBaseMiddleware(app, log);
+  setupOperationalRoutes(app);
+  setupStaticRoutes(app);
+  setupAuthMiddleware(app, log);
+  setupRouters(app, log);
 
-  setupAppRoutes(app, config, log);
+  if (includeErrorHandling) {
+    setupErrorHandling(app, config);
+  }
 
   return callback(null, app);
 };
@@ -50,27 +74,46 @@ function setupBaseMiddleware(app, log) {
   app.use(xFrameOptions());
 }
 
-function setupAppRoutes(app, config, log) {
-  app.get('/health', healthController.health);
+function setupOperationalRoutes(app) {
+  app.use('/', require('./docs'));
 
-  app.use(serveDocs());
+  app.get('/health', (req, res) =>
+    healthcheck()
+      .then((result) => {
+        if (!result.healthy) {
+          res.status(500);
+        }
 
+        res.json(result);
+      })
+      .catch((err) => errors.validation(res, err.message)));
+}
+
+function setupStaticRoutes(app) {
   app.use(express.static('public', { maxAge: '1d' }));
+}
 
-  const authMiddleware = requireAuth(config.auth, log);
+function setupAuthMiddleware(app, log) {
+  const authMiddleware = auth(app.locals.config.auth, log);
   if (authMiddleware) app.use(authMiddleware);
+}
 
-  app.get('/register/drug', registerController.drug);
-  app.get('/register/offenceType', registerController.offenceType);
-  app.get('/register/violentOffenceCategory', registerController.violentOffenceCategory);
+function setupRouters(app, log) {
+  log.info('registering controllers...');
 
-  app.post('/calculate/ogrs3', ogrs3Controller.calculate);
-  app.post('/calculate/ogrs3/customised', ogrs3Controller.calculate);
+  let routes = flatten(requireAll({
+    dirname:  __dirname + '/../api/controllers',
+    recursive: true,
+    resolve: (router) => () => router
+  }));
 
-  app.post('/calculate', rsrController.calculate);
+  for (let uri in routes) {
+    log.info(uri, routes[uri]);
+    app.use(uri, routes[uri]());
+  }
+};
 
-  app.post('/render', resultController.render);
-
+function setupErrorHandling(app) {
   app.use(function notFoundHandler(req, res) {
     errors.notFound(res, 'No handler exists for this url');
   });

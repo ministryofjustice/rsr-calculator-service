@@ -33,6 +33,7 @@
     "lodash": "^4.17.4",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
+    "require-all": "^2.2.0",
     "rsr-calculator": "github:noms-digital-studio/rsr-calculator#1.0.8",
     "sleep-promise": "^2.0.0",
     "swagger-ui-express": "^2.0.1",

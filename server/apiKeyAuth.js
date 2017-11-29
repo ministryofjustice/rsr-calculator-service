@@ -23,7 +23,7 @@ const getHostname = (req) => {
   return req.hostname;
 };
 
-const apiKeyAuth = (req) => {
+const validateAuth = (req) => {
   if (!req) {
     throw new TypeError('argument req is required');
   }
@@ -60,8 +60,8 @@ module.exports = (config, log) => {
   }
 
   log.info('Enabling API Key auth');
-  return function requireAuth(req, res, next) {
-    if (!isAuthorised(config, apiKeyAuth(req))) {
+  return function apiKeyAuth(req, res, next) {
+    if (!isAuthorised(config, validateAuth(req))) {
       return unauthorized(res);
     }
     return next();

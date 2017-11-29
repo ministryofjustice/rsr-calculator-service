@@ -1,4 +1,7 @@
-const drug = module.exports.drugRegister = [
+const express = require('express');
+const router = express.Router();
+
+const drug = [
 	{ id: 0, label: 'Drugs never misused' },
 	{ id: 1, label: 'Heroin' },
 	{ id: 2, label: 'Methadone (not prescribed)' },
@@ -16,7 +19,7 @@ const drug = module.exports.drugRegister = [
 	{ id: 14, label: 'Other' },
 ];
 
-const offenceType = module.exports.offenceTypeRegister = [
+const offenceType = [
 	{ id: 0, label: 'Absconding/ bail' },
 	{ id: 1, label: 'Acquisitive violence' },
 	{ id: 2, label: 'Burglary (domestic)' },
@@ -39,7 +42,7 @@ const offenceType = module.exports.offenceTypeRegister = [
 	{ id: 19, label: 'Welfare fraud' },
 ];
 
-const violentOffenceCategory = module.exports.violentOffenceCategoryRegister = [
+const violentOffenceCategory = [
 	{ id: 0, label: 'Summary violence' },
 	{ id: 1, label: 'Actual/ threatened use of firearms' },
 	{ id: 2, label: 'Possession/ supply of firearms' },
@@ -47,11 +50,21 @@ const violentOffenceCategory = module.exports.violentOffenceCategoryRegister = [
 	{ id: 4, label: 'Other indictable violence' },
 ];
 
-module.exports.drug = (req, res) =>
+const getDrugRegister = (req, res) =>
 	res.json(drug);
 
-module.exports.offenceType = (req, res) =>
+const getOffenceTypeRegister = (req, res) =>
 	res.json(offenceType);
 
-module.exports.violentOffenceCategory = (req, res) =>
+const getViolentOffenceCategoryRegister = (req, res) =>
 	res.json(violentOffenceCategory);
+
+router.get('/drug', getDrugRegister);
+router.get('/offenceType', getOffenceTypeRegister);
+router.get('/violentOffenceCategory', getViolentOffenceCategoryRegister);
+
+module.exports = router;
+
+module.exports.violentOffenceCategoryRegister = violentOffenceCategory;
+module.exports.offenceTypeRegister = offenceType;
+module.exports.drugRegister = drug;

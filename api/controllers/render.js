@@ -1,4 +1,7 @@
-const registers = require('./registers');
+const express = require('express');
+const router = express.Router();
+
+const registers = require('./register');
 const errors = require('../../server/errors');
 
 const log = (l, x) => {
@@ -105,8 +108,12 @@ const validateRequest = (data) =>
     res(data);
   });
 
-module.exports.render = (req, res) =>
+const render = (req, res) =>
   validateRequest(req.body)
     .then(displayResult)
     .then(asDownloadableFile(res))
     .catch((err) => errors.validation(res, err.message));
+
+router.post('/', render);
+
+module.exports = router;

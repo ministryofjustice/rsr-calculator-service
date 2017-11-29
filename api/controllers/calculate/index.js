@@ -1,5 +1,8 @@
+const express = require('express');
+const router = express.Router();
+
 const RSRCalc = require('rsr-calculator');
-const errors = require('../../server/errors');
+const errors = require('../../../server/errors');
 
 const asJson = (res, x) =>
   res.json(x);
@@ -105,7 +108,7 @@ const withFormattedResponse = (x) => ({
   //explain: x.explain,
 });
 
-module.exports.calculate = (req, res) => {
+const calculateRiskOfSeriousRecidivism = (req, res) => {
   let params = getRequestParams(req.body);
 
   let missing = getMissingRequiredFields(params);
@@ -115,3 +118,7 @@ module.exports.calculate = (req, res) => {
 
   return asJson(res, withFormattedResponse(RSRCalc.calculateRisk(params)));
 };
+
+router.post('/', calculateRiskOfSeriousRecidivism);
+
+module.exports = router;
