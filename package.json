@@ -35,6 +35,7 @@
     "require-all": "^2.2.0",
     "rsr-calculator": "github:noms-digital-studio/rsr-calculator#1.0.8",
     "sleep-promise": "^2.0.0",
+    "snyk": "^1.56.0",
     "swagger-ui-express": "^2.0.1",
     "x-frame-options": "^1.0.0"
   },
