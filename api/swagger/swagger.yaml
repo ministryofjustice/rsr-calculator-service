@@ -20,7 +20,7 @@
           200:
             description: "Success"
             examples:
-              application/json:
+              application/json; charset=utf-8:
                 healthy: true
                 checks:
                   calculatorVersion: "1.0.8"
@@ -56,7 +56,7 @@
           200:
             description: "Success"
             examples:
-              application/json:
+              application/json; charset=utf-8:
                 -
                   id: 0
                   label: "A Bad Drug"
@@ -81,7 +81,7 @@
           200:
             description: "Success"
             examples:
-              application/json:
+              application/json; charset=utf-8:
                 -
                   id: 0
                   label: "One offence"
@@ -106,7 +106,7 @@
           200:
             description: "Success"
             examples:
-              application/json:
+              application/json; charset=utf-8:
                 -
                   id: 0
                   label: "Category One"
