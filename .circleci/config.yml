@@ -81,11 +81,6 @@ jobs:
           at: /home/circleci/app/
 
       - run:
-          name: Seed database
-          command: |
-            npm run seed
-
-      - run:
           name: Dredd Tests
           command: |
             npm run docs-test
