@@ -2,7 +2,7 @@
 
       <div class='container'>
         <nav>
-          <ol class="progress">
+          <ol class="progress" data-track="progress">
             <li class="progress--completed progress--previous">
               <div class="progress__step">
                 <span class="progress__label"><a href="#view1">Offender details</a></span>
@@ -29,17 +29,17 @@
 
       <div class='content-header'>
       </div>
-      
+
       <section class='review'>
         <h3 class='section-header' id='offender'>Offender Details
-        <a class="right" href="#view1" aria-label="Make changes to offender details">Make changes</a></h3>
+        <a class="right" href="#view1" aria-label="Make changes to offender details" data-track="step-two">Make changes</a></h3>
         <div id='offender-details-summary' class='moj-panel done'></div>
       </section>
 
       <section class='current-offence'>
         <h3 class='section-header' id='offence'>Current Offence</h3>
         <div class='moj-panel sub-panel'>
-          <form class="step2form" id="step2form" action="#view3" method="post">
+          <form class="step2form" id="step2form" action="#view3" method="post" data-track="step-two">
 
             <div class="row">
               <label for='offence_type'><span class='q-num'>2.1</span> Current offence type</label>
@@ -200,7 +200,7 @@
             <!-- Start stranger victim -->
 
             <div class="extra-panel" id="stranger-victim-details">
-              <div class="row"> 
+              <div class="row">
                 <label for='stranger_victim'><span class='q-num'>2.5</span> Does the current sexual offence have a stranger victim?</label>
                 <select id='stranger_victim' data-required="false" aria-hidden="true" tabindex="-1" data-description="stranger_victim" data-describedby="stranger_victim-description">
                   <option value="">Please select</option>
@@ -216,7 +216,7 @@
             <!-- Start violent offence details -->
 
             <div class="extra-panel" id="violent-offence-details">
-              <div class="row"> 
+              <div class="row">
                 <label for='violent_offence_category'><span class='q-num'>2.6</span> What is the category of the violent offence?</label>
                 <select id='violent_offence_category' data-required="false" aria-hidden="true" data-description="violent_offence_category" data-describedby="violent_offence_category-description">
                   <option value="">Please select</option>
@@ -239,7 +239,6 @@
       <section>
         <div class="action-buttons cf">
           <!-- <a id="submit-btn" class="button primary right" href="#view3">Continue to criminal history details</a> -->
-          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view3" value="Continue to criminal history details" />
+          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view3" value="Continue to criminal history details" data-track="step-two-continue" />
         </div>
       </section>
-

@@ -1,9 +1,9 @@
 
 
-      
+
       <div class='container'>
         <nav>
-          <ol class="progress">
+          <ol class="progress" data-track="progress">
             <li class="progress--active">
               <div class="progress__step">
                 <span class="progress__label">Offender details</span>
@@ -27,16 +27,16 @@
           </ol>
         </nav>
       </div>
-      
+
       <div class='content-header'>
       </div>
-      
+
 
       <section class='offender_details'>
         <h3 class='section-header' id='property'>Offender details</h3>
         <p class="note"><strong>Please note</strong>: All fields are mandatory, unless indicated otherwise.</p>
         <div class='moj-panel sub-panel'>
-          <form class="step1form" id="step1form" action="#view2" method="post">
+          <form class="step1form" id="step1form" action="#view2" method="post" data-track="step-one">
 
             <div class="row form-group">
               <label for='offender_title'><span class='q-num'>1.1</span> Title</label>
@@ -213,10 +213,6 @@
 
       <section>
         <div class="action-buttons cf">
-          <input type="submit" id="submit-btn" class="button primary right" data-href="#view2" name="Continue" value="Continue to current offence details" />
+          <input type="submit" id="submit-btn" class="button primary right" data-href="#view2" name="Continue" value="Continue to current offence details" data-track="step-one-continue" />
         </div>
       </section>
-
-
-
-

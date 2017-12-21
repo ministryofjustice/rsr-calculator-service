@@ -1,7 +1,7 @@
 
       <div class='container'>
         <nav>
-          <ol class="progress">
+          <ol class="progress" data-track="progress">
             <li class="progress--completed">
               <div class="progress__step">
                 <span class="progress__label"><a href="#view1">Offender details</a></span>
@@ -28,7 +28,7 @@
 
       <div class='content-header'>
       </div>
-      
+
       <section class='rsr-scores' tabindex="0">
         <h1 id="results_header"></h1>
 
@@ -39,7 +39,7 @@
             <p class="score-description-text">Likelihood of <strong>serious</strong> reoffending.</p>
           </div>
         </div>
-        
+
         <div class='score-card'>
           <div id="any-reoffending">
             <p class="score-low-medium score-xxl">28<sup>%</sup></p>
@@ -47,7 +47,7 @@
             <p class="score-description-text">Likelihood of <strong>any</strong> reoffending.</p>
           </div>
         </div>
-        
+
         <div class='score-card'>
           <div id="violent-reoffending">
             <p class="score-medium-high score-xxl">31<sup>%</sup></p>
@@ -55,7 +55,7 @@
             <p class="score-description-text">Likelihood of <strong>violent</strong> reoffending.</p>
           </div>
         </div>
-        
+
         <div class='score-card'>
           <div id="sexual-reoffending">
             <p class="score-none score-l">No sexual offence history</p>
@@ -66,30 +66,30 @@
 
       </section>
 
-      
-       
+
+
        <section class='review'>
         <h3 class='section-header' id='offender'>Offender Details
-        <a class="right" href="#view1" aria-label="Make changes to offender details">Make changes</a></h3>
+        <a class="right" href="#view1" aria-label="Make changes to offender details" data-track="step-five">Make changes</a></h3>
         <div id='offender-details-summary' class='moj-panel done'></div>
       </section>
 
       <section class='review'>
         <h3 class='section-header' id='offence'>Current Offence
-        <a class="right" href="#view2" aria-label="Make changes to current offence details">Make changes</a></h3>
+        <a class="right" href="#view2" aria-label="Make changes to current offence details" data-track="step-five">Make changes</a></h3>
         <div id="current-offence-summary" class='moj-panel done'>
         </div>
       </section>
 
       <section class='review'>
         <h3 class='section-header' id='criminal-history'>Criminal History
-        <a class="right" href="#view3" aria-label="Make changes to criminal history details">Make changes</a></h3>
+        <a class="right" href="#view3" aria-label="Make changes to criminal history details" data-track="step-five">Make changes</a></h3>
         <div id='criminal-history-summary' class='moj-panel done'></div>
       </section>
 
       <section class='review'>
         <h3 class='section-header' id='oasys-interview'>OASys/ Interview
-        <a class="right" href="#view4" aria-label="Make changes to OASys details">Make changes</a></h3>
+        <a class="right" href="#view4" aria-label="Make changes to OASys details" data-track="step-five">Make changes</a></h3>
         <div id='oasys-summary' class='moj-panel done'></div>
       </section>
 
@@ -100,10 +100,10 @@
       </section>  -->
        <section>
         <div class="action-buttons cf centered">
-          <a id="download-btn" class="button large secondary" href="#" download="#" tabindex="0" name="Download data" aria-label="Download data as a rtf file">Download data as a .rtf file</a>
+          <a id="download-btn" class="button large secondary" href="#" download="#" tabindex="0" name="Download data" aria-label="Download data as a rtf file" data-track="download">Download data as a .rtf file</a>
         </div>
       </section>
-<!-- 
+<!--
       <section>
         <div class="action-buttons cf centered">
           <a id="email-btn" class="button large secondary" href="#">2. Create email</a>
@@ -112,6 +112,6 @@
 
       <section>
         <div class="action-buttons cf centered">
-          <a id="exit-btn" class="button large chevron" href="#" tabindex="0" aria-label="Exit or start over" title="Exit">Exit/ start over</a>
+          <a id="exit-btn" class="button large chevron" href="#" tabindex="0" aria-label="Exit or start over" title="Exit" data-track="exit">Exit/ start over</a>
         </div>
       </section>

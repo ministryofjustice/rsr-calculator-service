@@ -92,7 +92,7 @@
   <!--[if !IE]> -->
     <body>
   <!-- <![endif]-->
-  <header class='with-proposition gov' id='global-header' role='banner'>
+  <header class='with-proposition gov' id='global-header' role='banner' data-track="header">
     <div class='header-wrapper'>
       <div class='header-global'>
         <div class='header-logo'>
@@ -104,7 +104,7 @@
       <div class='header-proposition'>
         <div class='content'>
           <nav id='proposition-menu'>
-            <a href='#/' id='proposition-name'>
+            <a href='#/' id='proposition-name' rel="home">
               Risk of Serious Recidivism Calculator
               <small id="app-version"></small>
               <small id="classification">OFFICIAL</small>
@@ -120,7 +120,7 @@
   <div class='user-data clearfix navbar collapsed-extra-panel' id='user-nav'>
     <ul class='nav navbar-nav'>
       <li class='acc-option'><input type="checkbox" id="accessible_errors" name="accessible-errors" value="false"><label for='accessible_errors'>Show accessible error messages</label></li>
-      <li><a id="quitclear" href="index.html">Quit and clear all data</a></li>
+      <li><a id="quitclear" href="/rsr" data-track="clear-all-data">Quit and clear all data</a></li>
     </ul>
   </div>
 
@@ -156,7 +156,7 @@
 
     </div>
   </div>
-  <footer class='group gov' id='footer' role='contentinfo'>
+  <footer class='group gov' id='footer' role='contentinfo' data-track="footer">
     <div class='footer-wrapper'>
       <div class='footer-categories'>
         <div class='footer-explore'>
@@ -274,11 +274,13 @@
 
 
     <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/ui.eventtracker.js"></script>
     <script src="js/jquery_ujs.js"></script>
     <script src="js/jquery.ui.effect.js"></script>
     <script src="js/jquery.ui.effect-highlight.js"></script>
     <script src="js/jquery.details.min.js"></script>
     <script src="js/jquery.tablescroll.js"></script>
+    <script src="js/ui.eventtracker.js"></script>
     <script src="js/moj.js"></script>
     <script src="js/modules/moj.tabs.js"></script>
     <script src="js/rebuild/usernav.js"></script>

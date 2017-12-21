@@ -1,8 +1,8 @@
 
-      
+
       <div class='container'>
         <nav>
-          <ol class="progress">
+          <ol class="progress" data-track="progress">
             <li class="progress--completed">
               <div class="progress__step">
                 <span class="progress__label"><a href="#view1">Offender details</a></span>
@@ -27,20 +27,20 @@
         </nav>
       </div>
 
-      
+
       <div class='content-header'>
       </div>
-      
+
 
       <section class='review'>
         <h3 class='section-header' id='offender'>Offender Details
-        <a class="right" href="#view1" aria-label="Make changes to offender details">Make changes</a></h3>
+        <a class="right" href="#view1" aria-label="Make changes to offender details" data-track="step-three">Make changes</a></h3>
         <div id='offender-details-summary' class='moj-panel done'></div>
       </section>
 
       <section class='review'>
         <h3 class='section-header' id='offence'>Current Offence
-        <a class="right" href="#view2" aria-label="Make changes to current offence details">Make changes</a></h3>
+        <a class="right" href="#view2" aria-label="Make changes to current offence details" data-track="step-three">Make changes</a></h3>
         <div id="current-offence-summary" class='moj-panel done'>
         </div>
       </section>
@@ -48,7 +48,7 @@
       <section class='criminal-history'>
         <h3 class='section-header' id='criminal'>Criminal History</h3>
         <div class='moj-panel sub-panel'>
-          <form class="step3form" id="step3form" action="#view4" method="post">
+          <form class="step3form" id="step3form" action="#view4" method="post" data-track="step-three">
 
              <fieldset class='row date-picker'>
               <label for="sanction_date"><span class='q-num'>3.1</span> Date of first sanction</label>
@@ -131,7 +131,7 @@
               <span class="form-desc" id="sexual_offence_history-description"></span>
             </div>
 
-            
+
             <!-- Start sexual offence history details -->
             <div class="extra-panel" id="sexual-offence-history-details">
 
@@ -230,7 +230,6 @@
       <section>
         <div class="action-buttons cf">
           <!-- <a id="submit-btn" class="button primary right" href="#view4">Continue to OASys details</a> -->
-          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view4" value="Continue to OASys details" />
+          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view4" value="Continue to OASys details" data-track="step-three-continue" />
         </div>
       </section>
-

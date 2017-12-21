@@ -1,8 +1,8 @@
 
-      
+
       <div class='container'>
         <nav>
-          <ol class="progress">
+          <ol class="progress" data-track="progress">
             <li class="progress--completed">
               <div class="progress__step">
                 <span class="progress__label"><a href="#view1">Offender details</a></span>
@@ -29,27 +29,27 @@
 
        <section class='review'>
         <h3 class='section-header' id='offender'>Offender Details
-        <a class="right" href="#view1" aria-label="Make changes to offender details">Make changes</a></h3>
+        <a class="right" href="#view1" aria-label="Make changes to offender details" data-track="step-four">Make changes</a></h3>
         <div id='offender-details-summary' class='moj-panel done'></div>
       </section>
 
       <section class='review'>
         <h3 class='section-header' id='offence'>Current Offence
-        <a class="right" href="#view2" aria-label="Make changes to current offence details">Make changes</a></h3>
+        <a class="right" href="#view2" aria-label="Make changes to current offence details" data-track="step-four">Make changes</a></h3>
         <div id="current-offence-summary" class='moj-panel done'>
         </div>
       </section>
 
       <section class='review'>
         <h3 class='section-header' id='criminal-history'>Criminal History
-        <a class="right" href="#view3" aria-label="Make changes to criminal history details">Make changes</a></h3>
+        <a class="right" href="#view3" aria-label="Make changes to criminal history details" data-track="step-four">Make changes</a></h3>
         <div id='criminal-history-summary' class='moj-panel done'></div>
       </section>
 
       <section class='oasys'>
         <h3 class='section-header' id='oasys'>OASys/ Interview</h3>
         <div class='moj-panel sub-panel'>
-          <form class="step4form" id="step4form" action="#view5" method="post">
+          <form class="step4form" id="step4form" action="#view5" method="post" data-track="step-four">
 
             <div class="row">
               <label for='oasys_interview'><span class='q-num'>4.1</span> Have you completed an offender interview and/ or OASys?</label>
@@ -63,7 +63,7 @@
 
             <!-- Start OASys details -->
             <div class="extra-panel" id="oasys-details">
-                
+
 
               <div class="row">
               <label>
@@ -155,7 +155,7 @@
 
               <div class="row">
                 <label for='use_weapon'>
-                  <span class='q-num'>4.3</span> 
+                  <span class='q-num'>4.3</span>
                   <strong> Did the offence involve carrying/use of a weapon?</strong><br><span class="oasys-hint-ref">2.2A</span></label>
                 <select id='use_weapon' aria-hidden="true"  data-required="false" data-description="use_weapon" data-describedby="use_weapon-description">
                   <option value="">Please select</option>
@@ -167,15 +167,15 @@
 
               <div class="row rel">
                 <label>
-                  <span class='q-num q-inactive'>4.4</span> 
+                  <span class='q-num q-inactive'>4.4</span>
                   <span class='q-inactive'>Question not in use</span>
                 </label>
               </div>
 
 
-              <!-- 
+              <!--
               <div class="row rel">
-                  <span class='q-num'>4.4</span> 
+                  <span class='q-num'>4.4</span>
                   <span class='inactive'>Question not in use</span>
                 <label for='partner'><strong>Does the offender usually live with their partner?</strong><span class="oasys-hint-ref">3.2</span></label>
                 <select id='partner' aria-hidden="true"  data-required="false" data-description="partner" data-describedby="partner-description">
@@ -188,7 +188,7 @@
 
               <div class="row rel">
                 <label for='accommodation'>
-                  <span class='q-num'>4.5</span> 
+                  <span class='q-num'>4.5</span>
                   <strong>Is the offender living in suitable accommodation?</strong> (Quality of residence, appropriateness of living arrangements, likely continued availability of accommodation. Is the accommodation temporary?)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">3.4</span></label>
                 <select id='accommodation' aria-hidden="true"  data-required="false" data-description="accommodation" data-describedby="accommodation-description">
                   <option value="">Please select</option>
@@ -201,7 +201,7 @@
 
               <div class="row rel">
                 <label for='employment'>
-                  <span class='q-num'>4.6</span> 
+                  <span class='q-num'>4.6</span>
                   <strong>Is the person unemployed, or will be unemployed on release?</strong> <span class="oasys-hint-ref">4.2</span></label>
                 <select id='employment' aria-hidden="true"  data-required="false" data-description="employment" data-describedby="employment-description">
                   <option value="">Please select</option>
@@ -213,7 +213,7 @@
 
               <div class="row rel">
                 <label for='relationship'>
-                  <span class='q-num'>4.7</span> 
+                  <span class='q-num'>4.7</span>
                   <strong>What is the person's current relationship with his/her partner?</strong> (Level of support, mutual respect/affection, strength of relationship and difficulties. If currently single, the level of satisfaction with state.)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">6.4</span></label>
                 <select id='relationship' aria-hidden="true"  data-required="false" data-description="relationship" data-describedby="relationship-description">
                   <option value="">Please select</option>
@@ -223,10 +223,10 @@
                 </select>
                 <span class="form-desc" id="relationship-description"></span>
               </div>
-            
+
               <div class="row rel">
                 <label for='domestic_violence'>
-                  <span class='q-num'>4.8</span> 
+                  <span class='q-num'>4.8</span>
                   <strong>Is there evidence that the offender is a perpetrator of domestic violence/partner abuse?</strong> <span class="oasys-hint-ref">6.7</span></label>
                 <select id='domestic_violence' aria-hidden="true"  data-required="false" data-description="domestic_violence" data-describedby="domestic_violence-description">
                   <option value="">Please select</option>
@@ -238,29 +238,29 @@
 
               <div class="row rel">
                 <label>
-                  <span class='q-num q-inactive'>4.9</span> 
+                  <span class='q-num q-inactive'>4.9</span>
                   <span class='q-inactive'>Question not in use</span>
                 </label>
               </div>
               <div class="row rel">
                 <label>
-                  <span class='q-num q-inactive'>4.10</span> 
+                  <span class='q-num q-inactive'>4.10</span>
                   <span class='q-inactive'>Question not in use</span>
                 </label>
               </div>
               <div class="row rel">
                 <label>
-                  <span class='q-num q-inactive'>4.11</span> 
+                  <span class='q-num q-inactive'>4.11</span>
                   <span class='q-inactive'>Question not in use</span>
                 </label>
               </div>
               <div class="row rel">
                 <label>
-                  <span class='q-num q-inactive'>4.12</span> 
+                  <span class='q-num q-inactive'>4.12</span>
                   <span class='q-inactive'>Question not in use</span>
                 </label>
               </div>
-            <!-- 
+            <!--
               <div class="row rel">
                 <label for='activities'><strong>Do the offenders regular activities encourage offending?</strong> (Do the leisure activities most commonly engaged in create opportunities to offend, or contribute to the need to offend eg. gambling in prison?)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">7.2</span></label>
                 <select id='activities'>
@@ -314,7 +314,7 @@
  -->
               <div class="row rel">
                 <label for='current_use_of_alcohol'>
-                  <span class='q-num'>4.13</span> 
+                  <span class='q-num'>4.13</span>
                   <strong>Is the person's current use of alcohol a problem? </strong>(Consider evidence from official records and from offender's own account)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">9.1</span></label>
                 <select id='current_use_of_alcohol' aria-hidden="true"  data-required="false" data-description="current_use_of_alcohol" data-describedby="current_use_of_alcohol-description">
                   <option value="">Please select</option>
@@ -327,7 +327,7 @@
 
               <div class="row rel">
                 <label for='binge_drinking'>
-                  <span class='q-num'>4.14</span> 
+                  <span class='q-num'>4.14</span>
                   <strong>Is there evidence of binge drinking or excessive use of alcohol in the last 6 months? </strong>(Consider evidence from official records and from offender's own account)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">9.2</span></label>
                 <select id='binge_drinking' aria-hidden="true"  data-required="false" data-description="binge_drinking" data-describedby="binge_drinking-description">
                   <option value="">Please select</option>
@@ -337,10 +337,10 @@
                 </select>
                 <span class="form-desc" id="binge_drinking-description"></span>
               </div>
-               
+
               <div class="row rel">
                 <label for='impulsivity'>
-                  <span class='q-num'>4.15</span> 
+                  <span class='q-num'>4.15</span>
                   <strong>Is impulsivity a problem for the offender?</strong> (Does the offender prefer to act rather than plan, take decisions that are later regretted, become bored easily, require stimulation?)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">11.2</span></label>
                 <select id='impulsivity' aria-hidden="true"  data-required="false" data-description="impulsivity" data-describedby="impulsivity-description">
                   <option value="">Please select</option>
@@ -353,7 +353,7 @@
 
               <div class="row rel">
                 <label for='temper'>
-                  <span class='q-num'>4.16</span> 
+                  <span class='q-num'>4.16</span>
                   <strong>Is temper control a problem for the offender?</strong> (Does the offender lose his/her temper easily and often? Does s/he have a low tolerance? Is s/he poor at conflict resolution? Is s/he unable to control emotions?)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">11.4</span></label>
                 <select id='temper' aria-hidden="true"  data-required="false" data-description="temper" data-describedby="temper-description">
                   <option value="">Please select</option>
@@ -366,7 +366,7 @@
 
               <div class="row rel">
                 <label for='pro_criminal'>
-                  <span class='q-num'>4.17</span> 
+                  <span class='q-num'>4.17</span>
                   <strong>Does the offender have pro-criminal attitudes?</strong> (Does s/he express attitudes supportive of criminal behaviour in general? Does s/he believe everyone offends given the opportunity?)<span class="oasys-hint">0/ 1/ 2</span><span class="oasys-hint-ref">12.1</span></label>
                 <select id='pro_criminal' aria-hidden="true"  data-required="false" data-description="pro_criminal" data-describedby="pro_criminal-description">
                   <option value="">Please select</option>
@@ -388,7 +388,6 @@
       <section>
         <div class="action-buttons cf">
           <!-- <a id="submit-btn" class="button primary right" href="#view5">Calculate RSR score</a> -->
-          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view5" value="Calculate RSR score" />
+          <input name="Continue" type="submit" id="submit-btn" class="button primary right" data-href="#view5" value="Calculate RSR score" data-track="step-four-continue" />
         </div>
       </section>
-
