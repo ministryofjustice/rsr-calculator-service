@@ -1,66 +1,145 @@
-version: 2
+defaults: &defaults
+  working_directory: /home/circleci/app
+  docker:
+    - image: node:carbon
 
+version: 2
 jobs:
   build:
-    docker:
-      - image: node:carbon
-    working_directory: /home/circleci/app
-    branches:
-      ignore:
-        - /deploy-to.*/
+    <<: *defaults
     steps:
       - run:
           name: Generate Build version
-          command: |
-            echo "export BUILD_VERSION=$(date +%Y%m%d%H%M)-$CIRCLE_BUILD_NUM" >> $BASH_ENV
+          command: echo "export BUILD_VERSION=$(date +%Y%m%d%H%M)-$CIRCLE_BUILD_NUM" >> $BASH_ENV
+
       - checkout
-      - restore_cache:
-          key: node_modules-{{ checksum "package.json" }}
-          key: node_modules
+
       - run:
           name: Install Dependencies
-          command: |
-            npm prune
-            npm install
-      - save_cache:
-          key: node_modules-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
+          command: npm install
+
       - run:
           name: Check for security advisories
           command: npm run snyk
+
+      - run:
+          name: Record build info
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              GIT_REF=$CIRCLE_SHA1 BUILD_NUMBER=$CIRCLE_BUILD_NUM \
+              npm run record-build-info
+            fi
+
+        - persist_to_workspace:
+            root: .
+            paths:
+              - node_modules
+              - build-info.json
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /home/circleci/app/
+
       - run:
           name: Run Unit Tests
-          command: npm run test-report
+          command: |
+            npm run test-report
           environment:
             MOCHA_FILE: build/junit/test-results.xml
+
       - store_test_results:
           path: build
+
+  coverage:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /home/circleci/app/
+
+      - run:
+          name: Run Coverage Tests
+          command: |
+            npm run test-coverage
+          environment:
+            LCOV_FILE: coverage/lcov.info
+
+      - store_artifacts:
+          path: coverage/lcov-report
+
+  documentation:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /home/circleci/app/
+
+      - run:
+          name: Seed database
+          command: |
+            npm run seed
+
       - run:
           name: Dredd Tests
-          command:
+          command: |
             npm run docs-test
+
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /home/circleci/app/
+
       - deploy:
           name: Build Derived Git Commit
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              GIT_REF=$CIRCLE_SHA1 BUILD_NUMBER=$CIRCLE_BUILD_NUM \
-                npm run record-build-info
-              git add --force --verbose build-info.json
               git config user.name "Circle CI"
               git config user.email "circle@circleci.com"
+
+              git add --force --verbose build-info.json
+
               git commit \
                 -m "Deployment of build $CIRCLE_BUILD_NUM" \
                 -m "$(git log --format=%B -n 1 $CIRCLE_SHA1)" \
                 -m "From gitref $CIRCLE_SHA1"
             fi
+
       - deploy:
           name: Deploy to Dev environment
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              # export DB_URI=$DEV_DB_URI
-              # npm run knex -- migrate:currentVersion
-              # npm run migrate
-              # npm run seed
               git push --force origin HEAD:deploy-to-dev
             fi
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: /deploy-to.*/
+            tags:
+              ignore: /.*/
+      - test:
+          requires:
+            - build
+      - coverage:
+          requires:
+            - test
+      - documentation:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+            - documentation

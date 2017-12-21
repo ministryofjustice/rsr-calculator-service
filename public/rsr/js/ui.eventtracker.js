@@ -27,10 +27,6 @@
     function sendTrackedEvent( category, action, label, value, cb ) {
         if (cb) window.setTimeout( cb, 50 );
 
-        if ( typeof window.ga === 'function' ) {
-            return sendUAEvent( category, action, label, value, cb );
-        }
-
         if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
             return sendDataLayerEvent( category, action, label, value, cb );
         }
@@ -45,24 +41,10 @@
       };
 
       if ( value ) {
-        data['eventValue'] = value;
+        data.eventValue = value;
       }
 
       window.dataLayer.push( data );
-    }
-
-    function sendUAEvent( category, action, label, value ) {
-        var data = {
-            category: category,
-            action: action,
-            label: label
-        };
-
-        if (value) {
-            data.value = value;
-        }
-
-        window.ga( 'send', 'event', data );
     }
 
     function determineActualCategory( tracker, c ) {
