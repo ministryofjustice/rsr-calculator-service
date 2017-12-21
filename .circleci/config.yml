@@ -30,11 +30,11 @@ jobs:
               npm run record-build-info
             fi
 
-        - persist_to_workspace:
-            root: .
-            paths:
-              - node_modules
-              - build-info.json
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+            - build-info.json
 
   test:
     <<: *defaults
