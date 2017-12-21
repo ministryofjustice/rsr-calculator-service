@@ -1,4 +1,88 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.10.1
-ignore: {}
-patch: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:debug:20170905':
+    - grunt-contrib-watch > tiny-lr-fork > debug:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+    - spectacle-docs > grunt-contrib-watch > tiny-lr-fork > debug:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+  'npm:growl:20160721':
+    - growl:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+  'npm:qs:20170213':
+    - grunt-contrib-watch > tiny-lr-fork > qs:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+    - spectacle-docs > grunt-contrib-watch > tiny-lr-fork > qs:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+  'npm:tunnel-agent:20170305':
+    - grunt-sass > node-sass > request > tunnel-agent:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+    - spectacle-docs > grunt-sass > node-sass > request > tunnel-agent:
+        reason: None given
+        expires: '2018-01-20T12:36:41.859Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:marked:20170112':
+    - marked:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > marked:
+        patched: '2017-12-21T12:35:03.086Z'
+  'npm:marked:20170907':
+    - marked:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > marked:
+        patched: '2017-12-21T12:35:03.086Z'
+  'npm:minimatch:20160620':
+    - spectacle-docs > grunt > findup-sync > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - findup-sync > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt > findup-sync > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt-contrib-watch > gaze > globule > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt-contrib-watch > gaze > globule > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - gaze > globule > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt-contrib-watch > gaze > globule > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt-contrib-watch > gaze > globule > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - gaze > globule > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt-prettify > globby > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt-prettify > globby > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+    - globby > glob > minimatch:
+        patched: '2017-12-21T12:35:03.086Z'
+  'npm:qs:20140806':
+    - grunt-contrib-watch > tiny-lr-fork > qs:
+        patched: '2017-12-21T12:35:03.086Z'
+    - grunt-contrib-watch > tiny-lr-fork > qs:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt-contrib-watch > tiny-lr-fork > qs:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt-contrib-watch > tiny-lr-fork > qs:
+        patched: '2017-12-21T12:35:03.086Z'
+  'npm:qs:20140806-1':
+    - grunt-contrib-watch > tiny-lr-fork > qs:
+        patched: '2017-12-21T12:35:03.086Z'
+    - spectacle-docs > grunt-contrib-watch > tiny-lr-fork > qs:
+        patched: '2017-12-21T12:35:03.086Z'
