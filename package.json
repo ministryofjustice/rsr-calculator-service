@@ -55,6 +55,7 @@
     "mocha-junit-reporter": "^1.15.0",
     "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^11.3.0",
+    "snyk": "^1.61.0",
     "sinon": "^2.3.7",
     "spectacle-docs": "^0.8.2",
     "supertest": "^3.0.0",
