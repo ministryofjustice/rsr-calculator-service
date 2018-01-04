@@ -27,24 +27,25 @@
     function sendTrackedEvent( category, action, label, value, cb ) {
         if (cb) window.setTimeout( cb, 50 );
 
-        if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
-            return sendDataLayerEvent( category, action, label, value, cb );
+        if ( typeof window.ga === 'function' ) {
+            return sendEvent( category, action, label, value, cb );
         }
+
+        logEventToConsole( category, action, label );
     }
 
-    function sendDataLayerEvent( category, action, label, value ) {
-      var data = {
-        event: 'GAevent',
-        eventCategory: category,
-        eventAction: action,
-        eventLabel: label
-      };
+    function sendEvent( category, action, label, value ) {
+        var data = {
+          eventCategory: category,
+          eventAction: action,
+          eventLabel: label
+        };
 
-      if ( value ) {
-        data.eventValue = value;
-      }
+        if (value) {
+            data.eventValue = value;
+        }
 
-      window.dataLayer.push( data );
+        window.ga( 'gtag_UA_101405180_2.send', 'event', data );
     }
 
     function determineActualCategory( tracker, c ) {
