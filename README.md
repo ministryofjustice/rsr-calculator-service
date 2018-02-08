@@ -1,5 +1,8 @@
-#Risk Calculator Service
+# Risk Calculator Service
+
 A Restful service to calculate risk on a known set of parameters.
+
+[![CircleCI](https://circleci.com/gh/noms-digital-studio/rsr-calculator-service.svg?style=svg)](https://circleci.com/gh/noms-digital-studio/rsr-calculator-service)
 
 ## Swagger documentation
 The details of the API  can found in [the online documentation](https://noms-digital-studio.github.io/rsr-calculator-service/).
