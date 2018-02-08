@@ -102,10 +102,13 @@ const withFormattedResponse = (x) => ({
   probabilityOfNonSexualViolence: x.probabilityOfNonSexualViolence, //osp
   indecentImageProbability: x.indecentImageProbability, //
   contactSexualProbability: x.contactSexualProbability, //
+  riskOfSeriousRecidivismBeta14: x.riskOfSeriousRecidivismBeta14,
   riskOfSeriousRecidivism: x.riskOfSeriousRecidivism,
+  RSRPercentileRiskBeta14: x.RSRPercentileRiskBeta14,
   RSRPercentileRisk: x.RSRPercentileRisk,
+  RSRRiskBandBeta14: x.RSRRiskBandBeta14,
   RSRRiskBand: x.RSRRiskBand,
-  //explain: x.explain,
+  explain: x.explain,
 });
 
 const calculateRiskOfSeriousRecidivism = (req, res) => {

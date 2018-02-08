@@ -31,7 +31,7 @@
             return sendEvent( category, action, label, value, cb );
         }
 
-        logEventToConsole( category, action, label );
+        //logEventToConsole( category, action, label );
     }
 
     function sendEvent( category, action, label, value ) {

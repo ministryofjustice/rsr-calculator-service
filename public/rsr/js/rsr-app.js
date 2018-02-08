@@ -1,7 +1,7 @@
 moj.Modules.RSRApp = (function() {
 	var //Variables
-		appStatus = "BETA",
-		appVersion = "14",
+		appStatus = "",
+		appVersion = "1.0.6",
 		supportEmail = "RSR_Tool_Project@justice.gsi.gov.uk",
 
 		viewFilePaths = [
@@ -375,7 +375,7 @@ moj.Modules.RSRApp = (function() {
 		$('#conviction_year').val('2010').prop('selected', true);
 		$('#sentence_date').val('1').prop('selected', true);
 		$('#sentence_month').val('January').prop('selected', true);
-		$('#sentence_year').val('2013').prop('selected', true);
+		$('#sentence_year').val('2016').prop('selected', true);
 
 		$('#sexual_element').val('1').prop('selected', true);
 		//$('#stranger_victim').val('0').prop('selected', true);
@@ -1235,6 +1235,20 @@ moj.Modules.RSRApp = (function() {
 				return false;
 			});
 
+			offenderData.totalRSR = moj.Modules.RSRCalc.calculateScore(offenderData) * 100;
+
+			offenderData.totalRSR = parseFloat(Math.round(offenderData.totalRSR * 100) / 100).toFixed(2);
+
+			var band = 'Low';
+
+			if (offenderData.totalRSR < 3) {
+				band = 'Low';
+			} else if (offenderData.totalRSR >= 3 && offenderData.totalRSR < 6.9) {
+				band = 'Medium';
+			} else if (offenderData.totalRSR >= 6.9) {
+				band = 'High';
+			}
+/*
 		$.ajax({
 			url: '/calculate',
 			type: 'POST',
@@ -1246,11 +1260,13 @@ moj.Modules.RSRApp = (function() {
 			//console.log(result);
 
 			var n = offenderData.rsrType === "static" ? 0 : 1;
-
+			offenderData.totalRSR = result.RSRPercentileRisk[n];
+			var band = result.RSRRiskBand[n];
+*/
 			scoreCard(
-				result.RSRPercentileRisk[n],
-				result.RSRRiskBand[n].toLowerCase(),
-				result.RSRRiskBand[n],
+				offenderData.totalRSR,
+				band.toLowerCase(),
+				band,
 				'Likelihood of <strong>serious</strong> reoffending over the next two years.');
 
 			$('#view5 #results_header').text(
@@ -1261,7 +1277,8 @@ moj.Modules.RSRApp = (function() {
 					offenderData.firstName,
 					offenderData.familyName
 				].join(' '));
-		});
+//		});
+
 	};
 
 	function setupView2Panels () {

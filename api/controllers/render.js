@@ -4,6 +4,56 @@ const router = express.Router();
 const registers = require('./register');
 const errors = require('../../server/errors');
 
+const fieldList = {
+  offenderTitle: String,
+  firstName: String,
+  familyName: String,
+  sex: String,
+  birthDate: Date,
+  age: Number,
+  pncId: String,
+  deliusId: String,
+  assessmentDate: Date,
+  currentOffenceType: String,
+  convictionDate: Date,
+  sentenceDate: Date,
+  sexualElement: Boolean,
+  violentOffenceCategory: Number,
+  strangerVictim: Number,
+  firstSanctionDate: Date,
+  allSanctions: Number,
+  violentSanctions: Number,
+  sexualOffenceHistory: Boolean,
+  mostRecentSexualOffence: Date,
+  contactAdult: Number,
+  contactChild: Number,
+  indecentImage: Number,
+  paraphilia: Number,
+  oasysInterview: Boolean,
+  useWeapon: Boolean,
+  partner: Number,
+  accommodation: Number,
+  employment: Number,
+  relationship: Number,
+  currentUseOfAlcohol: Number,
+  bingeDrinking: Number,
+  impulsivity: Number,
+  temper: Number,
+  proCriminal: Number,
+  domesticViolence: Boolean,
+  murder: Boolean,
+  wounding: Boolean,
+  kidnapping: Boolean,
+  firearmPossession: Boolean,
+  robbery: Boolean,
+  burglary: Boolean,
+  anyOtherWeaponOffence: Boolean,
+  endagerLife: Boolean,
+  arson: Boolean,
+  totalRSR: Number,
+  rsrType: String,
+};
+
 const log = (l, x) => {
   console.log(l, x);
   return x;
@@ -20,13 +70,13 @@ const safely = (fn) => {
 
 const safeParse = (key, val) => {
   try {
-    return JSON.stringify(decodeURI(val)).replace(/undefined/gmi, '"N/A"').replace(/NaN/gmi, '"N/A"');
+    return JSON.stringify(decodeURI(val)).replace(/"/gmi, '').replace(/undefined/gmi, 'N/A').replace(/NaN/gmi, 'N/A');
   } catch (ex) {
     console.error('Error while parsing value "' + val + '" for <' + key + '>');
   }
 };
 
-const getSortedOutputKeyList = (x) => {
+const getOutputKeyList = (x) => {
   var keys = [];
 
   for (var k in x) {
@@ -34,8 +84,6 @@ const getSortedOutputKeyList = (x) => {
       keys.push(k);
     }
   }
-
-  keys.sort();
 
   return keys;
 };
@@ -56,7 +104,7 @@ const displayResult = (x) => {
   return {
     filename: 'RSR_data_for_' + x.firstName + '_' + x.familyName + '.txt',
     body: oData.concat(
-      getSortedOutputKeyList(x)
+      getOutputKeyList(fieldList)
         .map((key) => {
           let val = x[key];
           let options = x[key + '_options'];
@@ -66,6 +114,9 @@ const displayResult = (x) => {
           }
 
           if (val !== 'N/A') {
+            if (fieldList[key] === Boolean) {
+              return key + ': ' + (val === 0 ? 'Yes' : 'No');
+            }
             if (options) {
               return (key === 'anyOtherOffence' ? 'anyOtherWeaponOffence' : key) + ': ' + options[parseInt(val)];
             }
