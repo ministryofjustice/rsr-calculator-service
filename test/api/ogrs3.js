@@ -35,7 +35,7 @@ describe('api /calculate/ogrs3', () => {
         res.body.should.have.property('OGRS3');
         res.body.OGRS3.should.eql([ 0.10966125120067907, 0.20180313320047938 ]);
         res.body.should.have.property('OGRS3PercentileRisk');
-        res.body.OGRS3PercentileRisk.should.eql([ 11, 20 ]);
+        res.body.OGRS3PercentileRisk.should.eql([ 10.97, 20.18 ]);
       });
   });
 
