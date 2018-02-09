@@ -22,7 +22,7 @@ const pickDate = (x, key) => {
 
 const pickBoolean = (req, key) => {
   let val = pick(req, key);
-  return val ? 0 : 1;
+  return val ? 1 : 0;
 };
 
 const pickNumber = (req, key) => {
@@ -102,11 +102,11 @@ const withFormattedResponse = (x) => ({
   probabilityOfNonSexualViolence: x.probabilityOfNonSexualViolence, //osp
   indecentImageProbability: x.indecentImageProbability, //
   contactSexualProbability: x.contactSexualProbability, //
-  riskOfSeriousRecidivismBeta14: x.riskOfSeriousRecidivismBeta14,
+  riskOfSeriousRecidivismBeta18: x.riskOfSeriousRecidivismBeta18,
   riskOfSeriousRecidivism: x.riskOfSeriousRecidivism,
-  RSRPercentileRiskBeta14: x.RSRPercentileRiskBeta14,
+  RSRPercentileRiskBeta18: x.RSRPercentileRiskBeta18,
   RSRPercentileRisk: x.RSRPercentileRisk,
-  RSRRiskBandBeta14: x.RSRRiskBandBeta14,
+  RSRRiskBandBeta18: x.RSRRiskBandBeta18,
   RSRRiskBand: x.RSRRiskBand,
   explain: x.explain,
 });

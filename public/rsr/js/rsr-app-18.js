@@ -885,7 +885,7 @@ moj.Modules.RSRApp = (function() {
                                                                 }
                                                 },
                                                 valid : function() {
-                                                                if (datesOK) {
+                                                                if (datesOK || ignoreInvalid) {
                                                                                 view3Complete();
                                                                 }
                                                 },
