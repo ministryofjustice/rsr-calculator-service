@@ -34,12 +34,14 @@ const pickNumber = (req, key) => {
 const getRequestParams = (x) => ({
   sex: pickNumber(x, 'sex'),
   gender: pickNumber(x, 'sex') === 0 ? 'M' : 'F', // derived from sex for OGRS3
-  allSanctions: pickNumber(x, 'allSanctions'),
+  allSanctions: pickNumber(x, 'allSanctions') || 0,
   currentOffenceType: pickNumber(x, 'currentOffenceType'),
 
+/* // note required
   age: pick(x, 'age'),                             // derived from birthDate?
   pncId: pick(x, 'pncId'),                         // not part of calculation?
   deliusId: pick(x, 'deliusId'),                   // not part of calculation?
+*/
 
   birthDate: pickDate(x, 'birthDate'),
   assessmentDate: pickDate(x, 'assessmentDate'),
@@ -50,32 +52,34 @@ const getRequestParams = (x) => ({
 
   violentOffenceCategory: pickNumber(x, 'violentOffenceCategory'),
   sexualElement: pickBoolean(x, 'sexualElement'),
-  strangerVictim: pickNumber(x, 'strangerVictim'),
+  strangerVictim: pickBoolean(x, 'strangerVictim'),
   violentSanctions: pickNumber(x, 'violentSanctions'),
-  sexualOffenceHistory: pickNumber(x, 'sexualOffenceHistory'),
+
+  sexualOffenceHistory: pickBoolean(x, 'sexualOffenceHistory'),
   contactAdult: pickNumber(x, 'contactAdult'),
   contactChild: pickNumber(x, 'contactChild'),
   indecentImage: pickNumber(x, 'indecentImage'),
   paraphilia: pickNumber(x, 'paraphilia'),
+
   oasysInterview: pickBoolean(x, 'oasysInterview'),
-  useWeapon: pickNumber(x, 'useWeapon'),
+  useWeapon: pickBoolean(x, 'useWeapon'),
   accommodation: pickNumber(x, 'accommodation'),
-  employment: pickNumber(x, 'employment'),
+  employment: pickBoolean(x, 'employment'),
   currentUseOfAlcohol: pickNumber(x, 'currentUseOfAlcohol'),
   bingeDrinking: pickNumber(x, 'bingeDrinking'),
   impulsivity: pickNumber(x, 'impulsivity'),
   temper: pickNumber(x, 'temper'),
-  temproCriminalper: pickNumber(x, 'proCriminal'),
-  domesticViolence: pickNumber(x, 'domesticViolence'),
-  murder: pickNumber(x, 'murder'),
-  wounding: pickNumber(x, 'wounding'),
-  kidnapping: pickNumber(x, 'kidnapping'),
-  firearmPossession: pickNumber(x, 'firearmPossession'),
-  robbery: pickNumber(x, 'robbery'),
-  burglary: pickNumber(x, 'burglary'),
-  anyOtherOffence: pickNumber(x, 'anyOtherOffence'),
-  endangerLife: pickNumber(x, 'endagerLife'),
-  arson: pickNumber(x, 'arson'),
+  proCriminal: pickNumber(x, 'proCriminal'),
+  domesticViolence: pickBoolean(x, 'domesticViolence'),
+  murder: pickBoolean(x, 'murder'),
+  wounding: pickBoolean(x, 'wounding'),
+  kidnapping: pickBoolean(x, 'kidnapping'),
+  firearmPossession: pickBoolean(x, 'firearmPossession'),
+  robbery: pickBoolean(x, 'robbery'),
+  burglary: pickBoolean(x, 'burglary'),
+  anyOtherOffence: pickBoolean(x, 'anyOtherOffence'),
+  endangerLife: pickBoolean(x, 'endagerLife'),
+  arson: pickBoolean(x, 'arson'),
 });
 
 const getMissingRequiredFields = (x) =>
@@ -91,7 +95,9 @@ const getMissingRequiredFields = (x) =>
     'sentenceDate',
     'firstSanctionDate',
     'mostRecentSexualOffence'
-  ].filter((k) => !x.hasOwnProperty(k) || x[k].toString() === 'null' || x[k].toString() === 'undefined' || x[k] === '');
+  ].filter((k) => {
+    return !x.hasOwnProperty(k) || x[k] === 'null' || x[k] === 'undefined' || x[k] === '';
+  });
 
 const withFormattedResponse = (x) => ({
   calculatorVersion: x.calculatorVersion,
