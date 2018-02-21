@@ -1268,7 +1268,7 @@ function view5Actions () {
 		dataType:'json',
 	})
 	.done(function( result ) {
-		offenderData.totalRSR = result.RSRPercentileRisk[n];
+		offenderData.totalRSR = 1 * result.RSRPercentileRisk[n].toFixed(2);
 		var band = result.RSRRiskBand[n];
 
 		updateView5ScoreCard(offenderData, band);
