@@ -1,6 +1,6 @@
 var //Variables
 	appStatus = "",
-	appVersion = "1.0.6",
+	appVersion = "1.0.8",
 	supportEmail = "RSR_Tool_Project@justice.gsi.gov.uk",
 
 	viewFilePaths = [
