@@ -1,7 +1,5 @@
 var //Variables
-	appStatus = "",
-	appVersion = "1.0.8",
-	supportEmail = "RSR_Tool_Project@justice.gsi.gov.uk",
+	appVersion = "1.0.9",
 
 	viewFilePaths = [
 		"./views/0.html",
@@ -183,10 +181,8 @@ function bindEvents() {
 
 
 		// Some initial stuff
-		window.document.title = "RSR v" + appStatus.substring(0,1) + appVersion;
-		$('body').addClass(appStatus.toLowerCase());
-		$('.indicator').html('<p><strong>' + appStatus.toLowerCase() + ':   </strong>This is a new service &mdash; <a href="mailto:' + supportEmail + '">your feedback</a> will help us to improve it.</p>');
-		$('#app-version').addClass(appStatus.toLowerCase()).html(appStatus + " " + appVersion);
+		window.document.title = "RSR v" + appVersion;
+		$('#app-version').html(appVersion);
 
 
 

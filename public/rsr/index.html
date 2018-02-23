@@ -293,8 +293,28 @@
     <script src="js/jquery.bez.min.js"></script>
     <script src="js/jquery.base64.min.js"></script>
 
-    <script src="js/rsr-calc.js"></script>
-    <script src="js/rsr-app.js"></script>
+    <script>
+    function addScript(src) {
+      var m = document.getElementsByTagName('script');
+      var s = document.createElement('script');
+      s.src = src + '?=' + (1 * new Date());
+      s.async = 1;
+      m[m.length - 1].parentNode.insertBefore(s, null);
+    }
+
+    function checkloaded(cb) {
+      if (!window.moj.Modules.RSRApp || !window.moj.Modules.RSRCalc) {
+        setTimeout(checkloaded, 50);
+        return;
+      }
+
+      window.moj.init();
+    }
+
+    addScript('js/rsr-calc.js');
+    addScript('js/rsr-app.js');
+    checkloaded();
+    </script>
 
   </body>
 
