@@ -53,6 +53,7 @@ describe('api /render', () => {
 
   [
     'sexualElement',
+    'strangerVictim',
     'sexualOffenceHistory',
     'oasysInterview',
     'useWeapon',

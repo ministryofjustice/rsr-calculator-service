@@ -12,6 +12,19 @@ const log = (x) => {
   return x;
 };
 
+const logResults = (req, data) => {
+  let anonData = Object.assign({}, data, {
+    offenderTitle: undefined,
+    firstName: undefined,
+    familyName: undefined,
+    pncId: undefined,
+    deliusId: undefined,
+  });
+
+  req.log.debug({ anonData }, 'submission');
+  return data;
+};
+
 const pick = (x, key) =>
   (x && x[key]);
 
@@ -78,7 +91,7 @@ const getRequestParams = (x) => ({
   robbery: pickBoolean(x, 'robbery'),
   burglary: pickBoolean(x, 'burglary'),
   anyOtherOffence: pickBoolean(x, 'anyOtherOffence'),
-  endangerLife: pickBoolean(x, 'endagerLife'),
+  endangerLife: pickBoolean(x, 'endangerLife'),
   arson: pickBoolean(x, 'arson'),
 });
 
@@ -119,6 +132,8 @@ const withFormattedResponse = (x) => ({
 
 const calculateRiskOfSeriousRecidivism = (req, res) => {
   let params = getRequestParams(req.body);
+
+  logResults(req, params);
 
   let missing = getMissingRequiredFields(params);
   if (missing.length > 0) {

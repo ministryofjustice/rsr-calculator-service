@@ -1179,7 +1179,7 @@ function view4Complete () {
 	offenderData.robbery = $('#robbery').val();
 	offenderData.burglary = $('#burglary').val();
 	offenderData.anyOtherOffence = $('#any_other_offence').val();
-	offenderData.endangerLife = $('#endager_life').val();
+	offenderData.endangerLife = $('#endanger_life').val();
 	offenderData.arson = $('#arson').val();
 
 	$('#view5 #offender-details-summary').html(stepSummaries[0]);

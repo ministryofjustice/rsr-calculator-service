@@ -19,7 +19,7 @@ const fieldList = {
   sentenceDate: Date,
   sexualElement: Boolean,
   violentOffenceCategory: Number,
-  strangerVictim: Number,
+  strangerVictim: Boolean,
   firstSanctionDate: Date,
   allSanctions: Number,
   violentSanctions: Number,
@@ -48,7 +48,7 @@ const fieldList = {
   robbery: Boolean,
   burglary: Boolean,
   anyOtherWeaponOffence: Boolean,
-  endagerLife: Boolean,
+  endangerLife: Boolean,
   arson: Boolean,
   totalRSR: Number,
   rsrType: String,
@@ -151,7 +151,7 @@ const logResults = (req) => (data) => {
     deliusId: undefined,
   });
 
-  req.log.debug(anonData, 'submission');
+  req.log.debug({ anonData }, 'submission');
   return data;
 };
 
