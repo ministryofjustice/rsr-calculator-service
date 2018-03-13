@@ -12,7 +12,7 @@ const log = (x) => {
   return x;
 };
 
-const logResults = (req, data) => {
+const logRequestRespone = (req, label, data) => {
   let anonData = Object.assign({}, data, {
     offenderTitle: undefined,
     firstName: undefined,
@@ -21,7 +21,7 @@ const logResults = (req, data) => {
     deliusId: undefined,
   });
 
-  req.log.debug({ anonData }, 'submission');
+  req.log.debug({ [label]: anonData }, label);
   return data;
 };
 
@@ -35,7 +35,7 @@ const pickDate = (x, key) => {
 
 const pickBoolean = (req, key) => {
   let val = pick(req, key);
-  return val ? 1 : 0;
+  return parseInt(val, 10) === 1 ? 1 : 0;
 };
 
 const pickNumber = (req, key) => {
@@ -133,14 +133,14 @@ const withFormattedResponse = (x) => ({
 const calculateRiskOfSeriousRecidivism = (req, res) => {
   let params = getRequestParams(req.body);
 
-  logResults(req, params);
+  logRequestRespone(req, 'request', params);
 
   let missing = getMissingRequiredFields(params);
   if (missing.length > 0) {
     return errors.validation(res, 'Required fields missing from request: ' + missing.join(', '));
   }
 
-  return asJson(res, withFormattedResponse(RSRCalc.calculateRisk(params)));
+  return asJson(res, withFormattedResponse(logRequestRespone(req, 'response', RSRCalc.calculateRisk(params))));
 };
 
 router.post('/', calculateRiskOfSeriousRecidivism);

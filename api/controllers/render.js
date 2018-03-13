@@ -33,7 +33,7 @@ const fieldList = {
   useWeapon: Boolean,
   partner: Number,
   accommodation: Number,
-  employment: Number,
+  employment: Boolean,
   relationship: Number,
   currentUseOfAlcohol: Number,
   bingeDrinking: Number,
@@ -47,7 +47,7 @@ const fieldList = {
   firearmPossession: Boolean,
   robbery: Boolean,
   burglary: Boolean,
-  anyOtherWeaponOffence: Boolean,
+  anyOtherOffence: Boolean,
   endangerLife: Boolean,
   arson: Boolean,
   totalRSR: Number,
@@ -102,7 +102,7 @@ const displayResult = (x) => {
 	];
 
   return {
-    filename: 'RSR_data_for_' + x.firstName + '_' + x.familyName + '.txt',
+    filename: `RSR_data_for_${x.firstName.replace(/\s/gmi, '_')}_${x.familyName.replace(/\s/gmi, '_')}.txt`,
     body: oData.concat(
       getOutputKeyList(fieldList)
         .map((key) => {
@@ -112,13 +112,13 @@ const displayResult = (x) => {
             val = 'N/A';
           }
 
-          if (key === 'anyOtherOffence') {
-            key = 'anyOtherWeaponOffence';
-          }
-
           if (val !== 'N/A') {
             if (fieldList[key] === Boolean) {
-              return key + ': ' + (val === 0 ? 'Yes' : 'No');
+              if (key === 'anyOtherOffence') {
+                key = 'anyOtherWeaponOffence';
+              }
+
+              return key + ': ' + (parseInt(val, 10) === 0 ? 'Yes' : 'No');
             }
 
             switch (key) {
