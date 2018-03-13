@@ -8,13 +8,13 @@ const fieldList = {
   offenderTitle: String,
   firstName: String,
   familyName: String,
-  sex: String,
+  sex: Number,
   birthDate: Date,
   age: Number,
   pncId: String,
   deliusId: String,
   assessmentDate: Date,
-  currentOffenceType: String,
+  currentOffenceType: Number,
   convictionDate: Date,
   sentenceDate: Date,
   sexualElement: Boolean,
@@ -107,19 +107,20 @@ const displayResult = (x) => {
       getOutputKeyList(fieldList)
         .map((key) => {
           let val = x[key];
-          let options = x[key + '_options'];
 
           if (val === undefined || val === 'undefined' || val === '' || val === null || val.toString() === 'NaN') {
             val = 'N/A';
+          }
+
+          if (key === 'anyOtherOffence') {
+            key = 'anyOtherWeaponOffence';
           }
 
           if (val !== 'N/A') {
             if (fieldList[key] === Boolean) {
               return key + ': ' + (val === 0 ? 'Yes' : 'No');
             }
-            if (options) {
-              return (key === 'anyOtherOffence' ? 'anyOtherWeaponOffence' : key) + ': ' + options[parseInt(val)];
-            }
+
             switch (key) {
               case 'sex':
                 val = parseInt(val, 10) === 0 ? 'Male' : 'Female';
@@ -139,6 +140,19 @@ const displayResult = (x) => {
         })
     ).join('\r\n'),
   };
+};
+
+const logResults = (req) => (data) => {
+  let anonData = Object.assign({}, data, {
+    offenderTitle: undefined,
+    firstName: undefined,
+    familyName: undefined,
+    pncId: undefined,
+    deliusId: undefined,
+  });
+
+  req.log.debug(anonData, 'submission');
+  return data;
 };
 
 const asDownloadableFile = (res) => (x) => {
@@ -161,6 +175,7 @@ const validateRequest = (data) =>
 
 const render = (req, res) =>
   validateRequest(req.body)
+    .then(logResults(req))
     .then(displayResult)
     .then(asDownloadableFile(res))
     .catch((err) => errors.validation(res, err.message));

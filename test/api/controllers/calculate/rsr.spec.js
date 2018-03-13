@@ -1,34 +1,31 @@
-//const fixtures = require('../../node_modules/rsr-calculator/test/data/data.json');
+const fixtures = require('../../../../node_modules/rsr-calculator/test/data/data.json');
 
 const request = require('supertest');
 
-const app = require('../../server/app');
+const app = require('../../../../server/app');
 
-const config = require('../../server/config');
-const log = require('../../server/log');
-/*
-const DATE_TYPE_FIELDS = [
-  'birthDate',
-  'convictionDate',
-  'sentenceDate',
-  'firstSanctionDate',
-  'assessmentDate',
-  'mostRecentSexualOffence'
-];
+const config = require('../../../../server/config');
+const log = require('../../../../server/log');
 
 const parseDate = (input) => {
-  var parts = String.prototype.split.call(input || 'sample data', '-');
-  return parts.length === 3 ? new Date(parts[0], parts[1]-1, parts[2]) : parts[0];
+  return input ? new Date(`${input}T00:00:00.000Z`) : input;
 };
 
 const cloneWithDateObjects = (x) => {
   var out = {};
   for (var key in x) {
-    out[key] = ~DATE_TYPE_FIELDS.indexOf(key) ? parseDate(x[key]) : x[key];
+    out[key] = ~[
+      'birthDate',
+      'convictionDate',
+      'sentenceDate',
+      'firstSanctionDate',
+      'assessmentDate',
+      'mostRecentSexualOffence'
+    ].indexOf(key) ? parseDate(x[key]) : x[key];
   }
   return out;
 };
-*/
+
 describe('api /calculate', () => {
   let server;
   before((done) => {
@@ -39,7 +36,7 @@ describe('api /calculate', () => {
     });
   });
 
-  it.skip('should return a 200 response when the request is valid', () => {
+  it('should return a 200 response when the request is valid', () => {
     return request(server)
       .post('/calculate')
       .set('Accept', 'application/json')
@@ -94,7 +91,7 @@ describe('api /calculate', () => {
       });
   });
 /*
-  it('should return a 200 response when the request is valid', () => {
+  it.skip('should return a 200 response when the request is valid', () => {
     return request(server)
       .post('/calculate')
       .set('Accept', 'application/json')
@@ -142,22 +139,24 @@ describe('api /calculate', () => {
       .expect('Content-Type', /json/)
       .expect(200)
       .then((res) => {
+        //res.body.riskOfSeriousRecidivism.should.eql([ 0.0030405813861991713, 0.005564585616047276 ]);
         res.body.riskOfSeriousRecidivism.should.eql([ 0.002065642546634054, 0.015089786100569201 ]);
       });
   });
-
+*/
+/*
   fixtures.forEach((x, i) => {
     it(`should correctly calculate the RSR for dataset ${i} <${x.testNumber}>`, () => {
       x = cloneWithDateObjects(x);
 
-      console.log(x)
+      //console.log(x)
 
       return request(server)
         .post('/calculate')
         .set('Accept', 'application/json')
         .send(x)
         .expect('Content-Type', /json/)
-        .expect(200)
+        //.expect(200)
         .then((res) => {
           res.body.riskOfSeriousRecidivism.should.eql([ x.output_sv_static, x.output_sv_dynamic ]);
         });

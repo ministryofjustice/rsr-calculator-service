@@ -1,11 +1,11 @@
 const request = require('supertest');
 
-const app = require('../../server/app');
+const app = require('../../../../server/app');
 
-const config = require('../../server/config');
-const log = require('../../server/log');
+const config = require('../../../../server/config');
+const log = require('../../../../server/log');
 
-describe('api /calculate/ogrs3/customised', () => {
+describe('api /calculate/ogrs3', () => {
   let server;
   before((done) => {
     app(config, log, (err, _server) => {
@@ -17,7 +17,7 @@ describe('api /calculate/ogrs3/customised', () => {
 
   it('should return a 200 response when the request is valid', () => {
     return request(server)
-      .post('/calculate/ogrs3/customised')
+      .post('/calculate/ogrs3')
       .set('Accept', 'application/json')
       .send({
         gender: 'F',
@@ -26,7 +26,7 @@ describe('api /calculate/ogrs3/customised', () => {
         firstSanctionDate: '1986-09-09T00:00:00.000Z',
         previousSanctions: 3,
         assessmentDate: '2015-09-15T00:00:00.000Z',
-        currentOffenceFactor: 0.204960477,
+        currentOffenceType: 16,
       })
       .expect('Content-Type', /json/)
       .expect(200)
@@ -39,18 +39,18 @@ describe('api /calculate/ogrs3/customised', () => {
       });
   });
 
-  it('should return a 400 response when currentOffenceFactor is not valid', () => {
+  it('should return a 400 response when gender is not recognised', () => {
     return request(server)
-      .post('/calculate/ogrs3/customised')
+      .post('/calculate/ogrs3')
       .set('Accept', 'application/json')
       .send({
-        gender: 'F',
+        gender: 'Other',
         birthDate: '1989-04-22T00:00:00.000Z',
         convictionDate: '2013-02-20T00:00:00.000Z',
         firstSanctionDate: '2001-09-10T00:00:00.000Z',
         previousSanctions: 25,
         assessmentDate: '2013-03-31T00:00:00.000Z',
-        currentOffenceFactor: 'N/A',
+        currentOffenceType: 12,
       })
       .expect('Content-Type', /json/)
       .expect(400)
