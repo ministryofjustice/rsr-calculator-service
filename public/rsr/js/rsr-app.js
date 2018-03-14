@@ -1245,7 +1245,7 @@ function view5Actions () {
 			return false;
 		});
 
-	var n = offenderData.rsrType === "static" ? 1 : 0;
+	var n = offenderData.rsrType === "static" ? 0 : 1;
 
 	if (window.browserCalc) {
 		offenderData.totalRSR = 100 * moj.Modules.RSRCalc.calculateScore(offenderData)[n].toFixed(4);
