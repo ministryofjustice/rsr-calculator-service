@@ -102,7 +102,7 @@ const displayResult = (x) => {
 	];
 
   return {
-    filename: `RSR_data_for_${x.firstName.replace(/\s/gmi, '_')}_${x.familyName.replace(/\s/gmi, '_')}.txt`,
+    filename: `RSR_data_for_${(x.firstName||'').replace(/\s/gmi, '_')}_${(x.familyName||'').replace(/\s/gmi, '_')}.txt`,
     body: oData.concat(
       getOutputKeyList(fieldList)
         .map((key) => {

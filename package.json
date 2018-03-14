@@ -39,7 +39,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "require-all": "^2.2.0",
-    "rsr-calculator": "github:noms-digital-studio/rsr-calculator#1.0.10",
+    "rsr-calculator": "github:noms-digital-studio/rsr-calculator#v1.0.13",
     "sleep-promise": "^2.0.0",
     "statuses": "^1.4.0",
     "swagger-ui-express": "^2.0.13",

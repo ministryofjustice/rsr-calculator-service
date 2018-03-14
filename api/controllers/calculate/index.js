@@ -122,10 +122,13 @@ const withFormattedResponse = (x) => ({
   indecentImageProbability: x.indecentImageProbability, //
   contactSexualProbability: x.contactSexualProbability, //
   riskOfSeriousRecidivismBeta18: x.riskOfSeriousRecidivismBeta18,
+  riskOfSeriousRecidivismNodeJS: x.riskOfSeriousRecidivismNodeJS,
   riskOfSeriousRecidivism: x.riskOfSeriousRecidivism,
   RSRPercentileRiskBeta18: x.RSRPercentileRiskBeta18,
+  RSRPercentileRiskNodeJS: x.RSRPercentileRiskNodeJS,
   RSRPercentileRisk: x.RSRPercentileRisk,
   RSRRiskBandBeta18: x.RSRRiskBandBeta18,
+  RSRRiskBandNodeJS: x.RSRRiskBandNodeJS,
   RSRRiskBand: x.RSRRiskBand,
   explain: x.explain,
 });
