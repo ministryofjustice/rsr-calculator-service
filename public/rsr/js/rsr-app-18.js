@@ -88,7 +88,7 @@ moj.Modules.RSRApp = (function() {
                                                 violentOffenceCategory: "",
                                                 strangerVictim: "",
                                                 firstSanctionDate: "",
-                                                allSanctions: "",
+                                                previousSanctions: "",
                                                 violentSanctions: "",
                                                 sexualOffenceHistory: "",
                                                 mostRecentSexualOffence: "",
@@ -432,7 +432,7 @@ moj.Modules.RSRApp = (function() {
                                 $('#sanction_month').val('January').prop('selected', true);
                                 $('#sanction_year').val('2004').prop('selected', true);
 
-                                $('#all_sanctions').val('6');
+                                $('#previous_sanctions').val('6');
                                 $('#violent_sanctions').val('4');
                                 $('#sexual_offence_history').val('1').prop('selected', true);
 
@@ -861,7 +861,7 @@ moj.Modules.RSRApp = (function() {
                                                                 //            $('#step3form').submit();
                                                                 // }
 
-                                                } else if ($('#sanction_date').closest('.row').hasClass('has-success') && $('#all_sanctions').closest('.row').hasClass('has-success') && $('#violent_sanctions').closest('.row').hasClass('has-success') && $('#sexual_offence_history').closest('.row').hasClass('has-success')) {
+                                                } else if ($('#sanction_date').closest('.row').hasClass('has-success') && $('#previous_sanctions').closest('.row').hasClass('has-success') && $('#violent_sanctions').closest('.row').hasClass('has-success') && $('#sexual_offence_history').closest('.row').hasClass('has-success')) {
                                                                 //console.log('collapsed');
                                                                 ignoreInvalid = true;
                                                                 $('#step3form').submit();
@@ -920,9 +920,9 @@ moj.Modules.RSRApp = (function() {
                                                                                 valid                       : ''
                                                                 },
 
-                                                                all_sanctions: {
-                                                                                required               : '<span class="required">The number of all sanctions is required</span>',
-                                                                                pattern                 : '<span class="required">The number of all sanctions should be a number</span>',
+                                                                previous_sanctions: {
+                                                                                required               : '<span class="required">The number of previous sanctions is required</span>',
+                                                                                pattern                 : '<span class="required">The number of previous sanctions should be a number</span>',
                                                                                 conditional : '',
                                                                                 valid                       : ''
                                                                 },
@@ -977,7 +977,7 @@ moj.Modules.RSRApp = (function() {
                 view3Complete = function() {
                                 //console.log("VALID fields");
                                 offenderData.firstSanctionDate = new Date($('#sanction_year').val(), $.inArray($('#sanction_month').val(), monthsArr), $('#sanction_date').val());
-                                offenderData.allSanctions = parseInt($('#all_sanctions').val());
+                                offenderData.previousSanctions = parseInt($('#previous_sanctions').val());
                                 offenderData.violentSanctions = parseInt($('#violent_sanctions').val());
                                 offenderData.sexualOffenceHistory = $('#sexual_offence_history').val();
                                 offenderData.mostRecentSexualOffence = new Date($('#most_recent_sexual_offence_year').val(), $.inArray($('#most_recent_sexual_offence_month').val(), monthsArr), $('#most_recent_sexual_offence_date').val());
@@ -990,11 +990,11 @@ moj.Modules.RSRApp = (function() {
 
                                 //console.log('dateSinceFirstSanction: ' + dateSinceFirstSanction);
 
-                                if (offenderData.allSanctions=='0') {
+                                if (offenderData.previousSanctions=='0') {
                                                 stepSummaries[2] = '<p>The offender has <strong>no previous sanctions</strong>';
 
                                 } else {
-                                                stepSummaries[2] = '<p>The offender has <strong>' + offenderData.allSanctions + ' previous sanction(s)</strong>';
+                                                stepSummaries[2] = '<p>The offender has <strong>' + offenderData.previousSanctions + ' previous sanction(s)</strong>';
                                 }
 
                                 if (dateSinceFirstSanction > 0) {

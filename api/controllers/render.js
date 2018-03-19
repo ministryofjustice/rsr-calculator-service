@@ -21,7 +21,7 @@ const fieldList = {
   violentOffenceCategory: Number,
   strangerVictim: Boolean,
   firstSanctionDate: Date,
-  allSanctions: Number,
+  previousSanctions: Number,
   violentSanctions: Number,
   sexualOffenceHistory: Boolean,
   mostRecentSexualOffence: Date,

@@ -41,13 +41,13 @@ const pickBoolean = (req, key) => {
 const pickNumber = (req, key) => {
   let val = pick(req, key);
   let num = parseInt(val, 10);
-  return isNaN(num) ? val || undefined : num ;
+  return isNaN(num) ? val || undefined : Math.max(num, 0);
 };
 
 const getRequestParams = (x) => ({
   sex: pickNumber(x, 'sex'),
   gender: pickNumber(x, 'sex') === 0 ? 'M' : 'F', // derived from sex for OGRS3
-  allSanctions: pickNumber(x, 'allSanctions') || 0,
+  previousSanctions: pickNumber(x, 'previousSanctions') || 0,
   currentOffenceType: pickNumber(x, 'currentOffenceType'),
 
 /* // note required
@@ -99,7 +99,7 @@ const getMissingRequiredFields = (x) =>
   [
     'sex',
     'gender',
-    'allSanctions',
+    'previousSanctions',
     'currentOffenceType',
 
     'birthDate',

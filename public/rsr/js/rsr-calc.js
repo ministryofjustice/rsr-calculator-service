@@ -85,7 +85,7 @@ var FIELDS_TO_OUTPUT = [
     "strangerVictim",
     "violentOffenceCategory",
     "firstSanctionDate",
-    "allSanctions",
+    "previousSanctions",
     "violentSanctions",
     "sexualOffenceHistory",
     "mostRecentSexualOffence",
@@ -157,11 +157,11 @@ console.log(JSON.stringify(o, null, '  '));
 
   //console.log("\n");
   //console.log("***** Calculation trace:");
-  //console.log ("Calculating score... "  + parseInt(o.allSanctions));
+  //console.log ("Calculating score... "  + parseInt(o.previousSanctions));
   var ageatsanction = dateDiff(o.convictionDate, o.birthDate);
   //console.log("ageatsanction: " + ageatsanction);
   var ageatfirstsanction;
-  var sanctionoccasions =  parseInt(o.allSanctions);
+  var sanctionoccasions =  parseInt(o.previousSanctions);
   var ogrs4v_length_general;
   var ogrs4v_rate_general;
 
@@ -216,7 +216,7 @@ console.log(JSON.stringify(o, null, '  '));
   //sanctionoccasions = 1;
   //console.log('sanctionoccasions: ' + sanctionoccasions);
 
-  //sanctionoccasions += parseInt(o.allSanctions);
+  //sanctionoccasions += parseInt(o.previousSanctions);
 
   if (sanctionoccasions > 50) {
     sanctionoccasions = 50;
@@ -505,9 +505,9 @@ console.log(JSON.stringify(o, null, '  '));
       //console.log('OSPscore paraphilia > 2: ' + OSPscore);
     }
 
-    if (parseInt(o.allSanctions) > 0) {
+    if (parseInt(o.previousSanctions) > 0) {
       OSPscore += 3;
-      //console.log('OSPscore allSanctions > 0: ' + OSPscore);
+      //console.log('OSPscore previousSanctions > 0: ' + OSPscore);
     }
     if (o.strangerVictim == '0') {
       OSPscore += 2;
