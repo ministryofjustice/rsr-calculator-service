@@ -1,5 +1,5 @@
 var //Variables
-	appVersion = "1.0.10",
+	appVersion = "1.0.11",
 
 	viewFilePaths = [
 		"./views/0.html",
@@ -118,6 +118,16 @@ function cleanRequest(x) {
 }
 
 function init() {
+	function loadVersionData() {
+		$('<div id="version"/>').load('/health', function(x) {
+			try {
+				appVersion = JSON.parse(x).version;
+			} catch(e) {
+				appVersion = '0.0.0';
+			}
+		});
+	};
+
 	function loadViews(a) {
 		if (a < viewFilePaths.length) {
 
@@ -139,6 +149,7 @@ function init() {
 			$viewDiv.appendTo(".main");
 		}
 
+		loadVersionData();
 		loadViews(activeView);
 	};
 
