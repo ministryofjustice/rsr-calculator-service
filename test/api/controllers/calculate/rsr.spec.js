@@ -51,7 +51,7 @@ describe('api /calculate', () => {
         violentOffenceCategory: '',
         strangerVictim: '',
         firstSanctionDate: '2004-01-01T00:00:00.000Z',
-        allSanctions: 6,
+        previousSanctions: 6,
         violentSanctions: 4,
         sexualOffenceHistory: '1',
         mostRecentSexualOffence: '2009-01-01T00:00:00.000Z',
@@ -107,7 +107,7 @@ describe('api /calculate', () => {
         violentOffenceCategory: undefined,
         strangerVictim: '1', // no
         firstSanctionDate: '1982-10-18T00:00:00.000Z',
-        allSanctions: 4,
+        previousSanctions: 4,
         violentSanctions: 2,
         sexualOffenceHistory: '1', // no
         mostRecentSexualOffence: '2018-02-23T00:00:00.000Z',
@@ -219,53 +219,20 @@ describe('api /calculate', () => {
   });
 */
 
-
-
-  it('should correctly calculate score for a sexual offence with an OASys Interview', () => {
+  it('should correctly calculate score when previous sanctions is missing', () => {
     let req = {
       sex: '0', // Male
-      birthDate: '1961-03-01T00:00:00.000Z',
-      assessmentDate: '2018-03-07T00:00:00.000Z',
-      currentOffenceType: '14',
-      convictionDate: '2018-02-23T00:00:00.000Z',
-      sentenceDate: '2018-03-16T00:00:00.000Z',
-      firstSanctionDate: '1982-10-18T00:00:00.000Z',
-      mostRecentSexualOffence: '2018-02-23T00:00:00.000Z',
-
-      violentOffenceCategory: undefined,
-
-      allSanctions: 1,      // 0-50
-      violentSanctions: 0,  // 0-50
-      contactAdult: 0,      // 0-2
-      contactChild: 1,      // 0-2
-      indecentImage: 1,     // 0-2
-      paraphilia: 0,        // 0-2
-      accommodation: '2',   // 0-2
-      relationship: '1',        // 0-2
-      currentUseOfAlcohol: '0', // 0-2
-      bingeDrinking: '0',       // 0-2
-      impulsivity: '1',         // 0-2
-      temper: '1',              // 0-2
-      proCriminal: '1',         // 0-2
-      partner: undefined,       // 0-2
-
-      oasysInterview: '1',        // yes
-
-      sexualElement: '1',         // yes
-      strangerVictim: '1',        // no
-      sexualOffenceHistory: '1',  // no
-      useWeapon: '1',             // no
-      employment: '1',            // yes
-      domesticViolence: '1',      // yes
-      murder: '1',                // no
-      wounding: '1',              // no
-      kidnapping: '1',            // no
-      firearmPossession: '1',     // no
-      robbery: '1',               // no
-      burglary: '1',              // no
-      anyOtherOffence: '1',       // no
-      endangerLife: '1',          // no
-      arson: '1',                 // no
+      birthDate: '1974-10-01T00:00:00.000Z',
+      assessmentDate: '2018-03-19T00:00:00.000Z',
+      currentOffenceType: '5',
+      convictionDate: '2018-03-19T00:00:00.000Z',
+      sentenceDate: '2018-03-19T00:00:00.000Z',
+      firstSanctionDate: '2018-03-19T00:00:00.000Z',
+      mostRecentSexualOffence: '2018-03-19T00:00:00.000Z',
+      oasysInterview: 1,
+    //previousSanctions: 0,
+    //violentSanctions: 0,
+    //sexualElement: 1,
     };
 
     return request(server)
@@ -278,8 +245,8 @@ describe('api /calculate', () => {
         res.body.should.have.property('riskOfSeriousRecidivism');
         res.body.should.have.property('RSRPercentileRisk');
 
-        res.body.riskOfSeriousRecidivism.should.eql([ 0.005957884017114846, 0.010868670831811394 ]);
-        res.body.RSRPercentileRisk.should.eql([ 0.6, 1.09 ]);
+        res.body.riskOfSeriousRecidivism.should.eql([ 0.003421441601721567, 0.006056950375327479 ]);
+        res.body.RSRPercentileRisk.should.eql([ 0.33999999999999997, 0.61 ]);
       });
   });
 });
