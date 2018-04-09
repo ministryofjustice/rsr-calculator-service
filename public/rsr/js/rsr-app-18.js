@@ -116,7 +116,7 @@ moj.Modules.RSRApp = (function() {
                                                 robbery: "",
                                                 burglary: "",
                                                 anyOtherOffence: "",
-                                                endagerLife: "",
+                                                endangerLife: "",
                                                 arson: "",
                                                 totalRSR: "",
                                                 rsrType: "static"
@@ -1113,7 +1113,7 @@ moj.Modules.RSRApp = (function() {
                                                                                 conditional : '',
                                                                                 valid                       : ''
                                                                 },
-                                                                endager_life: {
+                                                                endanger_life: {
                                                                                 required               : '<span class="required">The criminal damage field is required</span>',
                                                                                 pattern                 : '',
                                                                                 conditional : '',
@@ -1244,7 +1244,7 @@ moj.Modules.RSRApp = (function() {
                                 offenderData.robbery = $('#robbery').val();
                                 offenderData.burglary = $('#burglary').val();
                                 offenderData.anyOtherOffence = $('#any_other_offence').val();
-                                offenderData.endagerLife = $('#endager_life').val();
+                                offenderData.endangerLife = $('#endanger_life').val();
                                 offenderData.arson = $('#arson').val();
 
                                 $('#view5 #offender-details-summary').html(stepSummaries[0]);
@@ -1543,8 +1543,8 @@ moj.Modules.RSRApp = (function() {
                                                 .css("height", "0")
                                                 .attr("aria-hidden", "true")
                                                 .addClass("collapsed-extra-panel");
-                                requireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endager_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
-                                unRequireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endager_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
+                                requireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endanger_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
+                                unRequireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endanger_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
 
                                 $("#view4 #oasys_interview").change(function(){
                                                 if ($(this).val() == "0") {
@@ -1556,9 +1556,9 @@ moj.Modules.RSRApp = (function() {
                                                                                 .find(".row").each( function(i) {
                                                                                                 moj.Modules.effects.highlight($(this));
                                                                                 });
-                                                                requireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endager_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
+                                                                requireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endanger_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
                                                 } else {
-                                                                unRequireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endager_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
+                                                                unRequireFields("4", ['murder', 'wounding', 'burglary', 'arson', 'endanger_life', 'kidnapping', 'firearm_possession', 'robbery', 'any_other_offence', 'use_weapon', 'partner', 'accommodation', 'employment', 'relationship', 'domestic_violence', 'current_use_of_alcohol', 'binge_drinking', 'impulsivity', 'temper', 'pro_criminal']);
                                                                 $("#view4 #oasys-details")
                                                                                 .removeClass("expanded-extra-panel")
                                                                                 .addClass("collapsed-extra-panel")

@@ -65,7 +65,7 @@ describe('api /render', () => {
     'robbery',
     'burglary',
     'anyOtherWeaponOffence',
-    'endagerLife',
+    'endangerLife',
     'arson',*/
   ].forEach((property) => {
     it(`should include Yes in response for ${property} = 0`, () => {

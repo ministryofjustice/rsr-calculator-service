@@ -97,7 +97,7 @@ var FIELDS_TO_OUTPUT = [
     "wounding",
     "burglary",
     "arson",
-    "endagerLife",
+    "endangerLife",
     "kidnapping",
     "firearmPossession",
     "robbery",
@@ -352,7 +352,7 @@ console.log(JSON.stringify(o, null, '  '));
       oasys += pastarson;
       //console.log("pastarson: " + pastarson);
     }
-    if (o.endagerLife == "0") {
+    if (o.endangerLife == "0") {
       oasys += pastcdlife;
       //console.log("pastcdlife: " + pastcdlife);
     }
