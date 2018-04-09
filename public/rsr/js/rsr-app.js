@@ -1,5 +1,5 @@
 var //Variables
-	appVersion = "1.0.11",
+	appVersion = "0.0.0",
 
 	viewFilePaths = [
 		"./views/0.html",
