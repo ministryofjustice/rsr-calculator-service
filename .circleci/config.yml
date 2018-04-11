@@ -84,6 +84,8 @@ jobs:
       - attach_workspace:
           at: /home/circleci/app/
 
+      - checkout
+
       - deploy:
           name: Build Derived Git Commit
           command: |
