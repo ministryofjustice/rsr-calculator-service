@@ -127,14 +127,14 @@ workflows:
               ignore: /.*/
       - "run tests":
           requires:
-            - build
+            - "check dependencies"
       - "generate coverage":
           requires:
-            - test
+            - "run tests"
       - "generate documentation":
           requires:
-            - build
+            - "check dependencies"
       - "schedule deployment":
           requires:
-            - test
-            - documentation
+            - "run tests"
+            - "generate documentation"
