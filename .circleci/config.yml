@@ -5,7 +5,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  build:
+  "package build":
     <<: *defaults
     steps:
       - run:
@@ -36,7 +36,7 @@ jobs:
             - node_modules
             - build-info.json
 
-  test:
+  "run tests":
     <<: *defaults
     steps:
       - checkout
@@ -54,7 +54,7 @@ jobs:
       - store_test_results:
           path: build
 
-  coverage:
+  "generate coverage":
     <<: *defaults
     steps:
       - checkout
@@ -72,7 +72,7 @@ jobs:
       - store_artifacts:
           path: coverage/lcov-report
 
-  documentation:
+  "generate documentation":
     <<: *defaults
     steps:
       - checkout
@@ -119,19 +119,19 @@ workflows:
   version: 2
   test-and-deploy:
     jobs:
-      - build:
+      - "package build":
           filters:
             branches:
               ignore: /deploy-to.*/
             tags:
               ignore: /.*/
-      - test:
+      - "run tests":
           requires:
             - build
-      - coverage:
+      - "generate coverage":
           requires:
             - test
-      - documentation:
+      - "generate documentation":
           requires:
             - build
       - "schedule deployment":
