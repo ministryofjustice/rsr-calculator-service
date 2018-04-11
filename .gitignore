@@ -17,4 +17,5 @@ npm-debug.log
 
 *.iml
 .env
-build/
+build
+spec

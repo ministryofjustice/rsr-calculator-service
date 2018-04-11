@@ -1256,10 +1256,8 @@ function view5Actions () {
 			return false;
 		});
 
-	var n = offenderData.rsrType === "static" ? 0 : 1;
-
 	if (window.browserCalc) {
-		offenderData.totalRSR = 100 * moj.Modules.RSRCalc.calculateScore(offenderData)[n].toFixed(4);
+		offenderData.totalRSR = 100 * moj.Modules.RSRCalc.calculateScore(offenderData)[1].toFixed(4);
 		var band = getRSRBand(offenderData.totalRSR);
 
 		updateView5ScoreCard(offenderData, band);
@@ -1275,8 +1273,8 @@ function view5Actions () {
 		dataType:'json',
 	})
 	.done(function( result ) {
-		offenderData.totalRSR = 1 * result.RSRPercentileRisk[n].toFixed(2);
-		var band = result.RSRRiskBand[n];
+		offenderData.totalRSR = 1 * result.RSRPercentileRisk[1].toFixed(2);
+		var band = result.RSRRiskBand[1];
 
 		updateView5ScoreCard(offenderData, band);
 	});
