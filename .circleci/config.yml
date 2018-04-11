@@ -85,7 +85,7 @@ jobs:
           command: |
             npm run docs-test
 
-  deploy:
+  "schedule deployment":
     <<: *defaults
     steps:
       - checkout
