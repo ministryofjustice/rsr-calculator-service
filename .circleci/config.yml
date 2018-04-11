@@ -5,13 +5,9 @@ defaults: &defaults
 
 version: 2
 jobs:
-  "package build":
+  "check dependencies":
     <<: *defaults
     steps:
-      - run:
-          name: Generate Build version
-          command: echo "export BUILD_VERSION=$(date +%Y%m%d%H%M)-$CIRCLE_BUILD_NUM" >> $BASH_ENV
-
       - checkout
 
       - run:
@@ -21,6 +17,10 @@ jobs:
       - run:
           name: Check for security advisories
           command: npm run snyk
+
+      - run:
+          name: Generate Build version
+          command: echo "export BUILD_VERSION=$(date +%Y%m%d%H%M)-$CIRCLE_BUILD_NUM" >> $BASH_ENV
 
       - run:
           name: Record build info
@@ -119,7 +119,7 @@ workflows:
   version: 2
   test-and-deploy:
     jobs:
-      - "package build":
+      - "check dependencies":
           filters:
             branches:
               ignore: /deploy-to.*/
