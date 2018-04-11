@@ -134,7 +134,7 @@ workflows:
       - documentation:
           requires:
             - build
-      - deploy:
+      - "schedule deployment":
           requires:
             - test
             - documentation
