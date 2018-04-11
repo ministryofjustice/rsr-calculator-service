@@ -33,14 +33,11 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - node_modules
-            - build-info.json
+            - .
 
   "run tests":
     <<: *defaults
     steps:
-      - checkout
-
       - attach_workspace:
           at: /home/circleci/app/
 
@@ -57,8 +54,6 @@ jobs:
   "generate coverage":
     <<: *defaults
     steps:
-      - checkout
-
       - attach_workspace:
           at: /home/circleci/app/
 
@@ -75,8 +70,6 @@ jobs:
   "generate documentation":
     <<: *defaults
     steps:
-      - checkout
-
       - attach_workspace:
           at: /home/circleci/app/
 
@@ -88,8 +81,6 @@ jobs:
   "schedule deployment":
     <<: *defaults
     steps:
-      - checkout
-
       - attach_workspace:
           at: /home/circleci/app/
 
