@@ -411,7 +411,6 @@ function showAccessibleErrors() {
 				msg += '<li>' + $(this).text() + '</li>\n';
 			});
 
-
 			if (msg != '') {
 				//alert(msg);
 				var fullMsg = '<div aria-labelledby="error-heading" class="validation-summary group" id="error-summary" role="alert" tabindex="0" aria-live="assertive"><h2 id="error-heading">Please complete the missing or invalid entries in the form below.</h2><ul>' + '\n' + msg + '</ul></div>';
@@ -467,8 +466,9 @@ function view1Actions() {
 		//console.log("offenderData.assessmentDate: " + offenderData.assessmentDate);
 		//console.log("offenderData.birthDate: " + offenderData.birthDate);
 
-		if (dateDiffforage(offenderData.assessmentDate, offenderData.birthDate) > 17) {
+		if (dateDiffForAge(offenderData.assessmentDate, offenderData.birthDate) > 17) {
 			ignoreInvalid = true;
+
 			$('span#birth_date-description')
 				.removeClass("required")
 				.text("")
@@ -537,7 +537,7 @@ function view1Actions() {
 		},
 		eachInvalidField : function() {
 			//if (!$(this).closest('.row').hasClass('date-picker')) {
-			if ($(this).attr('id') != 'offender_pnc' && $(this).attr('id') != 'offender_delius') {
+			if ($(this).attr('id') !== 'offender_pnc' && $(this).attr('id') !== 'offender_delius') {
 				$(this).closest('.row').removeClass('has-success').addClass('has-error');
 			}
 		},
@@ -1735,74 +1735,48 @@ function quitClear () {
 		//window.location.href = "index.html";
 	}
 
-};
+}
 
 
-// TO DO: Accept object parameters instead of UI components...
+function dateDiffForAge(start, end) {
+	var diff = new Date(start.getTime() - end.getTime());
 
-
-	function dateDiffforage (d1, d2) {
-
-		// d1 is usually the most recent, d2 the oldest e.g. d1 = 11 Jan 2013, d2 = 1 Dec 2012
-		// 1 Dec 2013 - 11 Dec 2012 should return 0 years
-		// Subtract years
-		// Check if month diff < 0 so that the above should return 0 years diff
-
-		var diff = new Date(d1.getTime() - d2.getTime());
-
-						var result1=(diff.getUTCFullYear() - 1970);
-						if(result1==17)
-						{
-
-						if(diff.getUTCMonth()>=6)
-						{
-							result1=result1+1;
-						}
-						}
-
-		return result1;
-	};
-	function dateDiffage (d1, d2) {
-
-		// d1 is usually the most recent, d2 the oldest e.g. d1 = 11 Jan 2013, d2 = 1 Dec 2012
-		// 1 Dec 2013 - 11 Dec 2012 should return 0 years
-		// Subtract years
-		// Check if month diff < 0 so that the above should return 0 years diff
-
-		var diff = new Date(d1.getTime() - d2.getTime());
-
-						var result1=(diff.getUTCFullYear() - 1970);
-						var month=diff.getUTCMonth();
-
-
-
-		return result1 +' yrs and '+ month +' months';
-	};
-function dateDiff (d1, d2) {
-
-		var result;
-		// d1 is usually the most recent, d2 the oldest e.g. d1 = 11 Jan 2013, d2 = 1 Dec 2012
-		// 1 Dec 2013 - 11 Dec 2012 should return 0 years
-		// Subtract years
-		result = (d1.getFullYear() - d2.getFullYear());
-		// Check if month diff < 0 so that the above should return 0 years diff
-		if (d1.getMonth() - d2.getMonth() < 0) {
-			result --;
-		} else if (d1.getMonth() - d2.getMonth() == 0 && d1.getDate() - d2.getDate() < 0) { // if month is the same and date has not passed anniversary date
-			result --;
+	var y = diff.getUTCFullYear() - 1970;
+	if (y === 17) {
+		if (diff.getUTCMonth() >= 6) {
+			y += 1;
 		}
+	}
 
-		return result;
-	};
+	return y;
+}
 
- function monthDiff (d1, d2) {
+function dateDiffage(start, end) {
+	var diff = new Date(start.getTime() - end.getTime());
 
-	var result;
+	var y = diff.getUTCFullYear() - 1970;
+	var m = diff.getUTCMonth();
 
-	result = (d1.getFullYear() - d2.getFullYear()) * 12;
-	result += (d1.getMonth() - d2.getMonth());
+	return y +' yrs and '+ m +' months';
+}
 
-	return parseInt(result);
+function dateDiff(start, end) {
+	var diff = (start.getFullYear() - end.getFullYear());
+
+	if (start.getMonth() - end.getMonth() < 0) {
+		diff--;
+	} else if (start.getMonth() - end.getMonth() === 0 && start.getDate() - end.getDate() < 0) {
+		diff--;
+	}
+
+	return diff;
+}
+
+function monthDiff(start, end) {
+	var diff = (start.getFullYear() - end.getFullYear()) * 12;
+	diff += (start.getMonth() - end.getMonth());
+
+	return parseInt(diff);
 }
 
 function isDate (id) {
@@ -1815,16 +1789,16 @@ function isDate (id) {
 	var date = new Date(dy, dm, dd);
 	var datePlus = new Date(date.getTime() + 3600000);
 
-	if (date.getFullYear() == dy && date.getMonth() == dm && date.getDate() == dd) {
+	if (date.getFullYear() === dy && date.getMonth() === dm && date.getDate() === dd) {
 			validDate = true;
 			//return '';
-	} else if (datePlus.getFullYear() == dy && datePlus.getMonth() == dm && datePlus.getDate() == dd) {
+	} else if (datePlus.getFullYear() === dy && datePlus.getMonth() === dm && datePlus.getDate() === dd) {
 		validDate = true;
 	} else {
 			validDate = false;
 	}
 
-	if(document.activeElement.id.indexOf(id) != -1) {
+	if(document.activeElement.id.indexOf(id) !== -1) {
 		return true;
 	} else {
 		return validDate;
