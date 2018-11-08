@@ -1215,14 +1215,14 @@ function getRSRBand(x) {
 	return 'Low';
 }
 
-function updateView5ScoreCard(offenderData, band) {
+function updateView5ScoreCard(offenderData, band, osp) {
 	scoreCard(
 		offenderData.totalRSR,
 		band.toLowerCase(),
 		band,
-		'Likelihood of <strong>serious</strong> reoffending over the next two years.');
+		'Likelihood of <strong>serious</strong> reoffending over the next two years. OSP Score: ' + osp);
 
-	$('#view5 #results_header').text(
+  $('#view5 #results_header').text(
 		['RSR score',
 			'(' + offenderData.rsrType + ')',
 			'for',
@@ -1275,8 +1275,9 @@ function view5Actions () {
 	.done(function( result ) {
 		offenderData.totalRSR = 1 * result.RSRPercentileRisk[1].toFixed(2);
 		var band = result.RSRRiskBand[1];
+		var osp = result.contactSexualProbability[1];
 
-		updateView5ScoreCard(offenderData, band);
+		updateView5ScoreCard(offenderData, band, osp);
 	});
 };
 
