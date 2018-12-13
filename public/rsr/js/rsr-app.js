@@ -263,7 +263,7 @@ function bindEvents() {
 		// Add date validation and years to all date picker dropdowns
 		$("select[id*='_year']").each(function(index) {
 
-			for (var j=today.getFullYear(); j>=1900; j--) {
+			for (var j=today.getFullYear() + (this.id === 'sentence_year' ? 1 : 0); j>=1900; j--) {
 				$(this).append("<option value='" + j + "'>" + j + "</option>");
 			}
 		});
