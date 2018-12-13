@@ -81,9 +81,6 @@ jobs:
   "schedule deployment":
     <<: *defaults
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "b9:d4:14:5d:9a:f1:6a:fc:48:8f:a2:ff:8d:62:b4:38"
       - attach_workspace:
           at: /home/circleci/app/
 
