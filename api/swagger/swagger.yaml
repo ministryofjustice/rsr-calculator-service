@@ -1,520 +1,623 @@
 ---
-  swagger: "2.0"
-  info:
-    title: "Risk Calculators API"
-    version: "0.0.4"
-    description: "A Restful service to calculate risk on a known set of parameters."
-  basePath: "/"
-  securityDefinitions:
-    ApiKeyAuth:
-      description: API Key obtained from Support team
-      type: apiKey
-      in: header
-      name: X-API-KEY
-  paths:
-    /health:
-      get:
-        summary: "Health Check"
-        description: "Performs a basic application health check"
-        responses:
-          200:
-            description: "Success"
-            examples:
-              application/json; charset=utf-8:
-                healthy: true
-                checks:
-                  calculatorVersion: "1.0.8"
-                uptime: 4125.978
-                build:
-                  buildNumber: "901"
-                  gitRef: "83e46a38509309220da19afa630b5354c56da39b"
-                version: "0.0.4"
-            schema:
-              "$ref": "#/definitions/HealthCheckResult"
-          500:
-            description: "Unhealthy"
-            examples:
-              application/json:
-                healthy: false
-                uptime: 3688.422,
-                build.buildNumber: "901"
-                build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
-                version: "0.8.0"
-            schema:
-              "$ref": "#/definitions/HealthCheckResult"
-        tags:
-          - "Health check"
-        produces:
-          - "application/json; charset=utf-8"
-    /register/drug:
-      get:
-        summary: "Drugs"
-        description: "A register of Drugs"
-        security:
-          - ApiKeyAuth: []
-        responses:
-          200:
-            description: "Success"
-            examples:
-              application/json; charset=utf-8:
-                -
-                  id: 0
-                  label: "A Bad Drug"
-                -
-                  id: 1
-                  label: "A very Bad Drug"
-            schema:
-              "$ref": "#/definitions/DrugRegister"
-          401:
-            $ref: "#/definitions/UnauthorizedError"
-        tags:
-          - "Registers"
-        produces:
-          - "application/json; charset=utf-8"
-    /register/offenceType:
-      get:
-        summary: "Offence Type"
-        description: "A register of Offence Type"
-        security:
-          - ApiKeyAuth: []
-        responses:
-          200:
-            description: "Success"
-            examples:
-              application/json; charset=utf-8:
-                -
-                  id: 0
-                  label: "One offence"
-                -
-                  id: 1
-                  label: "Another Offence"
-            schema:
-              "$ref": "#/definitions/OffenceTypeRegister"
-          401:
-            $ref: "#/definitions/UnauthorizedError"
-        tags:
-          - "Registers"
-        produces:
-          - "application/json; charset=utf-8"
-    /register/violentOffenceCategory:
-      get:
-        summary: "Violent Offence Categories"
-        description: "A register of Violence Offence Categories"
-        security:
-          - ApiKeyAuth: []
-        responses:
-          200:
-            description: "Success"
-            examples:
-              application/json; charset=utf-8:
-                -
-                  id: 0
-                  label: "Category One"
-                -
-                  id: 1
-                  label: "Category Two"
-            schema:
-              "$ref": "#/definitions/ViolentOffenceCategoryRegister"
-          401:
-            $ref: "#/definitions/UnauthorizedError"
-        tags:
-          - "Registers"
-        produces:
-          - "application/json; charset=utf-8"
-    /calculate/ogrs3:
-      post:
-        summary: "Calculate Offender Group Reconviction Scale v3"
-        description: "calculate OGRS3 Rating on a known set of parameters"
-        security:
-          - ApiKeyAuth: []
-        parameters:
-          - name: "body"
-            in: "body"
-            required: false
-            description: Details of a subject to calculate OGRS3 Rating on
-            schema:
-              "$ref": "#/definitions/OGRS3CalculatorRequest"
-              example:
-                gender: "M"
-                birthDate: "1989-04-22T00:00:00.000Z"
-                convictionDate: "2013-02-20T00:00:00.000Z"
-                firstSanctionDate: "2001-09-10T00:00:00.000Z"
-                previousSanctions: 25
-                assessmentDate: "2013-03-31T00:00:00.000Z"
-                currentOffenceType: 12
-        responses:
-          200:
-            description: "Success"
-            schema:
-              "$ref": "#/definitions/OGRS3RatingResult"
-              example:
-                calculatorVersion: 1.0.8
-                OGRS3:
-                  - 0.8505241405394922
-                  - 0.9211344267816202
-                OGRS3PercentileRisk:
-                  - 85.05
-                  - 92.11
-          401:
-            $ref: "#/definitions/UnauthorizedError"
-          500:
-            description: "Invalid request body"
-            schema:
-              "$ref": "#/definitions/InvalidArgumentError"
-        tags:
-          - "OGRS3"
-        consumes:
-          - "application/json"
-        produces:
-          - "application/json; charset=utf-8"
-    /calculate/ogrs3/customised:
-      post:
-        summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
-        description: "calculate OGRS3 Rating on a known set of parameters"
-        parameters:
-          - name: "body"
-            in: "body"
-            required: false
-            description: Details of a subject to calculate OGRS3 Rating on
-            schema:
-              "$ref": "#/definitions/CustomisedOGRS3CalculatorRequest"
-              example:
-                gender: "M"
-                birthDate: "1989-04-22T00:00:00.000Z"
-                convictionDate: "2013-02-20T00:00:00.000Z"
-                firstSanctionDate: "2001-09-10T00:00:00.000Z"
-                previousSanctions: 25
-                assessmentDate: "2013-03-31T00:00:00.000Z"
-                currentOffenceFactor: 0.6574
-        responses:
-          200:
-            description: "Success"
-            schema:
-              "$ref": "#/definitions/OGRS3RatingResult"
-              example:
-                calculatorVersion: 1.0.8
-                OGRS3:
-                  - 0.8505241405394922
-                  - 0.9211344267816202
-                OGRS3PercentileRisk:
-                  - 85.05
-                  - 92.11
-          401:
-            $ref: "#/definitions/UnauthorizedError"
-          500:
-            description: "Invalid NOMS Id"
-            schema:
-              "$ref": "#/definitions/InvalidArgumentError"
-        tags:
-          - "OGRS3"
-        consumes:
-          - "application/json"
-        produces:
-          - "application/json; charset=utf-8"
-  definitions:
-    DrugRegister:
-      type: "array"
-      items:
-        "$ref": "#/definitions/RegisterEntry"
-    OffenceTypeRegister:
-      type: "array"
-      items:
-        "$ref": "#/definitions/RegisterEntry"
-    ViolentOffenceCategoryRegister:
-      type: "array"
-      items:
-        "$ref": "#/definitions/RegisterEntry"
-    RegisterEntry:
-      type: "object"
-      properties:
-        id:
-          type: "number"
-          description: "numerical index of the register entry"
-          example: 4
-        label:
-          type: "string"
-          description: "textual label associated with the register entry"
-          example: "Other indictable violence"
-    OGRS3CalculatorRequest:
-      type: "object"
-      properties:
-        gender:
-          type: "string"
-          enum: [ "M", "F" ]
-          description: "Subjects gender"
-          example: "M"
-        birthDate:
-          type: "string"
-          description: "Subjects data of birth"
-          format: "DateTime"
-          example: "1989-04-22T00:00:00.000Z"
-        convictionDate:
-          type: "string"
-          description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
-          format: "DateTime"
-          example: "2013-02-20T00:00:00.000Z"
-        firstSanctionDate:
-          type: "string"
-          description: "date the subject was first sanctioned"
-          format: "DateTime"
-          example: "2001-09-10T00:00:00.000Z"
-        previousSanctions:
-          type: "number"
-          description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
-          example: 25
-        assessmentDate:
-          type: "string"
-          description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
-          format: "DateTime"
-          example: "2013-03-31T00:00:00.000Z"
-        currentOffenceType:
-          type: "number"
-          description: "the identifier of the current offense type taken from the OGRS3 current offense categories"
-          example: 12
-      required:
-        - "gender"
-        - "birthDate"
-        - "convictionDate"
-        - "firstSanctionDate"
-        - "previousSanctions"
-        - "assessmentDate"
-        - "currentOffenceType"
-    CustomisedOGRS3CalculatorRequest:
-      type: "object"
-      properties:
-        gender:
-          type: "string"
-          enum: [ "M", "F" ]
-          description: "Subjects gender"
-          example: "M"
-        birthDate:
-          type: "string"
-          description: "Subjects data of birth"
-          format: "DateTime"
-          example: "1989-04-22T00:00:00.000Z"
-        convictionDate:
-          type: "string"
-          description: "for sentenced offenders, this is the date of sentencing.  For PSRs, it is the current date"
-          format: "DateTime"
-          example: "2013-02-20T00:00:00.000Z"
-        firstSanctionDate:
-          type: "string"
-          description: "date the subject was first sanctioned"
-          format: "DateTime"
-          example: "2001-09-10T00:00:00.000Z"
-        previousSanctions:
-          type: "number"
-          description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
-          example: 25
-        assessmentDate:
-          type: "string"
-          description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
-          format: "DateTime"
-          example: "2013-03-31T00:00:00.000Z"
-        currentOffenceFactor:
-          type: "number"
-          description: "the factor of the offense type to be used as the OGRS3 current offense categories"
-          example: 0.6574
-      required:
-        - "gender"
-        - "birthDate"
-        - "convictionDate"
-        - "firstSanctionDate"
-        - "previousSanctions"
-        - "assessmentDate"
-        - "currentOffenceFactor"
-    OGRS3RatingResult:
-      type: "object"
-      properties:
-        calculatorVersion:
-          type: "string"
-          description: "The version of the calculator algorithm used to calculate the rating"
-          example: "1.2.3"
-        OGRS3:
-          type: "array"
-          description: "the calculated first and second year OGRS3 risk"
-          items:
-            "$ref": "#/definitions/OGRS3Rating"
-        OGRS3PercentileRisk:
-          type: "array"
-          description: "the calculated first and second year OGRS3 percentile risk"
-          items:
-            "$ref": "#/definitions/OGRS3PercentileRisk"
-      required:
-        - "calculatorVersion"
+swagger: "2.0"
+info:
+  title: "Risk Calculators API"
+  version: "0.0.4"
+  description: "A Restful service to calculate risk on a known set of parameters."
+basePath: "/"
+securityDefinitions:
+  ApiKeyAuth:
+    description: API Key obtained from Support team
+    type: apiKey
+    in: header
+    name: X-API-KEY
+paths:
+  /health:
+    get:
+      summary: "Health Check"
+      description: "Performs a basic application health check"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json; charset=utf-8:
+              healthy: true
+              checks:
+                calculatorVersion: "1.0.8"
+              uptime: 4125.978
+              build:
+                buildNumber: "901"
+                gitRef: "83e46a38509309220da19afa630b5354c56da39b"
+              version: "0.0.4"
+          schema:
+            "$ref": "#/definitions/HealthCheckResult"
+        500:
+          description: "Unhealthy"
+          examples:
+            application/json:
+              healthy: false
+              uptime: 3688.422,
+              build.buildNumber: "901"
+              build.gitRef: "83e46a38509309220da19afa630b5354c56da39b"
+              version: "0.8.0"
+          schema:
+            "$ref": "#/definitions/HealthCheckResult"
+      tags:
+        - "Health check"
+      produces:
+        - "application/json; charset=utf-8"
+  /register/drug:
+    get:
+      summary: "Drugs"
+      description: "A register of Drugs"
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json; charset=utf-8:
+              -
+                id: 0
+                label: "A Bad Drug"
+              -
+                id: 1
+                label: "A very Bad Drug"
+          schema:
+            "$ref": "#/definitions/DrugRegister"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+      tags:
+        - "Registers"
+      produces:
+        - "application/json; charset=utf-8"
+  /register/offenceType:
+    get:
+      summary: "Offence Type"
+      description: "A register of Offence Type"
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json; charset=utf-8:
+              -
+                id: 0
+                label: "One offence"
+              -
+                id: 1
+                label: "Another Offence"
+          schema:
+            "$ref": "#/definitions/OffenceTypeRegister"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+      tags:
+        - "Registers"
+      produces:
+        - "application/json; charset=utf-8"
+  /register/violentOffenceCategory:
+    get:
+      summary: "Violent Offence Categories"
+      description: "A register of Violence Offence Categories"
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json; charset=utf-8:
+              -
+                id: 0
+                label: "Category One"
+              -
+                id: 1
+                label: "Category Two"
+          schema:
+            "$ref": "#/definitions/ViolentOffenceCategoryRegister"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+      tags:
+        - "Registers"
+      produces:
+        - "application/json; charset=utf-8"
+  /calculate/ogrs3:
+    post:
+      summary: "Calculate Offender Group Reconviction Scale v3"
+      description: "calculate OGRS3 Rating on a known set of parameters"
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: false
+          description: Details of a subject to calculate OGRS3 Rating on
+          schema:
+            "$ref": "#/definitions/OGRS3CalculatorRequest"
+            example:
+              gender: "M"
+              birthDate: "1989-04-22T00:00:00.000Z"
+              convictionDate: "2013-02-20T00:00:00.000Z"
+              firstSanctionDate: "2001-09-10T00:00:00.000Z"
+              previousSanctions: 25
+              assessmentDate: "2013-03-31T00:00:00.000Z"
+              currentOffenceType: 12
+      responses:
+        200:
+          description: "Success"
+          schema:
+            "$ref": "#/definitions/OGRS3RatingResult"
+            example:
+              calculatorVersion: 1.0.8
+              OGRS3:
+                - 0.8505241405394922
+                - 0.9211344267816202
+              OGRS3PercentileRisk:
+                - 85.05
+                - 92.11
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        500:
+          description: "Invalid request body"
+          schema:
+            "$ref": "#/definitions/InvalidArgumentError"
+      tags:
         - "OGRS3"
-        - "OGRS3PercentileRisk"
-    RSRCalculatorResult:
-      type: "object"
-      properties:
-        calculatorVersion:
-          type: "string"
-          description: "The version of the calculator algorithm used to calculate the rating"
-          example: "1.2.3"
-        OGRS3:
-          type: "array"
-          description: "the calculated first year OGRS3 risk"
-          items:
-            "$ref": "#/definitions/OGRS3Rating"
-        OGRS4s:
-          type: "array"
-          description: "the calculated first year OGRS4s risk"
-          items:
-            "$ref": "#/definitions/OGRS4sRating"
-        OGRS4v:
-          type: "array"
-          description: "the calculated first year OGRS4v risk"
-          items:
-            "$ref": "#/definitions/OGRS4vRating"
-        OGRS4sRiskBand:
-          type: "array"
-          description: "the calculated first year OGRS4s risk band"
-          items:
-            "$ref": "#/definitions/OGRS4sRiskBand"
-        probabilityOfNonSexualViolence:
-          type: "array"
-          items:
-            "$ref": "#/definitions/NonSexualViolenceProbability"
-        indecentImageProbability:
-          type: "array"
-          items:
-            "$ref": "#/definitions/IndecentImageProbability"
-        contactSexualProbability:
-          type: "array"
-          items:
-            "$ref": "#/definitions/ContactSexualProbability"
-        riskOfSeriousRecidivism:
-          type: "array"
-          items:
-            "$ref": "#/definitions/RiskOfSeriousRecidivism"
-        RSRPercentileRisk:
-          type: "array"
-          description: "the calculated first and second year OGRS3 percentile risk"
-          items:
-            "$ref": "#/definitions/RSRPercentileRisk"
-        RSRRiskBand:
-          type: "array"
-          description: "the calculated first year RSR risk band"
-          items:
-            "$ref": "#/definitions/RSRRiskBand"
-    OGRS3Rating:
-      type: "number"
-      description: "An Offender Group Reconviction Scale Rating"
-      example: 0.0056783258
-      maximum: 1
-      minimum: 0
-      format: "double"
-    OGRS3PercentileRisk:
-      type: "number"
-      description: "A percentile Offender Group Reconviction Scale Rating"
-      example: 0.56
-      maximum: 100
-      minimum: 0
-      format: "double"
-    OGRS4sRating:
-      type: "number"
-      description: "An Offender Group Reconviction Scale Rating"
-      example: 0.0023653258
-      maximum: 1
-      minimum: 0
-      format: "double"
-    OGRS4vRating:
-      type: "number"
-      description: "An Offender Group Reconviction Scale Rating"
-      example: 0.0001238643
-      maximum: 1
-      minimum: 0
-      format: "double"
-    OGRS4sRiskBand:
-      type: "string"
-      description: "An Offender Group Reconviction Scale Risk Band"
-      enum: [ "low", "medium", "high" ]
-      example: "medium"
-    RiskOfSeriousRecidivism:
-      type: "number"
-      description: "A Risk of Serious Recidivism"
-      example: 0.0056783258
-      maximum: 1
-      minimum: 0
-      format: "double"
-    NonSexualViolenceProbability:
-      type: "number"
-      description: "The probability of a Non Sexually Violent Offence"
-      example: 0.0056783258
-      maximum: 1
-      minimum: 0
-      format: "double"
-    IndecentImageProbability:
-      type: "number"
-      description: "The probability of an Indecent Image Offence"
-      example: 0.0056783258
-      maximum: 1
-      minimum: 0
-      format: "double"
-    ContactSexualProbability:
-      type: "number"
-      description: "The probability of a Sexual Contact Offence"
-      example: 0.0056783258
-      maximum: 1
-      minimum: 0
-      format: "double"
-    RSRPercentileRisk:
-      type: "number"
-      description: "A percentile Risk of Serious Recidivism"
-      example: 0.56
-      maximum: 100
-      minimum: 0
-      format: "double"
-    RSRRiskBand:
-      type: "string"
-      description: "A Risk of Serious Recidivism Risk Band"
-      enum: [ "low", "medium", "high" ]
-      example: "low"
-    HealthCheckResult:
-      type: "object"
-      properties:
-        healthy:
-          type: "boolean"
-          description: "Are we healthy?"
-          example: true
-        checks:
-          type: "object"
-          properties:
-            calculatorVersion:
-              type: "string"
-              description: "Artifact version of the calculator algorithm"
-              example: "1.2.3"
-        uptime:
-          type: "number"
-          description: "Server uptime in seconds"
-          example: 3688.422
-        build:
-          type: "object"
-          properties:
-            buildNumber:
-              type: "string"
-              description: "CI build number"
-              example: "901"
-            gitRef:
-              type: "string"
-              description: "Git reference"
-              example: "83e46a38509309220da19afa630b5354c56da39b"
-            version:
-              type: "string"
-              description: "Artifact version"
-              example: "0.8.0"
-    InvalidArgumentError:
-      type: "object"
-      properties:
-        code:
-          type: "string"
-          description: "A status code description"
-          example: "Invalid Argument"
-        message:
-          type: "string"
-          description: "A message detailing the error"
-          example: "Request validation failed: Parameter (birthDate) must be a valid timestamp"
-      required:
-        - "message"
-    UnauthorizedError:
-      description: API key is missing or invalid
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json; charset=utf-8"
+  /calculate/ogrs3/customised:
+    post:
+      summary: "Calculate Offender Group Reconviction Scale v3 with Customised Offence Factor"
+      description: "calculate OGRS3 Rating on a known set of parameters"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: false
+          description: Details of a subject to calculate OGRS3 Rating on
+          schema:
+            "$ref": "#/definitions/CustomisedOGRS3CalculatorRequest"
+            example:
+              gender: "M"
+              birthDate: "1989-04-22T00:00:00.000Z"
+              convictionDate: "2013-02-20T00:00:00.000Z"
+              firstSanctionDate: "2001-09-10T00:00:00.000Z"
+              previousSanctions: 25
+              assessmentDate: "2013-03-31T00:00:00.000Z"
+              currentOffenceFactor: 0.6574
+      responses:
+        200:
+          description: "Success"
+          schema:
+            "$ref": "#/definitions/OGRS3RatingResult"
+            example:
+              calculatorVersion: 1.0.8
+              OGRS3:
+                - 0.8505241405394922
+                - 0.9211344267816202
+              OGRS3PercentileRisk:
+                - 85.05
+                - 92.11
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        500:
+          description: "Invalid NOMS Id"
+          schema:
+            "$ref": "#/definitions/InvalidArgumentError"
+      tags:
+        - "OGRS3"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json; charset=utf-8"
+  /calculate/osp:
+    post:
+      summary: "Calculate Offender OSP Sexual Reoffending Probabilities"
+      description: "calculate OSP on a known set of parameters"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          description: Details of a subject to calculate OSP Rating on
+          schema:
+            "$ref": "#/definitions/OSPRequest"
+            example:
+              sex: "MALE"
+              hasSexualHistory: true
+              dateOfBirth : "1961-03-01T00:00:00Z"
+              sentenceDate: "2018-03-16T00:00:00Z"
+              hasStrangerVictim: false
+              numberOfPreviousSanctions: 4
+              numberOfSanctionsChildContact: 1
+              numberOfSanctionsAdultContact: 0
+              numberOfSanctionsParaphilia: 0
+              numberOfSanctionsIndecentImages: 1
+              mostRecentSexualOffenceDate: "2018-02-23T00:00:00Z"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            "$ref": "#/definitions/OSPResponse"
+            example:
+              calculatorVersion: 1.0.15
+              indecentImageProbability:
+                year1: 0.018237
+                year2: 0.02805
+              sexualContactProbability:
+                year1: 0.0024298942966885814
+                year2: 0.004422668592483823
+
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+      tags:
+        - "OSP"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json; charset=utf-8"
+definitions:
+  DrugRegister:
+    type: "array"
+    items:
+      "$ref": "#/definitions/RegisterEntry"
+  OffenceTypeRegister:
+    type: "array"
+    items:
+      "$ref": "#/definitions/RegisterEntry"
+  ViolentOffenceCategoryRegister:
+    type: "array"
+    items:
+      "$ref": "#/definitions/RegisterEntry"
+  RegisterEntry:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        description: "numerical index of the register entry"
+        example: 4
+      label:
+        type: "string"
+        description: "textual label associated with the register entry"
+        example: "Other indictable violence"
+  OGRS3CalculatorRequest:
+    type: "object"
+    properties:
+      gender:
+        type: "string"
+        enum: [ "M", "F" ]
+        description: "Subjects gender"
+        example: "M"
+      birthDate:
+        type: "string"
+        description: "Subjects data of birth"
+        format: "DateTime"
+        example: "1989-04-22T00:00:00.000Z"
+      convictionDate:
+        type: "string"
+        description: "for sentenced offenders, this is the age at sentence.  For PSRs, it is the offender's current age"
+        format: "DateTime"
+        example: "2013-02-20T00:00:00.000Z"
+      firstSanctionDate:
+        type: "string"
+        description: "date the subject was first sanctioned"
+        format: "DateTime"
+        example: "2001-09-10T00:00:00.000Z"
+      previousSanctions:
+        type: "number"
+        description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
+        example: 25
+      assessmentDate:
+        type: "string"
+        description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
+        format: "DateTime"
+        example: "2013-03-31T00:00:00.000Z"
+      currentOffenceType:
+        type: "number"
+        description: "the identifier of the current offense type taken from the OGRS3 current offense categories"
+        example: 12
+    required:
+      - "gender"
+      - "birthDate"
+      - "convictionDate"
+      - "firstSanctionDate"
+      - "previousSanctions"
+      - "assessmentDate"
+      - "currentOffenceType"
+  CustomisedOGRS3CalculatorRequest:
+    type: "object"
+    properties:
+      gender:
+        type: "string"
+        enum: [ "M", "F" ]
+        description: "Subjects gender"
+        example: "M"
+      birthDate:
+        type: "string"
+        description: "Subjects data of birth"
+        format: "DateTime"
+        example: "1989-04-22T00:00:00.000Z"
+      convictionDate:
+        type: "string"
+        description: "for sentenced offenders, this is the date of sentencing.  For PSRs, it is the current date"
+        format: "DateTime"
+        example: "2013-02-20T00:00:00.000Z"
+      firstSanctionDate:
+        type: "string"
+        description: "date the subject was first sanctioned"
+        format: "DateTime"
+        example: "2001-09-10T00:00:00.000Z"
+      previousSanctions:
+        type: "number"
+        description: "a sanction is a caution, reprimand or final warning, or a court appearance resulting in conviction. A sanction can be for one or many offenses, provided they are all dealt with on the same day"
+        example: 25
+      assessmentDate:
+        type: "string"
+        description: "the date that the offender could be in a position to reoffend again (ignoring offenses committed whilst in custody)"
+        format: "DateTime"
+        example: "2013-03-31T00:00:00.000Z"
+      currentOffenceFactor:
+        type: "number"
+        description: "the factor of the offense type to be used as the OGRS3 current offense categories"
+        example: 0.6574
+    required:
+      - "gender"
+      - "birthDate"
+      - "convictionDate"
+      - "firstSanctionDate"
+      - "previousSanctions"
+      - "assessmentDate"
+      - "currentOffenceFactor"
+  OGRS3RatingResult:
+    type: "object"
+    properties:
+      calculatorVersion:
+        type: "string"
+        description: "The version of the calculator algorithm used to calculate the rating"
+        example: "1.2.3"
+      OGRS3:
+        type: "array"
+        description: "the calculated first and second year OGRS3 risk"
+        items:
+          "$ref": "#/definitions/OGRS3Rating"
+      OGRS3PercentileRisk:
+        type: "array"
+        description: "the calculated first and second year OGRS3 percentile risk"
+        items:
+          "$ref": "#/definitions/OGRS3PercentileRisk"
+    required:
+      - "calculatorVersion"
+      - "OGRS3"
+      - "OGRS3PercentileRisk"
+  RSRCalculatorResult:
+    type: "object"
+    properties:
+      calculatorVersion:
+        type: "string"
+        description: "The version of the calculator algorithm used to calculate the rating"
+        example: "1.2.3"
+      OGRS3:
+        type: "array"
+        description: "the calculated first year OGRS3 risk"
+        items:
+          "$ref": "#/definitions/OGRS3Rating"
+      OGRS4s:
+        type: "array"
+        description: "the calculated first year OGRS4s risk"
+        items:
+          "$ref": "#/definitions/OGRS4sRating"
+      OGRS4v:
+        type: "array"
+        description: "the calculated first year OGRS4v risk"
+        items:
+          "$ref": "#/definitions/OGRS4vRating"
+      OGRS4sRiskBand:
+        type: "array"
+        description: "the calculated first year OGRS4s risk band"
+        items:
+          "$ref": "#/definitions/OGRS4sRiskBand"
+      probabilityOfNonSexualViolence:
+        type: "array"
+        items:
+          "$ref": "#/definitions/NonSexualViolenceProbability"
+      indecentImageProbability:
+        type: "array"
+        items:
+          "$ref": "#/definitions/IndecentImageProbability"
+      contactSexualProbability:
+        type: "array"
+        items:
+          "$ref": "#/definitions/ContactSexualProbability"
+      riskOfSeriousRecidivism:
+        type: "array"
+        items:
+          "$ref": "#/definitions/RiskOfSeriousRecidivism"
+      RSRPercentileRisk:
+        type: "array"
+        description: "the calculated first and second year OGRS3 percentile risk"
+        items:
+          "$ref": "#/definitions/RSRPercentileRisk"
+      RSRRiskBand:
+        type: "array"
+        description: "the calculated first year RSR risk band"
+        items:
+          "$ref": "#/definitions/RSRRiskBand"
+  OGRS3Rating:
+    type: "number"
+    description: "An Offender Group Reconviction Scale Rating"
+    example: 0.0056783258
+    maximum: 1
+    minimum: 0
+    format: "double"
+  OGRS3PercentileRisk:
+    type: "number"
+    description: "A percentile Offender Group Reconviction Scale Rating"
+    example: 0.56
+    maximum: 100
+    minimum: 0
+    format: "double"
+  OGRS4sRating:
+    type: "number"
+    description: "An Offender Group Reconviction Scale Rating"
+    example: 0.0023653258
+    maximum: 1
+    minimum: 0
+    format: "double"
+  OGRS4vRating:
+    type: "number"
+    description: "An Offender Group Reconviction Scale Rating"
+    example: 0.0001238643
+    maximum: 1
+    minimum: 0
+    format: "double"
+  OGRS4sRiskBand:
+    type: "string"
+    description: "An Offender Group Reconviction Scale Risk Band"
+    enum: [ "low", "medium", "high" ]
+    example: "medium"
+  RiskOfSeriousRecidivism:
+    type: "number"
+    description: "A Risk of Serious Recidivism"
+    example: 0.0056783258
+    maximum: 1
+    minimum: 0
+    format: "double"
+  NonSexualViolenceProbability:
+    type: "number"
+    description: "The probability of a Non Sexually Violent Offence"
+    example: 0.0056783258
+    maximum: 1
+    minimum: 0
+    format: "double"
+  IndecentImageProbability:
+    type: "number"
+    description: "The probability of an Indecent Image Offence"
+    example: 0.0056783258
+    maximum: 1
+    minimum: 0
+    format: "double"
+  ContactSexualProbability:
+    type: "number"
+    description: "The probability of a Sexual Contact Offence"
+    example: 0.0056783258
+    maximum: 1
+    minimum: 0
+    format: "double"
+  RSRPercentileRisk:
+    type: "number"
+    description: "A percentile Risk of Serious Recidivism"
+    example: 0.56
+    maximum: 100
+    minimum: 0
+    format: "double"
+  RSRRiskBand:
+    type: "string"
+    description: "A Risk of Serious Recidivism Risk Band"
+    enum: [ "low", "medium", "high" ]
+    example: "low"
+  HealthCheckResult:
+    type: "object"
+    properties:
+      healthy:
+        type: "boolean"
+        description: "Are we healthy?"
+        example: true
+      checks:
+        type: "object"
+        properties:
+          calculatorVersion:
+            type: "string"
+            description: "Artifact version of the calculator algorithm"
+            example: "1.2.3"
+      uptime:
+        type: "number"
+        description: "Server uptime in seconds"
+        example: 3688.422
+      build:
+        type: "object"
+        properties:
+          buildNumber:
+            type: "string"
+            description: "CI build number"
+            example: "901"
+          gitRef:
+            type: "string"
+            description: "Git reference"
+            example: "83e46a38509309220da19afa630b5354c56da39b"
+          version:
+            type: "string"
+            description: "Artifact version"
+            example: "0.8.0"
+  InvalidArgumentError:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        description: "A status code description"
+        example: "Invalid Argument"
+      message:
+        type: "string"
+        description: "A message detailing the error"
+        example: "Request validation failed: Parameter (birthDate) must be a valid timestamp"
+    required:
+      - "message"
+  UnauthorizedError:
+    description: API key is missing or invalid
+  OSPRequest:
+    type: "object"
+    properties:
+      sex:
+        type: "string"
+        description: "Sex"
+        example: "MALE"
+      hasSexualHistory:
+        type: "boolean"
+        example: true
+      dateOfBirth :
+        type: "date"
+        example: "1961-03-01"
+      sentenceDate:
+        type: "date"
+        example: "2018-03-16"
+      hasStrangerVictim:
+        type: "boolean"
+        example: false
+      numberOfPreviousSanctions:
+        type: "number"
+        example: 4
+      numberOfSanctionsChildContact:
+        type: "number"
+        example: 1
+      numberOfSanctionsAdultContact:
+        type: "number"
+        example: 0
+      numberOfSanctionsParaphilia:
+        type: "number"
+        example: 0
+      numberOfSanctionsIndecentImages:
+        type: "number"
+        example: 1
+      mostRecentSexualOffenceDate:
+        type: "date"
+        example: "2018-02-23"
+  OSPResponse:
+    type: "object"
+    properties:
+      calculatorVersion:
+        type: "string"
+        description: "The version of the calculator algorithm used to calculate the rating"
+        example: "1.2.3"
+      indecentImageProbability:
+        type: "y1y2probability"
+        example:
+          year1: 0.018237
+          year2: 0.02805
+  y1y2probability:
+    type: "object"
+    properties:
+      year1:
+        type: "number"
+        example: 0.00344
+      year2:
+        type: "number"
+        example: 0.00344

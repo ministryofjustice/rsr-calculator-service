@@ -148,4 +148,58 @@ const calculateRiskOfSeriousRecidivism = (req, res) => {
 
 router.post('/', calculateRiskOfSeriousRecidivism);
 
+const getOSPRequestParams = (x) => ({
+  sex: pick(x, 'sex'),
+  hasSexualHistory: pick(x,'hasSexualHistory'),
+  dateOfBirth: pickDate(x, 'dateOfBirth'),
+  sentenceDate: pickDate(x, 'sentenceDate'),
+  hasStrangerVictim: pick(x, 'hasStrangerVictim'),
+  numberOfPreviousSanctions: pickNumber(x, 'numberOfPreviousSanctions'),
+  numberOfSanctionsChildContact: pickNumber(x, 'numberOfSanctionsChildContact'),
+  numberOfSanctionsAdultContact: pickNumber(x, 'numberOfSanctionsAdultContact'),
+  numberOfSanctionsParaphilia: pickNumber(x, 'numberOfSanctionsParaphilia'),
+  numberOfSanctionsIndecentImages: pickNumber(x, 'numberOfSanctionsIndecentImages'),
+  mostRecentSexualOffenceDate: pickDate(x, 'mostRecentSexualOffenceDate')
+});
+
+const getOSPMissingRequiredFields = (x) =>
+[
+  'sex',
+  'hasSexualHistory',
+  'dateOfBirth',
+  'sentenceDate',
+  'hasStrangerVictim',
+  'numberOfPreviousSanctions',
+  'numberOfSanctionsChildContact',
+  'numberOfSanctionsAdultContact',
+  'numberOfSanctionsParaphilia',
+  'numberOfSanctionsIndecentImages',
+  'mostRecentSexualOffenceDate'
+].filter((k) => {
+  return !x.hasOwnProperty(k) || x[k] === 'null' || x[k] === 'undefined' || x[k] === '';
+});
+
+const withFormattedOSPResponse = (x) =>
+  ({
+  calculatorVersion: x.calculatorVersion,
+  indecentImageProbability: {year1: x.indecentImageProbability[0], year2:  x.indecentImageProbability[1]},
+  sexualContactProbability: {year1: x.sexualContactProbability[0], year2:  x.sexualContactProbability[1]},
+});
+
+const calculateOSP = (req, res) => {
+  let params = getOSPRequestParams(req.body);
+
+  logRequestRespone(req, 'request', params);
+  let missing = getOSPMissingRequiredFields(params);
+  if (missing.length > 0) {
+    return errors.validation(res, 'Required fields missing from request: ' + missing.join(', '));
+  }
+
+  var calculateOSP1 = RSRCalc.calculateOSP(params)
+
+  return asJson(res, withFormattedOSPResponse(logRequestRespone(req, 'response', calculateOSP1)));
+};
+
+router.post('/osp', calculateOSP);
+
 module.exports = router;

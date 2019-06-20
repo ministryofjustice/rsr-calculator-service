@@ -40,7 +40,7 @@
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "require-all": "^2.2.0",
-    "rsr-calculator": "github:noms-digital-studio/rsr-calculator#v1.0.14",
+    "rsr-calculator": "github:noms-digital-studio/rsr-calculator#1.0.15",
     "sleep-promise": "^2.0.0",
     "sshpk": "^1.14.1",
     "statuses": "^1.4.0",
