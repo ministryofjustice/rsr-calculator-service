@@ -26,7 +26,7 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "applicationinsights": "^1.0.1",
+    "applicationinsights": "^1.7.5",
     "body-parser": "^1.18.2",
     "bunyan": "^1.8.12",
     "bunyan-middleware": "^0.8.0",
